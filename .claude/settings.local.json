@@ -5,7 +5,12 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(gh auth:*)",
-      "Bash(python extractors/jh_extractor.py:*)"
+      "Bash(python extractors/jh_extractor.py:*)",
+      "Bash(git push:*)",
+      "Bash(python -m venv:*)",
+      "Bash(./venv/Scripts/pip install:*)",
+      "Bash(./venv/Scripts/pip freeze:*)",
+      "Bash(requirements.txt)"
     ],
     "deny": [],
     "ask": []
