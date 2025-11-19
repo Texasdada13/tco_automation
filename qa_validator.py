@@ -14,8 +14,10 @@ import json
 from openpyxl import load_workbook
 from docx import Document
 from extractors import extract_fis_proposal, extract_jack_henry_proposal
+from extractors.jh_extractor import JackHenryExtractor
 from mappers import normalize_vendor_data
 from config import TCO_COLUMNS
+from cell_validator import CellByCellValidator
 
 
 class TCOValidator:
@@ -27,6 +29,8 @@ class TCOValidator:
             'mapping': {},
             'population': {},
             'calculations': {},
+            'cell_validation': {},
+            'coverage': {},
             'overall_pass': True
         }
     
@@ -358,7 +362,117 @@ class TCOValidator:
                 print(f"   - {issue}")
         
         return results['pass']
-    
+
+    def validate_extraction_coverage(self, proposal_path: str, vendor: str):
+        """Validate comprehensive coverage of source data extraction"""
+        print("\n" + "="*70)
+        print(f"QA CHECK: {vendor.upper()} EXTRACTION COVERAGE")
+        print("="*70)
+
+        results = {'pass': True, 'issues': []}
+
+        try:
+            if vendor == 'Jack Henry':
+                extractor = JackHenryExtractor(proposal_path)
+                data = extractor.extract()
+                coverage_report = extractor.get_validation_report()
+
+                print(f"Coverage: {coverage_report['coverage_percentage']:.2f}%")
+                print(f"Cells checked: {coverage_report['total_cells_checked']}")
+                print(f"Cells with data: {coverage_report['cells_with_data']}")
+                print(f"Cells extracted: {coverage_report['cells_extracted']}")
+                print(f"Formulas found: {coverage_report['cells_with_formulas']}")
+                print(f"Comments found: {coverage_report['cells_with_comments']}")
+                print(f"Hidden rows: {coverage_report['hidden_rows_count']}")
+                print(f"Hidden columns: {coverage_report['hidden_columns_count']}")
+
+                # Check for issues
+                if coverage_report['coverage_percentage'] < 95:
+                    results['issues'].append(
+                        f"Coverage {coverage_report['coverage_percentage']:.2f}% is below 95% threshold"
+                    )
+                    results['pass'] = False
+
+                if coverage_report['hidden_rows_count'] > 0:
+                    results['issues'].append(
+                        f"Found {coverage_report['hidden_rows_count']} hidden rows with data"
+                    )
+
+                if coverage_report['hidden_columns_count'] > 0:
+                    results['issues'].append(
+                        f"Found {coverage_report['hidden_columns_count']} hidden columns with data"
+                    )
+
+                # Store comments and formulas for review
+                if data.get('comments'):
+                    print(f"\nSample comments (first 3):")
+                    for idx, (cell_ref, comment_data) in enumerate(list(data['comments'].items())[:3]):
+                        print(f"  {cell_ref}: {comment_data['comment'][:80]}...")
+
+                results['coverage_data'] = coverage_report
+
+        except Exception as e:
+            results['pass'] = False
+            results['issues'].append(f"Coverage validation failed: {str(e)}")
+
+        self.validation_results['coverage'][vendor] = results
+
+        if results['pass']:
+            print(f"\nCoverage validation PASSED")
+        else:
+            print(f"\nCoverage validation FAILED")
+            for issue in results['issues']:
+                print(f"   - {issue}")
+
+        return results['pass']
+
+    def validate_cell_by_cell(self, source_file: str, tco_file: str, vendor: str, scenario: str = 'Proposal_1'):
+        """Perform cell-by-cell validation"""
+        print("\n" + "="*70)
+        print(f"QA CHECK: {vendor.upper()} CELL-BY-CELL VALIDATION")
+        print("="*70)
+
+        results = {'pass': True, 'issues': []}
+
+        try:
+            validator = CellByCellValidator()
+
+            if vendor == 'Jack Henry':
+                validation_result = validator.validate_jack_henry_to_tco(
+                    source_file, tco_file, scenario
+                )
+
+                results['pass'] = validation_result['success']
+                results['accuracy'] = validation_result['accuracy_percentage']
+                results['statistics'] = validation_result['statistics']
+
+                if not validation_result['success']:
+                    results['issues'].append(
+                        f"Found {len(validation_result['discrepancies'])} discrepancies"
+                    )
+
+                    # Add sample discrepancies to issues
+                    for disc in validation_result['discrepancies'][:5]:
+                        results['issues'].append(
+                            f"Row {disc['source_row']}: {disc['type']} - "
+                            f"Expected: {disc['source_value']}, Found: {disc['tco_value']}"
+                        )
+
+        except Exception as e:
+            results['pass'] = False
+            results['issues'].append(f"Cell validation failed: {str(e)}")
+
+        self.validation_results['cell_validation'][vendor] = results
+
+        if results['pass']:
+            print(f"\nCell-by-cell validation PASSED - 100% accuracy")
+        else:
+            print(f"\nCell-by-cell validation FAILED")
+            for issue in results['issues']:
+                print(f"   - {issue}")
+
+        return results['pass']
+
     def generate_report(self, output_path: str = "qa_report.txt"):
         """Generate comprehensive QA report"""
         with open(output_path, 'w', encoding='utf-8') as f:
@@ -370,7 +484,9 @@ class TCOValidator:
             all_passed = all([
                 all(v.get('pass', True) for v in self.validation_results['extraction'].values()),
                 all(v.get('pass', True) for v in self.validation_results['mapping'].values()),
-                all(v.get('pass', True) for v in self.validation_results['population'].values())
+                all(v.get('pass', True) for v in self.validation_results['population'].values()),
+                all(v.get('pass', True) for v in self.validation_results['coverage'].values()),
+                all(v.get('pass', True) for v in self.validation_results['cell_validation'].values())
             ])
             
             if all_passed:
@@ -424,7 +540,38 @@ class TCOValidator:
                     f.write("  Issues:\n")
                     for issue in results['issues']:
                         f.write(f"    - {issue}\n")
-            
+
+            # Coverage results
+            f.write("\n\nEXTRACTION COVERAGE VALIDATION\n")
+            f.write("-" * 70 + "\n")
+            for vendor, results in self.validation_results['coverage'].items():
+                f.write(f"\n{vendor}:\n")
+                f.write(f"  Status: {'PASS' if results['pass'] else 'FAIL'}\n")
+                if 'coverage_data' in results:
+                    for key, value in results['coverage_data'].items():
+                        f.write(f"  {key}: {value}\n")
+                if results['issues']:
+                    f.write("  Issues:\n")
+                    for issue in results['issues']:
+                        f.write(f"    - {issue}\n")
+
+            # Cell-by-cell validation results
+            f.write("\n\nCELL-BY-CELL VALIDATION\n")
+            f.write("-" * 70 + "\n")
+            for vendor, results in self.validation_results['cell_validation'].items():
+                f.write(f"\n{vendor}:\n")
+                f.write(f"  Status: {'PASS' if results['pass'] else 'FAIL'}\n")
+                if 'accuracy' in results:
+                    f.write(f"  Accuracy: {results['accuracy']:.2f}%\n")
+                if 'statistics' in results:
+                    f.write(f"  Statistics:\n")
+                    for key, value in results['statistics'].items():
+                        f.write(f"    {key}: {value}\n")
+                if results['issues']:
+                    f.write("  Issues:\n")
+                    for issue in results['issues']:
+                        f.write(f"    - {issue}\n")
+
             f.write("\n" + "="*70 + "\n")
         
         print(f"\n📄 QA Report saved to: {output_path}")
