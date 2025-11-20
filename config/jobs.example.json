@@ -1,0 +1,65 @@
+{
+  "description": "Example job configurations for TCO Automation scheduler",
+  "jobs": [
+    {
+      "name": "daily_fis_processing",
+      "input_dir": "./data/raw/fis",
+      "output_dir": "./data/output/fis",
+      "schedule": "daily",
+      "vendor": "FIS",
+      "term": "7_year",
+      "use_llm": true,
+      "enabled": true,
+      "metadata": {
+        "description": "Process FIS proposals daily at midnight"
+      }
+    },
+    {
+      "name": "daily_jh_processing",
+      "input_dir": "./data/raw/jh",
+      "output_dir": "./data/output/jh",
+      "schedule": "daily",
+      "vendor": "Jack Henry",
+      "term": "5_year",
+      "use_llm": true,
+      "enabled": true,
+      "metadata": {
+        "description": "Process Jack Henry deal sheets daily"
+      }
+    },
+    {
+      "name": "hourly_inbox_check",
+      "input_dir": "./data/inbox",
+      "output_dir": "./data/output",
+      "schedule": "hourly",
+      "vendor": null,
+      "term": "5_year",
+      "use_llm": false,
+      "enabled": false,
+      "metadata": {
+        "description": "Check inbox folder hourly for new documents"
+      }
+    },
+    {
+      "name": "weekly_batch",
+      "input_dir": "./data/raw",
+      "output_dir": "./data/output/weekly",
+      "schedule": "weekly",
+      "vendor": null,
+      "template_path": "./templates/tco_template.xlsx",
+      "term": "5_year",
+      "use_llm": true,
+      "enabled": false,
+      "metadata": {
+        "description": "Weekly batch processing of all documents"
+      }
+    }
+  ],
+  "settings": {
+    "max_retries": 3,
+    "retry_delay_seconds": 60,
+    "notification_email": null,
+    "slack_webhook": null,
+    "log_retention_days": 30
+  }
+}
