@@ -1,8 +1,11 @@
 """
 Schema Mapper - Normalizes vendor-specific data to TCO template schema
+
+Enhanced with fuzzy matching for product name normalization and category classification.
 """
 
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional, Tuple
+import re
 import sys
 sys.path.append('..')
 from config import (
@@ -10,12 +13,170 @@ from config import (
     JH_PRODUCT_FAMILIES, DEFAULT_GROWTH_RATE
 )
 
+# Fuzzy matching support
+try:
+    from rapidfuzz import fuzz, process
+    HAS_RAPIDFUZZ = True
+except ImportError:
+    HAS_RAPIDFUZZ = False
+
+
+# Standard product name mappings for normalization
+PRODUCT_NAME_MAPPINGS = {
+    # FIS products
+    'digital banking': 'Digital Banking',
+    'mobile banking': 'Mobile Banking',
+    'online banking': 'Online Banking',
+    'core processing': 'Core Processing',
+    'item processing': 'Item Processing',
+    'ach': 'ACH Processing',
+    'wire transfer': 'Wire Transfer',
+    'bill pay': 'Bill Pay',
+    'remote deposit': 'Remote Deposit Capture',
+    'rdc': 'Remote Deposit Capture',
+    'positive pay': 'Positive Pay',
+    'fraud detection': 'Fraud Detection',
+
+    # Jack Henry products
+    'silverlake': 'SilverLake',
+    'xperience': 'Xperience',
+    'banno': 'Banno Digital',
+    'symitar': 'Symitar',
+    'synapsys': 'Synapsys',
+    'onboard': 'OnBoard',
+    'teller': 'Enterprise Teller',
+}
+
+# Category keywords for fuzzy classification
+CATEGORY_KEYWORDS = {
+    'Bundle': ['core', 'processing', 'silverlake', 'xperience', 'bundle', 'platform'],
+    'Non-Bundle Required': ['required', 'essential', 'compliance', 'regulatory', 'ach', 'wire'],
+    'Non-Bundle Optional': ['optional', 'add-on', 'enhancement', 'premium'],
+    'Third-Party Required': ['third party', '3rd party', 'vendor', 'partner', 'required'],
+    'Third-Party Optional': ['third party', '3rd party', 'vendor', 'partner', 'optional'],
+}
+
 
 class SchemaMapper:
     """Maps and normalizes vendor data to TCO schema"""
-    
-    def __init__(self, growth_rate: float = DEFAULT_GROWTH_RATE):
+
+    def __init__(self, growth_rate: float = DEFAULT_GROWTH_RATE, fuzzy_threshold: int = 80):
+        """
+        Initialize schema mapper.
+
+        Args:
+            growth_rate: Default growth rate for quantity projections
+            fuzzy_threshold: Minimum score (0-100) for fuzzy matches
+        """
         self.growth_rate = growth_rate
+        self.fuzzy_threshold = fuzzy_threshold
+        self._mapping_audit: List[Dict[str, Any]] = []
+
+    def normalize_product_name(self, name: str) -> Tuple[str, float]:
+        """
+        Normalize product name using fuzzy matching.
+
+        Args:
+            name: Raw product name
+
+        Returns:
+            Tuple of (normalized_name, confidence_score)
+        """
+        if not name:
+            return name, 0.0
+
+        name_lower = name.lower().strip()
+
+        # Exact match first
+        if name_lower in PRODUCT_NAME_MAPPINGS:
+            return PRODUCT_NAME_MAPPINGS[name_lower], 1.0
+
+        # Fuzzy match if rapidfuzz available
+        if HAS_RAPIDFUZZ:
+            matches = process.extract(
+                name_lower,
+                PRODUCT_NAME_MAPPINGS.keys(),
+                scorer=fuzz.token_sort_ratio,
+                limit=1
+            )
+
+            if matches and matches[0][1] >= self.fuzzy_threshold:
+                matched_key = matches[0][0]
+                confidence = matches[0][1] / 100.0
+                return PRODUCT_NAME_MAPPINGS[matched_key], confidence
+
+        # No match found, return cleaned original
+        return self._clean_product_name(name), 0.5
+
+    def _clean_product_name(self, name: str) -> str:
+        """Clean and format product name."""
+        # Remove extra whitespace
+        cleaned = ' '.join(name.split())
+        # Title case
+        cleaned = cleaned.title()
+        # Fix common acronyms
+        acronyms = ['ACH', 'RDC', 'API', 'ATM', 'IVR', 'OCR', 'PDF']
+        for acr in acronyms:
+            cleaned = re.sub(rf'\b{acr.title()}\b', acr, cleaned)
+        return cleaned
+
+    def classify_category(self, product_name: str, context: Optional[Dict[str, Any]] = None) -> Tuple[str, float]:
+        """
+        Classify product into category using fuzzy matching.
+
+        Args:
+            product_name: Product name
+            context: Additional context (optional, third_party flags, etc.)
+
+        Returns:
+            Tuple of (category, confidence_score)
+        """
+        name_lower = product_name.lower()
+        context = context or {}
+
+        # Check explicit flags first
+        if context.get('third_party'):
+            if context.get('optional'):
+                return PRODUCT_CATEGORIES.get('THIRD_PARTY_OPTIONAL', 'Third-Party Optional'), 1.0
+            return PRODUCT_CATEGORIES.get('THIRD_PARTY_REQUIRED', 'Third-Party Required'), 1.0
+
+        if context.get('optional'):
+            return PRODUCT_CATEGORIES.get('NON_BUNDLE_OPTIONAL', 'Non-Bundle Optional'), 1.0
+
+        # Fuzzy keyword matching
+        best_category = PRODUCT_CATEGORIES.get('NON_BUNDLE_REQUIRED', 'Non-Bundle Required')
+        best_score = 0.0
+
+        for category, keywords in CATEGORY_KEYWORDS.items():
+            for keyword in keywords:
+                if HAS_RAPIDFUZZ:
+                    score = fuzz.partial_ratio(keyword.lower(), name_lower) / 100.0
+                else:
+                    # Simple substring check fallback
+                    score = 1.0 if keyword.lower() in name_lower else 0.0
+
+                if score > best_score:
+                    best_score = score
+                    best_category = category
+
+        return best_category, best_score
+
+    def get_mapping_audit(self) -> List[Dict[str, Any]]:
+        """Get audit trail of all mappings performed."""
+        return self._mapping_audit
+
+    def clear_mapping_audit(self):
+        """Clear the mapping audit trail."""
+        self._mapping_audit = []
+
+    def _record_mapping(self, original: str, mapped: str, confidence: float, field: str):
+        """Record a mapping for audit trail."""
+        self._mapping_audit.append({
+            'original': original,
+            'mapped': mapped,
+            'confidence': confidence,
+            'field': field
+        })
     
     def map_fis_data(self, fis_data: Dict[str, Any], term: str = '7_year') -> List[Dict[str, Any]]:
         """
