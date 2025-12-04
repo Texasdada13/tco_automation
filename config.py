@@ -113,3 +113,119 @@ LINE_ITEM_START_ROWS = {
     'JH_NON_BUNDLE_OPTIONAL': 100,
     'JH_ONE_TIME': 150
 }
+
+# =============================================================================
+# AI EXTRACTION SETTINGS (Anthropic Claude API)
+# =============================================================================
+
+# Claude API Configuration
+AI_CONFIG = {
+    'model': 'claude-sonnet-4-20250514',  # Recommended model
+    'max_tokens': 8192,
+    'temperature': 0.0,  # Deterministic output for extraction
+    'max_retries': 3,
+    'retry_delay_seconds': 2,
+}
+
+# Default contract parameters
+CONTRACT_DEFAULTS = {
+    'term_years': 7,
+    'annual_increase_rate': 0.03,  # 3% CPI
+    'volume_growth_rate': 0.0,     # No growth by default
+}
+
+# =============================================================================
+# CONFIDENCE & QUALITY ASSURANCE SETTINGS
+# =============================================================================
+
+# Confidence thresholds for two-bucket routing
+CONFIDENCE_THRESHOLDS = {
+    'auto_accept': 0.90,      # >= 90%: Auto-populate to Excel (Bucket 1)
+    'manual_review': 0.70,    # 70-89%: Flag for quick review
+    'reject': 0.50,           # < 50%: Likely incorrect, needs human input
+}
+
+# Quality assurance layer settings
+QA_CONFIG = {
+    # Layer 1: Confidence scoring
+    'enable_confidence_check': True,
+    'min_field_confidence': 0.85,     # Per-field minimum
+    'min_item_confidence': 0.90,       # Per-item minimum for auto-accept
+
+    # Layer 2: Cross-validation
+    'enable_cross_validation': True,
+    'sum_tolerance_percent': 0.02,     # 2% tolerance for sum checks
+    'rate_tolerance_percent': 0.01,    # 1% tolerance for rate calculations
+
+    # Layer 3: Business rules
+    'enable_business_rules': True,
+    'allow_zero_required_items': False,  # Required items cannot be $0
+    'max_monthly_fee': 500000,           # Sanity check upper limit
+    'max_one_time_fee': 5000000,         # Sanity check upper limit
+
+    # Layer 4: Source traceability
+    'enable_traceability': True,
+    'require_source_context': True,      # Each extraction must cite source
+}
+
+# =============================================================================
+# VENDOR CONTEXT CACHING
+# =============================================================================
+
+CACHE_CONFIG = {
+    'enabled': True,
+    'cache_directory': 'vendor_cache',
+    'cache_expiry_days': 90,            # Cache entries expire after 90 days
+    'min_confidence_to_cache': 0.70,    # Only cache if extraction >= 70%
+    'max_cache_entries_per_vendor': 100,
+}
+
+# What gets cached per vendor
+CACHE_COMPONENTS = {
+    'vendor_profile': True,       # Vendor name, doc types, product lines
+    'terminology_map': True,      # Vendor terms -> standard terms
+    'document_patterns': True,    # Table layouts, column mappings
+    'extraction_templates': True, # Successful extraction patterns
+    'correction_history': True,   # Manual corrections for learning
+}
+
+# =============================================================================
+# FALLBACK SETTINGS
+# =============================================================================
+
+FALLBACK_CONFIG = {
+    'enable_rule_based_fallback': True,  # Use FIS/JH extractors if API fails
+    'enable_cross_validation': True,     # Compare AI vs rule-based results
+    'prefer_ai_on_conflict': True,       # Trust AI when results differ
+    'max_api_failures_before_fallback': 3,
+}
+
+# =============================================================================
+# OUTPUT SETTINGS
+# =============================================================================
+
+OUTPUT_CONFIG = {
+    # Bucket 1: Auto-populated Excel
+    'excel_output_enabled': True,
+
+    # Bucket 2: Manual review report
+    'review_report_enabled': True,
+    'review_report_format': 'docx',  # 'docx' or 'xlsx'
+    'include_source_context': True,
+    'include_suggested_actions': True,
+
+    # Audit trail
+    'save_extraction_json': True,    # Save raw extraction results
+    'save_qa_results': True,         # Save QA check results
+}
+
+# =============================================================================
+# LOGGING
+# =============================================================================
+
+LOGGING_CONFIG = {
+    'level': 'INFO',  # DEBUG, INFO, WARNING, ERROR
+    'log_api_calls': True,
+    'log_confidence_scores': True,
+    'log_qa_failures': True,
+}
