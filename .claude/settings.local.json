@@ -10,7 +10,8 @@
       "Bash(python -m venv:*)",
       "Bash(./venv/Scripts/pip install:*)",
       "Bash(./venv/Scripts/pip freeze:*)",
-      "Bash(requirements.txt)"
+      "Bash(requirements.txt)",
+      "Bash(python populate_tco_workbook.py:*)"
     ],
     "deny": [],
     "ask": []

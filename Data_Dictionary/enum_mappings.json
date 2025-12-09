@@ -1,0 +1,343 @@
+{
+  "version": "1.0",
+  "created_date": "2025-12-08",
+  "description": "Enumeration mappings for normalizing JSON values to Excel standard values",
+  "purpose": "Handles variations in vendor proposals and ensures consistent data in Excel output",
+
+  "fee_type_mappings": {
+    "description": "Maps various fee type descriptions to standard four values",
+    "standard_values": ["Monthly F", "Monthly V", "Annual", "One-Time"],
+    "mappings": {
+      "Monthly F": ["Monthly F", "Monthly Fixed", "monthly_f", "MONTHLY F", "Fixed Monthly", "Monthly - Fixed"],
+      "Monthly V": ["Monthly V", "Monthly Variable", "monthly_v", "MONTHLY V", "Variable Monthly", "Monthly - Variable", "Per Transaction"],
+      "Annual": ["Annual", "Annually", "annual", "ANNUAL", "Yearly", "Per Year"],
+      "One-Time": ["One-Time", "OneTime", "one_time", "ONE-TIME", "Implementation", "Setup Fee", "Onetime", "One Time"]
+    },
+    "default": "Monthly F",
+    "normalization_logic": "Case-insensitive match, trim whitespace, check mappings, return standard value"
+  },
+
+  "category_mappings": {
+    "description": "Maps various category names to standardized categories",
+    "standard_values": [
+      "Core",
+      "Digital",
+      "EFT",
+      "Risk, Fraud & Compliance",
+      "Treasury",
+      "Image Solutions",
+      "Item Processing",
+      "FOS",
+      "Lending",
+      "ACH",
+      "Accounts Payable",
+      "Security Plus",
+      "Network",
+      "Other"
+    ],
+    "mappings": {
+      "Core": [
+        "Core",
+        "Core Banking",
+        "Existing Service - Core",
+        "HORIZON",
+        "Core System",
+        "Banking Core"
+      ],
+      "Digital": [
+        "Digital",
+        "Digital Banking",
+        "Existing Service - Digital",
+        "Online Banking",
+        "Mobile Banking",
+        "D1 Flex",
+        "D1 Business",
+        "Digital Solutions"
+      ],
+      "EFT": [
+        "EFT",
+        "Electronic Funds Transfer",
+        "EFT Services",
+        "Debit Card",
+        "Card Services",
+        "Existing Service - EFT"
+      ],
+      "Risk, Fraud & Compliance": [
+        "Risk, Fraud & Compliance",
+        "Risk",
+        "Fraud",
+        "Compliance",
+        "Risk Management",
+        "Fraud Detection",
+        "Existing Service - Risk"
+      ],
+      "Treasury": [
+        "Treasury",
+        "Treasury Services",
+        "Treasury Management",
+        "Cash Management",
+        "Existing Service - Treasury"
+      ],
+      "Image Solutions": [
+        "Image Solutions",
+        "Image",
+        "Image Services",
+        "Check Imaging",
+        "RDC",
+        "Remote Deposit Capture",
+        "Existing Service - Image"
+      ],
+      "Item Processing": [
+        "Item Processing",
+        "Item",
+        "IP",
+        "Check Processing",
+        "Existing Service - Item Processing",
+        "FCM"
+      ],
+      "FOS": [
+        "FOS",
+        "Financial Origination Solutions",
+        "Forms & Origination",
+        "Existing Service - FOS"
+      ],
+      "Lending": [
+        "Lending",
+        "Loan",
+        "Loan Management",
+        "FLO",
+        "Existing Service - Lending"
+      ],
+      "ACH": [
+        "ACH",
+        "Automated Clearing House",
+        "ACH Services",
+        "Milwaukee ACH",
+        "Existing Service - ACH"
+      ],
+      "Accounts Payable": [
+        "Accounts Payable",
+        "AP",
+        "Payables",
+        "Avid Ascend",
+        "Existing Service - AP"
+      ],
+      "Security Plus": [
+        "Security Plus",
+        "Security",
+        "Data Security",
+        "Encryption",
+        "SSL",
+        "Existing Service - Security"
+      ],
+      "Network": [
+        "Network",
+        "Network Services",
+        "Connectivity",
+        "Network Connectivity",
+        "Existing Service - Network"
+      ],
+      "Other": [
+        "Other",
+        "Miscellaneous",
+        "Misc",
+        "Various",
+        "Additional Services"
+      ]
+    },
+    "normalization_logic": "Perform fuzzy match on category string, check for keyword containment, return best match or 'Other'"
+  },
+
+  "vendor_mappings": {
+    "description": "Normalizes vendor names to standard format",
+    "standard_values": [
+      "FIS",
+      "Jack Henry",
+      "CSI",
+      "Fiserv",
+      "Q2",
+      "Temenos",
+      "Other"
+    ],
+    "mappings": {
+      "FIS": ["FIS", "Fidelity Information Services", "fis", "F.I.S."],
+      "Jack Henry": ["Jack Henry", "JH", "jack henry", "JACK HENRY", "Jack Henry & Associates"],
+      "CSI": ["CSI", "Computer Services Inc", "Computer Services, Inc.", "csi", "NuPoint"],
+      "Fiserv": ["Fiserv", "fiserv", "FISERV"],
+      "Q2": ["Q2", "q2", "Q2 Holdings"],
+      "Temenos": ["Temenos", "temenos", "TEMENOS"],
+      "Other": ["Other", "Unknown", "Third Party"]
+    },
+    "default": "Other"
+  },
+
+  "proposal_type_mappings": {
+    "description": "Standardizes proposal type descriptions",
+    "standard_values": [
+      "New Implementation",
+      "Renewal",
+      "Renewal with Expansion",
+      "Renewal with Acquisition",
+      "Competitive Bid",
+      "Add-On Services",
+      "Other"
+    ],
+    "mappings": {
+      "New Implementation": ["New Implementation", "New Install", "Initial Proposal", "New Contract"],
+      "Renewal": ["Renewal", "Contract Renewal", "Re-up"],
+      "Renewal with Expansion": ["Renewal with Expansion", "Expansion", "Growth Proposal"],
+      "Renewal with Acquisition": ["Renewal with Acquisition", "Acquisition", "Merger Proposal", "M&A"],
+      "Competitive Bid": ["Competitive Bid", "RFP", "RFP Response", "Competitive Proposal"],
+      "Add-On Services": ["Add-On", "Additional Services", "Service Addition"],
+      "Other": ["Other", "Miscellaneous"]
+    },
+    "default": "Other"
+  },
+
+  "boolean_mappings": {
+    "description": "Maps various boolean representations to TRUE/FALSE",
+    "mappings": {
+      "TRUE": [true, "true", "True", "TRUE", "yes", "Yes", "YES", "Y", "y", 1, "1"],
+      "FALSE": [false, "false", "False", "FALSE", "no", "No", "NO", "N", "n", 0, "0", null, "null", "None"]
+    },
+    "default": "FALSE"
+  },
+
+  "unit_description_mappings": {
+    "description": "Standardizes unit description text",
+    "standard_values": [
+      "per month",
+      "per transaction",
+      "per account",
+      "per user",
+      "per branch",
+      "per statement",
+      "per item",
+      "flat fee",
+      "one-time",
+      "per year"
+    ],
+    "mappings": {
+      "per month": ["per month", "monthly", "/month", "pm"],
+      "per transaction": ["per transaction", "per txn", "/transaction", "/txn", "per trans"],
+      "per account": ["per account", "per acct", "/account", "/acct"],
+      "per user": ["per user", "per seat", "/user", "/seat", "per login"],
+      "per branch": ["per branch", "per location", "/branch"],
+      "per statement": ["per statement", "per stmt", "/statement"],
+      "per item": ["per item", "/item", "per check"],
+      "flat fee": ["flat fee", "flat", "fixed fee", "lump sum"],
+      "one-time": ["one-time", "onetime", "one time", "implementation"],
+      "per year": ["per year", "annually", "/year", "per annum"]
+    },
+    "default": "flat fee"
+  },
+
+  "normalization_rules": {
+    "trim_whitespace": true,
+    "case_insensitive": true,
+    "remove_special_chars": [".", ",", ":", ";", "\"", "'"],
+    "fuzzy_match_threshold": 0.8,
+    "keyword_match": true,
+    "fallback_to_default": true
+  },
+
+  "special_cases": {
+    "bundle_identification": {
+      "description": "Identifies if an item should be classified as Bundle",
+      "keywords": ["Core", "HORIZON", "Bundle", "Bundled", "Package"],
+      "logic": "If category OR solution_name contains any keyword → is_bundle = TRUE"
+    },
+    "third_party_identification": {
+      "description": "Identifies third-party vendors",
+      "keywords": ["Third Party", "3rd Party", "External", "Partner"],
+      "vendor_list": [
+        "Avid Ascend",
+        "WebConnect",
+        "DirectConnect",
+        "Quickbooks",
+        "GEOTrust",
+        "NYCE",
+        "Zelle"
+      ],
+      "logic": "If solution_name contains vendor_list item OR third_party field = true → third_party = TRUE"
+    },
+    "optional_identification": {
+      "description": "Identifies optional vs required items",
+      "keywords_optional": ["Optional", "Opt", "Add-On", "Enhancement"],
+      "keywords_required": ["Required", "Req", "Mandatory", "Essential"],
+      "logic": "If solution_name contains keywords_optional OR optional field = true → optional = TRUE"
+    },
+    "item_splitting": {
+      "description": "Handles items with both monthly and one-time fees",
+      "condition": "monthly_fee > 0 AND one_time_fee > 0",
+      "action": "Split into two rows: (1) Monthly fee row with fee_type='Monthly F', (2) One-time fee row with fee_type='One-Time' and solution_name appended with ' - Implementation Fee'"
+    }
+  },
+
+  "validation_enums": {
+    "confidence_levels": {
+      "high": {"min": 0.90, "max": 1.00, "color": "green"},
+      "medium": {"min": 0.70, "max": 0.89, "color": "yellow"},
+      "low": {"min": 0.00, "max": 0.69, "color": "red"}
+    },
+    "data_quality_flags": [
+      "Missing Required Field",
+      "Invalid Fee Type",
+      "Invalid Category",
+      "Low Confidence Score",
+      "Negative Cost (Review Required)",
+      "Missing Quantity for Variable Fee",
+      "Zero Cost Item",
+      "Duplicate Entry"
+    ]
+  },
+
+  "transformation_functions": {
+    "normalize_fee_type": {
+      "input": "string (any case, any format)",
+      "output": "enum (Monthly F | Monthly V | Annual | One-Time)",
+      "logic": "Lookup in fee_type_mappings, return standard value or default"
+    },
+    "normalize_category": {
+      "input": "string (free text category)",
+      "output": "enum (14 standard categories)",
+      "logic": "Fuzzy match against category keywords, return best match or 'Other'"
+    },
+    "normalize_boolean": {
+      "input": "any type (boolean, string, integer, null)",
+      "output": "boolean (TRUE | FALSE)",
+      "logic": "Lookup in boolean_mappings, convert to TRUE/FALSE"
+    },
+    "split_solution_name": {
+      "input": "string (solution name with multiple components)",
+      "output": "dict {primary_name, sub_components}",
+      "logic": "Split on delimiters (: , -), extract primary and secondary parts"
+    },
+    "calculate_per_unit_rate": {
+      "input": "dict {monthly_fee, one_time_fee, per_unit_rate, fee_type}",
+      "output": "float (standardized per_unit_rate)",
+      "logic": "If monthly_fee > 0: use monthly_fee; elif one_time_fee > 0 and fee_type='One-Time': use one_time_fee; else: use per_unit_rate"
+    }
+  },
+
+  "examples": {
+    "fee_type_normalization": [
+      {"input": "Monthly Fixed", "output": "Monthly F"},
+      {"input": "monthly_v", "output": "Monthly V"},
+      {"input": "OneTime", "output": "One-Time"},
+      {"input": "Annually", "output": "Annual"}
+    ],
+    "category_normalization": [
+      {"input": "Existing Service - Core", "output": "Core"},
+      {"input": "Digital Banking", "output": "Digital"},
+      {"input": "Milwaukee ACH", "output": "ACH"},
+      {"input": "Random Category", "output": "Other"}
+    ],
+    "boolean_normalization": [
+      {"input": true, "output": "TRUE"},
+      {"input": "yes", "output": "TRUE"},
+      {"input": null, "output": "FALSE"},
+      {"input": 0, "output": "FALSE"}
+    ]
+  }
+}
