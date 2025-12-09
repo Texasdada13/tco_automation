@@ -11,7 +11,8 @@
       "Bash(./venv/Scripts/pip install:*)",
       "Bash(./venv/Scripts/pip freeze:*)",
       "Bash(requirements.txt)",
-      "Bash(python populate_tco_workbook.py:*)"
+      "Bash(git fetch:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []
