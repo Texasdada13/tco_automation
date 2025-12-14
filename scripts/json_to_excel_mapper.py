@@ -242,11 +242,34 @@ class ExcelWriter:
 
     def __init__(self, template_path='Templates/New_TCO_Excel_v1.xlsx'):
         self.wb = openpyxl.load_workbook(template_path)
+
+        # Get worksheet references (using old names from template)
         self.ws_meta = self.wb['Metadata']
         self.ws_items = self.wb['Line_Items']
         self.ws_summary = self.wb['Summary']
         self.ws_years = self.wb['Year_Summary']
-        self.ws_quality = self.wb['Data_Quality']
+
+        # === CANONICAL STRUCTURE ENFORCEMENT ===
+
+        # 1. Remove unwanted sheets
+        if 'Data_Quality' in self.wb.sheetnames:
+            del self.wb['Data_Quality']
+
+        if 'Enums' in self.wb.sheetnames:
+            del self.wb['Enums']
+
+        # 2. Rename sheets to canonical names
+        self.wb['Line_Items'].title = 'Line Items'
+        self.wb['Year_Summary'].title = 'Years 1-7'
+        # Summary and Metadata keep their original names
+
+        # 3. Reorder sheets: Line Items, Years 1-7, Summary, Metadata
+        self.wb._sheets = [
+            self.wb['Line Items'],
+            self.wb['Years 1-7'],
+            self.wb['Summary'],
+            self.wb['Metadata']
+        ]
 
     def write_metadata(self, json_data: Dict):
         """Write metadata to Metadata sheet"""
@@ -257,9 +280,10 @@ class ExcelWriter:
         self.ws_meta['B6'] = json_data.get('contract_term', 7)
 
         # Extraction metadata
-        extraction_meta = json_data.get('extraction_metadata', {})
         self.ws_meta['B10'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        self.ws_meta['B11'] = extraction_meta.get('model', 'claude-sonnet-4')
+        # AI Model Used row (B11) - REMOVED per canonical structure rules
+        self.ws_meta['A11'] = None  # Clear label
+        self.ws_meta['B11'] = None  # Clear value
         self.ws_meta['B12'] = json_data.get('source_file', 'N/A')
 
     def write_line_items(self, items: List[Dict]):
@@ -353,6 +377,144 @@ class ExcelWriter:
             self.ws_quality[f'E{row_num}'] = issue.get('description', '')
             row_num += 1
 
+    def populate_summary_sheet(self, items: List[Dict]):
+        """
+        Populate Summary sheet with dynamic Excel formulas.
+
+        Automatically calculates 7-year totals by category and monthly averages.
+        All calculations use Excel formulas, not static values.
+        """
+        logger.info("Populating Summary sheet with formulas...")
+
+        # Extract unique categories from items, sorted alphabetically
+        categories = sorted(set(item['category'] for item in items))
+
+        # Summary sheet starts at row 5 (after header rows)
+        summary_row = 5
+
+        # Column mapping: A=Category, B=7-Year Total, C=Monthly Average
+        for category in categories:
+            # Column A: Category name
+            self.ws_summary[f'A{summary_row}'] = category
+
+            # Column B: 7-Year Total using SUMIFS formula
+            # SUMIFS(sum_range, criteria_range, criteria)
+            # Sum Line Items column R (Total 7-Year Cost) where column D (Category) equals this category
+            formula_total = f"=SUMIFS('Line Items'!$R:$R,'Line Items'!$D:$D,A{summary_row})"
+            self.ws_summary[f'B{summary_row}'] = formula_total
+            self.ws_summary[f'B{summary_row}'].number_format = '$#,##0.00'
+
+            # Column C: Monthly Average = 7-Year Total / 84 months
+            # This gives the true average cost per month across the 7-year period (7 years × 12 months = 84 months)
+            formula_monthly = f'=B{summary_row}/84'
+            self.ws_summary[f'C{summary_row}'] = formula_monthly
+            self.ws_summary[f'C{summary_row}'].number_format = '$#,##0.00'
+
+            summary_row += 1
+
+        # Add separator row
+        summary_row += 1
+
+        # Add "Total Required TCO" row
+        total_row = summary_row
+        self.ws_summary[f'A{total_row}'] = 'Total Required TCO'
+        self.ws_summary[f'A{total_row}'].font = Font(bold=True)
+
+        # Sum all category totals
+        first_category_row = 5
+        last_category_row = total_row - 2  # -2 to skip the separator row
+
+        if last_category_row >= first_category_row:
+            formula_grand_total = f'=SUM(B{first_category_row}:B{last_category_row})'
+            self.ws_summary[f'B{total_row}'] = formula_grand_total
+            self.ws_summary[f'B{total_row}'].number_format = '$#,##0.00'
+            self.ws_summary[f'B{total_row}'].font = Font(bold=True)
+
+            # Monthly average for total (7 years × 12 months = 84 months)
+            formula_total_monthly = f'=B{total_row}/84'
+            self.ws_summary[f'C{total_row}'] = formula_total_monthly
+            self.ws_summary[f'C{total_row}'].number_format = '$#,##0.00'
+            self.ws_summary[f'C{total_row}'].font = Font(bold=True)
+
+        # Optional: Add optional items summary (if any)
+        optional_items = [item for item in items if item.get('optional', False)]
+        if optional_items:
+            optional_row = total_row + 2
+            self.ws_summary[f'A{optional_row}'] = 'Optional Items Total'
+            self.ws_summary[f'A{optional_row}'].font = Font(italic=True)
+
+            # Sum all items where Optional = TRUE
+            formula_optional = "=SUMIFS('Line Items'!$R:$R,'Line Items'!$F:$F,TRUE)"
+            self.ws_summary[f'B{optional_row}'] = formula_optional
+            self.ws_summary[f'B{optional_row}'].number_format = '$#,##0.00'
+
+            formula_optional_monthly = f'=B{optional_row}/84'
+            self.ws_summary[f'C{optional_row}'] = formula_optional_monthly
+            self.ws_summary[f'C{optional_row}'].number_format = '$#,##0.00'
+
+        logger.info(f"Summary sheet populated with {len(categories)} categories")
+
+    def populate_year_summary_sheet(self):
+        """
+        Populate Years 1-7 sheet with dynamic Excel formulas.
+
+        Creates clean 3-row structure:
+        - Required Annual Fees (Optional = FALSE)
+        - Optional Annual Fees (Optional = TRUE)
+        - Total Annual Cost (sum of above)
+
+        All calculations use Excel formulas for automatic recalculation.
+        """
+        logger.info("Populating Years 1-7 sheet with formulas...")
+
+        # Year_Summary sheet structure:
+        # Row 1: Title
+        # Row 2: Headers (Category, Year 1, Year 2, ..., Year 7)
+        # Row 3: Required Annual Fees
+        # Row 4: Optional Annual Fees
+        # Row 5: Total Annual Cost (moved from row 7, removing One-Time Fees row)
+
+        # Clear the One-Time Fees row (row 5) - we don't need it
+        self.ws_years['A5'] = None
+        for col in range(2, 9):  # Columns B-H (Year 1-7)
+            col_letter = get_column_letter(col)
+            self.ws_years[f'{col_letter}5'] = None
+
+        # Move "Total Annual Cost" from row 7 to row 5
+        self.ws_years['A5'] = 'Total Annual Cost'
+        self.ws_years['A5'].font = Font(bold=True)
+
+        # Clear old row 7
+        self.ws_years['A7'] = None
+
+        # Line Items columns:
+        # F = Optional (TRUE/FALSE)
+        # K = Year 1, L = Year 2, M = Year 3, N = Year 4, O = Year 5, P = Year 6, Q = Year 7
+        year_columns = ['K', 'L', 'M', 'N', 'O', 'P', 'Q']  # Years 1-7 in Line Items
+
+        # Populate formulas for each year (columns B through H in Years 1-7)
+        for idx, year_col in enumerate(year_columns, start=2):  # Start at column B (index 2)
+            col_letter = get_column_letter(idx)
+
+            # Row 3: Required Annual Fees (Optional = FALSE)
+            # SUMIFS(sum_range, criteria_range, criteria)
+            formula_required = f"=SUMIFS('Line Items'!${year_col}:${year_col},'Line Items'!$F:$F,FALSE)"
+            self.ws_years[f'{col_letter}3'] = formula_required
+            self.ws_years[f'{col_letter}3'].number_format = '$#,##0.00'
+
+            # Row 4: Optional Annual Fees (Optional = TRUE)
+            formula_optional = f"=SUMIFS('Line Items'!${year_col}:${year_col},'Line Items'!$F:$F,TRUE)"
+            self.ws_years[f'{col_letter}4'] = formula_optional
+            self.ws_years[f'{col_letter}4'].number_format = '$#,##0.00'
+
+            # Row 5: Total Annual Cost (Required + Optional)
+            formula_total = f'={col_letter}3+{col_letter}4'
+            self.ws_years[f'{col_letter}5'] = formula_total
+            self.ws_years[f'{col_letter}5'].number_format = '$#,##0.00'
+            self.ws_years[f'{col_letter}5'].font = Font(bold=True)
+
+        logger.info("Years 1-7 sheet populated with formulas for all 7 years")
+
     def save(self, output_path: Path):
         """Save the workbook"""
         self.wb.save(output_path)
@@ -408,7 +570,9 @@ def transform_json_to_excel(json_file: Path, output_file: Path = None):
     writer = ExcelWriter()
     writer.write_metadata(json_data)
     writer.write_line_items(transformed_items)
-    writer.write_data_quality_issues(processor.data_quality_issues)
+    # Data_Quality and Enums sheets removed - not included in output
+    writer.populate_summary_sheet(transformed_items)  # Auto-populate Summary sheet
+    writer.populate_year_summary_sheet()  # Auto-populate Years 1-7 sheet
 
     # Step 6: Determine output filename
     if not output_file:

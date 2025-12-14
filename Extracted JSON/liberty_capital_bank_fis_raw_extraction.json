@@ -1,19 +1,40 @@
 {
-  "vendor": "FIS",
-  "client": "Liberty Capital Bank",
-  "proposal_type": "Renewal with Acquisition",
-  "document_date": "December 2024",
+  "vendor": "LIBERTY_CAPITAL_BANK_FIS",
+  "source_file": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\Proposal\\Liberty Capital Bank - Investment Summary - Renewal - December 2024.docx",
+  "document_type": "docx",
+  "total_pages": 1,
   "tables": [
     {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 4,
+      "data": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
       "table_index": 2,
       "rows": 26,
       "columns": 3,
-      "headers": [
-        "Solution",
-        "Current Pricing\n(as of April 2024)",
-        "New Pricing\n(Combined Organization)"
-      ],
-      "data_rows": [
+      "data": [
+        [
+          "Solution",
+          "Current Pricing\n(as of April 2024)",
+          "New Pricing\n(Combined Organization)"
+        ],
         [
           "Core:  HORIZON",
           "$11,266",
@@ -142,17 +163,71 @@
       ]
     },
     {
+      "page_number": 1,
+      "table_index": 3,
+      "rows": 5,
+      "columns": 7,
+      "data": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
       "table_index": 4,
       "rows": 4,
       "columns": 5,
-      "headers": [
-        "Solution",
-        "One-Time Investment",
-        "Monthly",
-        "Current Pricing\n(as of April 2024)",
-        "New Pricing\n(Combined Organization)"
-      ],
-      "data_rows": [
+      "data": [
+        [
+          "Solution",
+          "One-Time Investment",
+          "Monthly",
+          "Current Pricing\n(as of April 2024)",
+          "New Pricing\n(Combined Organization)"
+        ],
         [
           "IP: DirectLink Merchant (via RDC) (#9 from FIS \u2013 LCB Concerns) \u2013 OID 01107678",
           "$21,943",
@@ -177,17 +252,18 @@
       ]
     },
     {
+      "page_number": 1,
       "table_index": 5,
       "rows": 11,
       "columns": 5,
-      "headers": [
-        "Solution",
-        "One-Time Investment",
-        "Monthly",
-        "Current Pricing\n(as of April 2024)",
-        "New Pricing\n(Combined Organization)"
-      ],
-      "data_rows": [
+      "data": [
+        [
+          "Solution",
+          "One-Time Investment",
+          "Monthly",
+          "Current Pricing\n(as of April 2024)",
+          "New Pricing\n(Combined Organization)"
+        ],
         [
           "HORIZON:  Conditional Processing \u2013 OID 01111524",
           "$15,000",

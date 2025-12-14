@@ -19,8 +19,13 @@ from extractors.document_loader import load_document
 from extraction_config import get_extraction_output_path, EXTRACTED_JSON_DIR
 
 
-# HARDCODED API KEY (as per user request from previous sessions)
-ANTHROPIC_API_KEY = 'your_anthropic_api_key_here'
+# API key should be set in environment variable ANTHROPIC_API_KEY
+# or in a .env file
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
 
 def extract_raw_data(pdf_file, vendor_name):
     """

@@ -1,8 +1,7 @@
 {
-  "vendor": "CSI",
-  "client": "Liberty Capital Bank & Texas Heritage (COMBINED)",
-  "document_date": "December 16, 2024",
-  "proposal_type": "NuPoint Core",
+  "vendor": "LIBERTY_CAPITAL_BANK_CSI",
+  "source_file": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\Proposal\\CSI Pricing Proposal (Organic Growth 7-yr) for Liberty Capital & Texas Heritage (COMBINED) 12-16-24 (1).pdf",
+  "document_type": "pdf",
   "total_pages": 10,
   "tables": [
     {

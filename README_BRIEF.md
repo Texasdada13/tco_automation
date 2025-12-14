@@ -163,16 +163,48 @@ Fully populated Liberty Capital Bank TCO report (37 line items, all calculations
 
 ## Quick Start
 
+### Prerequisites
+
+First, ensure dependencies are installed:
+
+```bash
+# Run the installation script (one-time setup)
+install_dependencies.bat
+```
+
 ### Generate TCO Report from Proposal
+
+**Option 1: Using the convenient batch script (recommended for Windows)**
+
+```bash
+# Single command - runs complete pipeline
+run.bat run_tco_pipeline.py "vendor_proposal.pdf" "vendor_name"
+# Output: Extracted JSON + TCO Excel report
+```
+
+**Option 2: Two-step process with venv Python**
 
 ```bash
 # Step 1: Extract proposal data
-python extract_proposal.py "vendor_proposal.pdf" "vendor_name"
+./venv/Scripts/python extract_proposal.py "vendor_proposal.pdf" "vendor_name"
 # Output: Extracted JSON/vendor_extraction_ai.json
 
 # Step 2: Generate TCO Excel report
-python scripts/json_to_excel_mapper.py "Extracted JSON/vendor_extraction_ai.json"
+./venv/Scripts/python scripts/json_to_excel_mapper.py "Extracted JSON/vendor_extraction_ai.json"
 # Output: TCO Output/Vendor_TCO_New_YYYYMMDD.xlsx
+```
+
+**Option 3: Activate venv first (cross-platform)**
+
+```bash
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+# Then run commands normally
+python run_tco_pipeline.py "vendor_proposal.pdf" "vendor_name"
 ```
 
 **Result:** Professional TCO Excel report ready for finance team review.

@@ -12,7 +12,10 @@
       "Bash(./venv/Scripts/pip freeze:*)",
       "Bash(requirements.txt)",
       "Bash(git fetch:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(python scripts/json_to_excel_mapper.py:*)",
+      "Bash(python:*)",
+      "Bash(./venv/Scripts/python:*)"
     ],
     "deny": [],
     "ask": []
