@@ -32,8 +32,6 @@ ENV/
 *~
 
 # Output files
-*.xlsx
-*.xls
 test_output.xlsx
 full_comparison.xlsx
 
