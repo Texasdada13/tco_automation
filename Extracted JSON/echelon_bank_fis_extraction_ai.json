@@ -6,7 +6,7 @@
   "contract_term": 10,
   "line_items": [
     {
-      "solution_name": "FIS Monthly Bundle - Year 1",
+      "solution_name": "FIS Monthly Bundle",
       "fee_type": "Monthly F",
       "category": "Core Banking",
       "monthly_fee": 15000.0,
@@ -16,7 +16,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "10-year term pricing"
+      "extraction_notes": "Year 1 pricing for 10-year term, escalates annually"
     },
     {
       "solution_name": "Paper and Envelopes",
@@ -29,7 +29,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.9,
-      "extraction_notes": "Also $0.0314 per envelope"
+      "extraction_notes": "Variable pricing based on volume"
     },
     {
       "solution_name": "Debit Card Production",
@@ -55,7 +55,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.88,
-      "extraction_notes": "$200 monthly minimum"
+      "extraction_notes": "$200 monthly minimum plus per-transaction fees"
     },
     {
       "solution_name": "Card Suite Pro",
@@ -67,8 +67,8 @@
       "unit_description": "per active user",
       "optional": false,
       "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "$375 monthly minimum, call center at $1.50/minute"
+      "overall_confidence": 0.9,
+      "extraction_notes": "Digital debit card controls with $375 minimum"
     },
     {
       "solution_name": "Payments One Debit Card Fraud Case Investigation",
@@ -80,7 +80,7 @@
       "unit_description": "per case",
       "optional": false,
       "third_party": false,
-      "overall_confidence": 0.9,
+      "overall_confidence": 0.85,
       "extraction_notes": "$500 monthly minimum"
     },
     {
@@ -93,12 +93,12 @@
       "unit_description": "per dispute",
       "optional": false,
       "third_party": false,
-      "overall_confidence": 0.92,
-      "extraction_notes": "Estimated 5 disputes per month"
+      "overall_confidence": 0.88,
+      "extraction_notes": "Based on estimated 5 disputes per month"
     },
     {
       "solution_name": "Tokenization",
-      "fee_type": "Monthly V",
+      "fee_type": "Monthly F",
       "category": "Digital Payments",
       "monthly_fee": 337.0,
       "one_time_fee": 13600.0,
@@ -106,21 +106,21 @@
       "unit_description": "per token provisioning",
       "optional": false,
       "third_party": false,
-      "overall_confidence": 0.8,
-      "extraction_notes": "Complex pricing with multiple components"
+      "overall_confidence": 0.87,
+      "extraction_notes": "ApplePay and additional digital wallet support"
     },
     {
       "solution_name": "NYCE Preferred Debit Card Network",
       "fee_type": "Monthly V",
-      "category": "Card Networks",
+      "category": "Payment Networks",
       "monthly_fee": 152.0,
       "one_time_fee": 1500.0,
       "per_unit_rate": 0.035,
       "unit_description": "per transaction",
       "optional": false,
       "third_party": false,
-      "overall_confidence": 0.93,
-      "extraction_notes": "$100 monthly participation fee"
+      "overall_confidence": 0.9,
+      "extraction_notes": "$100 monthly participation fee plus transaction fees"
     },
     {
       "solution_name": "Network Services",
@@ -145,8 +145,8 @@
       "unit_description": null,
       "optional": false,
       "third_party": true,
-      "overall_confidence": 0.9,
-      "extraction_notes": "eSignature solution, asset-based pricing"
+      "overall_confidence": 0.92,
+      "extraction_notes": "eSignature solution, pricing based on asset size"
     },
     {
       "solution_name": "TruStage",
@@ -158,7 +158,7 @@
       "unit_description": null,
       "optional": false,
       "third_party": true,
-      "overall_confidence": 0.92,
+      "overall_confidence": 0.9,
       "extraction_notes": "New deposit account documents, $13,895 annual fee"
     },
     {
@@ -172,7 +172,7 @@
       "optional": false,
       "third_party": true,
       "overall_confidence": 0.88,
-      "extraction_notes": "Asset-based pricing, includes Web Administrator"
+      "extraction_notes": "Reporting platform with web administrator license"
     },
     {
       "solution_name": "Subpoena Centre",
@@ -197,33 +197,33 @@
       "unit_description": "per card",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.92,
+      "overall_confidence": 0.9,
       "extraction_notes": "Temporary debit cards, 100 card minimum"
     },
     {
-      "solution_name": "FedNOW (Receive Only)",
-      "fee_type": "Monthly V",
-      "category": "Payment Processing",
+      "solution_name": "FedNOW",
+      "fee_type": "Monthly F",
+      "category": "Payment Services",
       "monthly_fee": 1500.0,
       "one_time_fee": 9000.0,
       "per_unit_rate": 0.02,
       "unit_description": "per transaction over 10,000",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Includes 10,000 receive transactions"
+      "overall_confidence": 0.92,
+      "extraction_notes": "Receive only, includes 10,000 transactions"
     },
     {
       "solution_name": "Real-Time Payments (RTP)",
-      "fee_type": "Monthly V",
-      "category": "Payment Processing",
+      "fee_type": "Monthly F",
+      "category": "Payment Services",
       "monthly_fee": 1500.0,
       "one_time_fee": 9000.0,
       "per_unit_rate": 0.02,
       "unit_description": "per transaction over 10,000",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
+      "overall_confidence": 0.92,
       "extraction_notes": "Receive only, includes 10,000 transactions"
     },
     {
@@ -237,7 +237,7 @@
       "optional": true,
       "third_party": true,
       "overall_confidence": 0.88,
-      "extraction_notes": "Consumer and Small Business, $1,250 participation fees"
+      "extraction_notes": "Consumer and Small Business, $1,250 monthly participation fees"
     },
     {
       "solution_name": "WebConnect and DirectConnect",
@@ -249,7 +249,7 @@
       "unit_description": null,
       "optional": true,
       "third_party": true,
-      "overall_confidence": 0.85,
+      "overall_confidence": 0.9,
       "extraction_notes": "Monthly minimum fee"
     },
     {
@@ -262,7 +262,7 @@
       "unit_description": null,
       "optional": true,
       "third_party": true,
-      "overall_confidence": 0.9,
+      "overall_confidence": 0.85,
       "extraction_notes": "Monthly minimum fee"
     },
     {
@@ -275,7 +275,7 @@
       "unit_description": null,
       "optional": true,
       "third_party": true,
-      "overall_confidence": 0.92,
+      "overall_confidence": 0.9,
       "extraction_notes": "Up to 10 users"
     },
     {

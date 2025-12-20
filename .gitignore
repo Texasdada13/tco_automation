@@ -47,3 +47,7 @@ data/
 
 # Logs
 *.log
+
+# Environment files (contains API keys)
+.env
+config/.env
