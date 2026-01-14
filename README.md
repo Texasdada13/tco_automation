@@ -661,6 +661,53 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ---
 
+## Validation Testing
+
+The `testing-data/` directory contains resources for validating extraction capabilities with sample proposals.
+
+### Testing Directory Structure
+
+```
+testing-data/
+├── dummy-proposals/           # Sample proposals by vendor type
+│   ├── fis-like/             # FIS-style documents
+│   ├── jack-henry-like/      # Jack Henry-style documents
+│   ├── csi-like/             # CSI-style documents
+│   └── other-vendors/        # Other banking vendors
+├── extraction-results/        # Pipeline outputs (auto-generated)
+├── validation-reports/        # Test reports and logs
+├── SAMPLE_ACQUISITION_GUIDE.md    # How to find test proposals
+├── TESTING_INSTRUCTIONS.md        # How to run validation tests
+└── README.md                      # Testing overview
+```
+
+### Running Validation Tests
+
+```bash
+# Checkout testing branch
+git checkout testing/dummy-proposals-validation
+
+# Process test proposals
+python main.py --fis testing-data/dummy-proposals/fis-like/sample.docx \
+               --template WORKBOOK1.xlsx \
+               --output testing-data/extraction-results/output.xlsx
+
+# Check results against success criteria
+```
+
+### Success Criteria
+
+| Metric | Target |
+|--------|--------|
+| Extraction Accuracy | >= 90% |
+| Processing Time | < 2 minutes/doc |
+| Success Rate | >= 90% of documents |
+| Zero Critical Failures | Required |
+
+See [Testing Instructions](testing-data/TESTING_INSTRUCTIONS.md) for complete guide.
+
+---
+
 ## License
 
 **Proprietary - Arriba Advisors LLC**
