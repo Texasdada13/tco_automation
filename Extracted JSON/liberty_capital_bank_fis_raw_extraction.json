@@ -1,0 +1,340 @@
+{
+  "vendor": "LIBERTY_CAPITAL_BANK_FIS",
+  "source_file": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\Proposal\\Liberty Capital Bank - Investment Summary - Renewal - December 2024.docx",
+  "document_type": "docx",
+  "total_pages": 1,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 4,
+      "data": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 2,
+      "rows": 26,
+      "columns": 3,
+      "data": [
+        [
+          "Solution",
+          "Current Pricing\n(as of April 2024)",
+          "New Pricing\n(Combined Organization)"
+        ],
+        [
+          "Core:  HORIZON",
+          "$11,266",
+          "$16,792"
+        ],
+        [
+          "Digital:  D1 Flex, D1 Business, Mobile, Bill Pay",
+          "$15,184",
+          "$35,253"
+        ],
+        [
+          "Digital:  Website Services",
+          "$568",
+          "$568"
+        ],
+        [
+          "Digital:  Zelle",
+          "$641",
+          "$641"
+        ],
+        [
+          "EFT:  EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
+          "$1,736",
+          "$6,675"
+        ],
+        [
+          "Risk, Fraud & Compliance:  Decision Solutions",
+          "$803",
+          "$803"
+        ],
+        [
+          "Treasury:  eWire (Business)",
+          "$2,382",
+          "$2,382"
+        ],
+        [
+          "Image Solutions:  RTP (Receive)",
+          "$855",
+          "$855"
+        ],
+        [
+          "Item Processing:  FCM, IP, Branch Capture, CCX, FXD, DLRR",
+          "$11,155",
+          "$19,353"
+        ],
+        [
+          "FOS:  eDelivery, Print/Render, Forms & Envelopes",
+          "$515",
+          "$2,168"
+        ],
+        [
+          "Lending:  FLO",
+          "$1,055",
+          "$1,055"
+        ],
+        [
+          "ACH:  Milwaukee ACH",
+          "$1,845",
+          "$1,845"
+        ],
+        [
+          "Accounts Payable:  Avid Ascend (Third-Party)",
+          "$807",
+          "$807"
+        ],
+        [
+          "Security Plus:  Data Restore",
+          "$328",
+          "$328"
+        ],
+        [
+          "SSL Encryption Certificates:  GEOTrust, Verisign (Billed Annually)",
+          "$165",
+          "$165"
+        ],
+        [
+          "Digital:  WebConnect/DirectConnect & Quickbooks (Third-Party)",
+          "$2,684",
+          "$2,079"
+        ],
+        [
+          "Network:  Network Connectivity Services",
+          "$2,251",
+          "$2,176"
+        ],
+        [
+          "EFT:  Debit Card Production",
+          "$512",
+          "$512"
+        ],
+        [
+          "EFT:  NYCE Debit Card Network",
+          "$171",
+          "$171"
+        ],
+        [
+          "Recently Signed Solutions:  Various",
+          "$313",
+          "$646"
+        ],
+        [
+          "Subtotal",
+          "$55,236",
+          "$95,274"
+        ],
+        [
+          "Monthly Relationship Credit",
+          "N/A",
+          "($35,000)"
+        ],
+        [
+          "Subtotal",
+          "$55,236",
+          "$60,274"
+        ],
+        [
+          "Pass-Through Fees (Postage, TruStage, MC/Visa)",
+          "$6,609",
+          "TBD"
+        ],
+        [
+          "Total",
+          "$61,845",
+          "TBD"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 3,
+      "rows": 5,
+      "columns": 7,
+      "data": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 4,
+      "rows": 4,
+      "columns": 5,
+      "data": [
+        [
+          "Solution",
+          "One-Time Investment",
+          "Monthly",
+          "Current Pricing\n(as of April 2024)",
+          "New Pricing\n(Combined Organization)"
+        ],
+        [
+          "IP: DirectLink Merchant (via RDC) (#9 from FIS \u2013 LCB Concerns) \u2013 OID 01107678",
+          "$21,943",
+          "$3,402.14",
+          "N/A",
+          ""
+        ],
+        [
+          "IP: DirectLink Consumer (via FXD) (#9 from FIS \u2013 LCB Concerns) -  OID 01107678",
+          "$25,551",
+          "$1,170.19",
+          "N/A",
+          ""
+        ],
+        [
+          "IP: DirectLink Teller (via Branch Capture) \u2013 OID 01111515 _ Per Jennifer Baker they have this already.",
+          "",
+          "",
+          "N/A",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 5,
+      "rows": 11,
+      "columns": 5,
+      "data": [
+        [
+          "Solution",
+          "One-Time Investment",
+          "Monthly",
+          "Current Pricing\n(as of April 2024)",
+          "New Pricing\n(Combined Organization)"
+        ],
+        [
+          "HORIZON:  Conditional Processing \u2013 OID 01111524",
+          "$15,000",
+          "$1,076.80",
+          "N/A",
+          ""
+        ],
+        [
+          "Treasury:  eWire (Consumer) (#8 from FIS \u2013 LCB Concerns) \u2013 OID 01111533",
+          "$1,000",
+          "$5.00 per wire",
+          "N/A",
+          ""
+        ],
+        [
+          "Treasury:  Extended Account Analysis (XAA) \u2013 OID 01102964",
+          "$65,000",
+          "$1,124.00",
+          "N/A",
+          ""
+        ],
+        [
+          "Image Solutions:  RTP Send for D1B (#10 from FIS \u2013 LCB Concerns) OID 01111520 ( Bank already has RFP Receive)",
+          "$7,630.00",
+          "150.50",
+          "N/A",
+          ""
+        ],
+        [
+          "Miscellaneous:  BOTS (request for three (3))",
+          "Pending Pricing",
+          "Pending Pricing",
+          "N/A",
+          ""
+        ],
+        [
+          "Image Solutions:  FedNOW (both Send and Receive) D1B \u2013 OID 01111520",
+          "$12,500",
+          "$3,550.00",
+          "N/A",
+          ""
+        ],
+        [
+          "Image Solutions:  Chargeback Manager \u2013 OID 01102961",
+          "$6,064",
+          "$250.00",
+          "N/A",
+          ""
+        ],
+        [
+          "Image Solutions:  FCM Workflows \u2013 Handled with CREQ that Trent Looper has been assigned to",
+          "Bank Has Today",
+          "Bank Has Today",
+          "N/A",
+          ""
+        ],
+        [
+          "Image Solutions:  Collaboration Hub \u2013 OID 01111521",
+          "$28,030",
+          "$1,173.20",
+          "N/A",
+          ""
+        ],
+        [
+          "Hardware:  Teller Scanners and Signature Pads (volumes needed)",
+          "Pending Pricing",
+          "Pending Pricing",
+          "N/A",
+          ""
+        ]
+      ]
+    }
+  ]
+}

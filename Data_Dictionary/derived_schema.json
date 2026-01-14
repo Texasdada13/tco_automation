@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0",
+  "created_date": "2025-12-08",
+  "description": "Machine-readable schema for New TCO Excel template structure",
+  "excel_template": {
+    "file_name": "New_TCO_Excel_v1.xlsx",
+    "sheets": [
+      {
+        "sheet_name": "Metadata",
+        "purpose": "Proposal and contract information",
+        "freeze_panes": "A2",
+        "fields": [
+          {"cell": "B2", "field": "vendor", "label": "Primary Vendor", "datatype": "string"},
+          {"cell": "B3", "field": "client", "label": "Client Name", "datatype": "string"},
+          {"cell": "B4", "field": "proposal_type", "label": "Proposal Type", "datatype": "string"},
+          {"cell": "B5", "field": "document_date", "label": "Proposal Date", "datatype": "date"},
+          {"cell": "B6", "field": "contract_term", "label": "Contract Term (Years)", "datatype": "integer"},
+          {"cell": "B7", "field": "growth_rate", "label": "Annual Growth Rate", "datatype": "percentage"},
+          {"cell": "B8", "field": "cpi_rate", "label": "Annual CPI Rate", "datatype": "percentage"},
+          {"cell": "B10", "field": "extraction_date", "label": "Data Extraction Date", "datatype": "datetime"},
+          {"cell": "B11", "field": "extraction_model", "label": "AI Model Used", "datatype": "string"},
+          {"cell": "B12", "field": "source_file", "label": "Source Proposal File", "datatype": "string"}
+        ]
+      },
+      {
+        "sheet_name": "Line_Items",
+        "purpose": "Detailed line-by-line pricing data",
+        "freeze_panes": "A2",
+        "header_row": 1,
+        "data_start_row": 2,
+        "columns": [
+          {
+            "column": "A",
+            "field_name": "row_id",
+            "display_name": "Row ID",
+            "datatype": "integer",
+            "width": 8,
+            "format": "General",
+            "description": "Auto-incrementing row number"
+          },
+          {
+            "column": "B",
+            "field_name": "fee_type",
+            "display_name": "Fee Type",
+            "datatype": "enum",
+            "width": 12,
+            "format": "General",
+            "validation": "List",
+            "validation_source": "Enums!$A$2:$A$5",
+            "description": "Type of fee: Monthly F, Monthly V, Annual, One-Time"
+          },
+          {
+            "column": "C",
+            "field_name": "solution_name",
+            "display_name": "Solution Name",
+            "datatype": "string",
+            "width": 40,
+            "format": "General",
+            "description": "Product or service name"
+          },
+          {
+            "column": "D",
+            "field_name": "category",
+            "display_name": "Category",
+            "datatype": "enum",
+            "width": 20,
+            "format": "General",
+            "validation": "List",
+            "validation_source": "Enums!$B$2:$B$15",
+            "description": "Product category classification"
+          },
+          {
+            "column": "E",
+            "field_name": "third_party",
+            "display_name": "Third Party",
+            "datatype": "boolean",
+            "width": 12,
+            "format": "General",
+            "description": "TRUE if third-party vendor, FALSE if primary vendor"
+          },
+          {
+            "column": "F",
+            "field_name": "optional",
+            "display_name": "Optional",
+            "datatype": "boolean",
+            "width": 10,
+            "format": "General",
+            "description": "TRUE if optional solution, FALSE if required"
+          },
+          {
+            "column": "G",
+            "field_name": "per_unit_rate",
+            "display_name": "Per Unit Rate",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "description": "Base rate (monthly, annual, or one-time)"
+          },
+          {
+            "column": "H",
+            "field_name": "unit_description",
+            "display_name": "Unit Description",
+            "datatype": "string",
+            "width": 18,
+            "format": "General",
+            "description": "What the unit represents (per transaction, per account, etc.)"
+          },
+          {
+            "column": "I",
+            "field_name": "average_monthly_qty",
+            "display_name": "Avg Monthly Qty",
+            "datatype": "numeric",
+            "width": 15,
+            "format": "#,##0",
+            "description": "Average monthly quantity (for variable fees)"
+          },
+          {
+            "column": "J",
+            "field_name": "year_1_monthly_cost",
+            "display_name": "Year 1 Monthly",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"Monthly F\",G{row},IF(B{row}=\"Monthly V\",G{row}*I{row},IF(B{row}=\"Annual\",G{row}/12,0)))",
+            "description": "Calculated monthly cost for Year 1"
+          },
+          {
+            "column": "K",
+            "field_name": "year_1_annual_cost",
+            "display_name": "Year 1 Annual",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"One-Time\",G{row},J{row}*12)",
+            "description": "Year 1 total annual cost"
+          },
+          {
+            "column": "L",
+            "field_name": "year_2_cost",
+            "display_name": "Year 2",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"One-Time\",0,K{row}*(1+Metadata!$B$8))",
+            "description": "Year 2 cost with CPI adjustment"
+          },
+          {
+            "column": "M",
+            "field_name": "year_3_cost",
+            "display_name": "Year 3",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"One-Time\",0,L{row}*(1+Metadata!$B$8))",
+            "description": "Year 3 cost with CPI adjustment"
+          },
+          {
+            "column": "N",
+            "field_name": "year_4_cost",
+            "display_name": "Year 4",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"One-Time\",0,M{row}*(1+Metadata!$B$8))",
+            "description": "Year 4 cost with CPI adjustment"
+          },
+          {
+            "column": "O",
+            "field_name": "year_5_cost",
+            "display_name": "Year 5",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"One-Time\",0,N{row}*(1+Metadata!$B$8))",
+            "description": "Year 5 cost with CPI adjustment"
+          },
+          {
+            "column": "P",
+            "field_name": "year_6_cost",
+            "display_name": "Year 6",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"One-Time\",0,O{row}*(1+Metadata!$B$8))",
+            "description": "Year 6 cost with CPI adjustment"
+          },
+          {
+            "column": "Q",
+            "field_name": "year_7_cost",
+            "display_name": "Year 7",
+            "datatype": "currency",
+            "width": 15,
+            "format": "$#,##0.00",
+            "formula": "=IF(B{row}=\"One-Time\",0,P{row}*(1+Metadata!$B$8))",
+            "description": "Year 7 cost with CPI adjustment"
+          },
+          {
+            "column": "R",
+            "field_name": "total_7_year",
+            "display_name": "Total 7-Year Cost",
+            "datatype": "currency",
+            "width": 18,
+            "format": "$#,##0.00",
+            "formula": "=SUM(K{row}:Q{row})",
+            "description": "Total cost over 7-year contract"
+          },
+          {
+            "column": "S",
+            "field_name": "confidence_score",
+            "display_name": "Confidence",
+            "datatype": "percentage",
+            "width": 12,
+            "format": "0.00%",
+            "conditional_format": {
+              "type": "colorScale",
+              "min_color": "FFCCCC",
+              "mid_color": "FFFFCC",
+              "max_color": "CCFFCC",
+              "min_value": 0.5,
+              "mid_value": 0.8,
+              "max_value": 1.0
+            },
+            "description": "AI extraction confidence score (0.0-1.0)"
+          },
+          {
+            "column": "T",
+            "field_name": "extraction_notes",
+            "display_name": "Notes",
+            "datatype": "string",
+            "width": 30,
+            "format": "General",
+            "description": "AI extraction notes and assumptions"
+          }
+        ]
+      },
+      {
+        "sheet_name": "Summary",
+        "purpose": "Executive-level TCO summary and comparisons",
+        "freeze_panes": "A4",
+        "structure": [
+          {
+            "section": "Header",
+            "rows": [1, 2],
+            "content": "Vendor name and proposal title"
+          },
+          {
+            "section": "Required Items Summary",
+            "rows": [4, 15],
+            "content": "Totals for required items by category"
+          },
+          {
+            "section": "Optional Items Summary",
+            "rows": [17, 22],
+            "content": "Totals for optional items"
+          },
+          {
+            "section": "Grand Total",
+            "rows": [24, 28],
+            "content": "Overall TCO metrics"
+          }
+        ],
+        "key_metrics": [
+          {
+            "cell": "C5",
+            "metric": "Bundle Products - 7 Year Total",
+            "formula": "=SUMIFS(Line_Items!$R:$R,Line_Items!$E:$E,FALSE,Line_Items!$F:$F,FALSE,Line_Items!$D:$D,\"Core\")",
+            "format": "$#,##0.00"
+          },
+          {
+            "cell": "C6",
+            "metric": "Non-Bundle Required - 7 Year Total",
+            "formula": "=SUMIFS(Line_Items!$R:$R,Line_Items!$E:$E,FALSE,Line_Items!$F:$F,FALSE,Line_Items!$D:$D,\"<>Core\",Line_Items!$B:$B,\"<>One-Time\")",
+            "format": "$#,##0.00"
+          },
+          {
+            "cell": "C7",
+            "metric": "Required Third-Party - 7 Year Total",
+            "formula": "=SUMIFS(Line_Items!$R:$R,Line_Items!$E:$E,TRUE,Line_Items!$F:$F,FALSE,Line_Items!$B:$B,\"<>One-Time\")",
+            "format": "$#,##0.00"
+          },
+          {
+            "cell": "C8",
+            "metric": "One-Time Fees Total",
+            "formula": "=SUMIFS(Line_Items!$K:$K,Line_Items!$B:$B,\"One-Time\",Line_Items!$F:$F,FALSE)",
+            "format": "$#,##0.00"
+          },
+          {
+            "cell": "C10",
+            "metric": "Total Required 7-Year TCO",
+            "formula": "=SUM(C5:C8)",
+            "format": "$#,##0.00",
+            "style": "bold"
+          },
+          {
+            "cell": "D10",
+            "metric": "Average Monthly Cost",
+            "formula": "=C10/84",
+            "format": "$#,##0.00",
+            "style": "bold"
+          }
+        ]
+      },
+      {
+        "sheet_name": "Year_Summary",
+        "purpose": "Year-by-year cost breakdown",
+        "freeze_panes": "A2",
+        "structure": [
+          {
+            "rows": [1],
+            "content": "Header row with year labels (Year 1 through Year 7)"
+          },
+          {
+            "rows": [2, 10],
+            "content": "Annual costs by category"
+          }
+        ],
+        "data_sources": [
+          {"category": "Required Annual Fees", "formula": "=SUMIFS(Line_Items!$K:$K,Line_Items!$F:$F,FALSE,Line_Items!$B:$B,\"<>One-Time\")"},
+          {"category": "Optional Annual Fees", "formula": "=SUMIFS(Line_Items!$K:$K,Line_Items!$F:$F,TRUE,Line_Items!$B:$B,\"<>One-Time\")"},
+          {"category": "One-Time Fees", "formula": "=SUMIFS(Line_Items!$K:$K,Line_Items!$B:$B,\"One-Time\")"},
+          {"category": "Total Annual Cost", "formula": "=SUM(required+optional+one_time)"}
+        ]
+      },
+      {
+        "sheet_name": "Data_Quality",
+        "purpose": "Data quality tracking and validation errors",
+        "freeze_panes": "A2",
+        "columns": [
+          {"column": "A", "field": "row_id", "display_name": "Row ID", "width": 10},
+          {"column": "B", "field": "solution_name", "display_name": "Solution Name", "width": 40},
+          {"column": "C", "field": "issue_type", "display_name": "Issue Type", "width": 20},
+          {"column": "D", "field": "confidence_score", "display_name": "Confidence", "width": 12},
+          {"column": "E", "field": "issue_description", "display_name": "Description", "width": 50}
+        ],
+        "filters": [
+          {"filter": "Low Confidence", "condition": "confidence_score < 0.80"},
+          {"filter": "Missing Required Field", "condition": "required field is null"},
+          {"filter": "Invalid Fee Type", "condition": "fee_type not in enum list"}
+        ]
+      },
+      {
+        "sheet_name": "Enums",
+        "purpose": "Dropdown list values for data validation",
+        "hidden": false,
+        "data": {
+          "fee_types": {
+            "column": "A",
+            "values": ["Monthly F", "Monthly V", "Annual", "One-Time"]
+          },
+          "categories": {
+            "column": "B",
+            "values": [
+              "Core",
+              "Digital",
+              "EFT",
+              "Risk, Fraud & Compliance",
+              "Treasury",
+              "Image Solutions",
+              "Item Processing",
+              "FOS",
+              "Lending",
+              "ACH",
+              "Accounts Payable",
+              "Security Plus",
+              "Network",
+              "Other"
+            ]
+          },
+          "boolean_values": {
+            "column": "C",
+            "values": ["TRUE", "FALSE"]
+          }
+        }
+      }
+    ]
+  },
+  "data_flow": {
+    "input": {
+      "format": "JSON",
+      "source": "Extracted JSON folder",
+      "required_fields": ["vendor", "client", "line_items"]
+    },
+    "transformation": {
+      "steps": [
+        "Load JSON file",
+        "Validate against schema",
+        "Map JSON fields to Excel columns",
+        "Split items with both monthly and one-time fees",
+        "Calculate derived fields (monthly cost, annual cost)",
+        "Sort by section (Bundle → Required → Optional)",
+        "Write to Line_Items sheet",
+        "Calculate summary metrics",
+        "Write to Summary and Year_Summary sheets",
+        "Generate Data_Quality report"
+      ]
+    },
+    "output": {
+      "format": "XLSX",
+      "destination": "TCO Output folder",
+      "naming_convention": "{vendor}_TCO_New_{version}.xlsx"
+    }
+  },
+  "validation_rules": {
+    "pre_ingestion": [
+      "JSON structure matches expected schema",
+      "Required top-level fields present (vendor, client, line_items)",
+      "line_items is array with length > 0",
+      "Each line item has required fields (solution_name, fee_type, per_unit_rate or monthly_fee)"
+    ],
+    "post_ingestion": [
+      "All rows in Line_Items sheet have fee_type from enum list",
+      "Monthly V items have average_monthly_qty > 0",
+      "One-Time items only appear in Year 1",
+      "Summary totals match sum of Line_Items details",
+      "No required fields are null",
+      "Confidence scores are between 0.0 and 1.0"
+    ]
+  },
+  "formatting_standards": {
+    "fonts": {
+      "header": {"name": "Calibri", "size": 11, "bold": true, "color": "FFFFFF", "background": "4472C4"},
+      "data": {"name": "Calibri", "size": 10, "bold": false, "color": "000000"},
+      "summary": {"name": "Calibri", "size": 11, "bold": true}
+    },
+    "borders": {
+      "header": {"style": "thin", "color": "000000"},
+      "data": {"style": "thin", "color": "D3D3D3"}
+    },
+    "number_formats": {
+      "currency": "$#,##0.00",
+      "percentage": "0.00%",
+      "integer": "#,##0",
+      "decimal": "#,##0.00"
+    },
+    "conditional_formatting": {
+      "confidence_score": {
+        "type": "colorScale",
+        "ranges": [
+          {"min": 0.0, "color": "FFCCCC", "description": "Low confidence"},
+          {"mid": 0.8, "color": "FFFFCC", "description": "Medium confidence"},
+          {"max": 1.0, "color": "CCFFCC", "description": "High confidence"}
+        ]
+      },
+      "negative_values": {
+        "type": "cellValue",
+        "operator": "lessThan",
+        "value": 0,
+        "format": {"font_color": "FF0000", "parentheses": true}
+      }
+    }
+  }
+}

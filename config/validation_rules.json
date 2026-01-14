@@ -1,0 +1,194 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TCO Extraction Schema",
+  "description": "Validation schema for TCO extracted data",
+
+  "definitions": {
+    "currency": {
+      "type": "number",
+      "minimum": -1000000,
+      "maximum": 100000000
+    },
+    "percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "fee_type": {
+      "type": "string",
+      "enum": ["Monthly F", "Monthly V", "Annual", "One-Time"]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Bundle",
+        "Non-Bundle Required",
+        "Non-Bundle Optional",
+        "Third-Party Required",
+        "Third-Party Optional"
+      ]
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "enum": ["FIS", "Jack Henry", "Fiserv"]
+    },
+
+    "summary": {
+      "type": "object",
+      "properties": {
+        "bank_name": {"type": "string", "minLength": 1},
+        "total_assets": {"$ref": "#/definitions/currency"},
+        "core_product": {"type": "string"},
+        "contract_term": {
+          "type": "string",
+          "pattern": "^(5|7|10)[-_]?year$"
+        }
+      },
+      "required": ["bank_name"]
+    },
+
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "solution_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "fee_type": {"$ref": "#/definitions/fee_type"},
+          "category": {"$ref": "#/definitions/category"},
+          "monthly_fee": {"$ref": "#/definitions/currency"},
+          "annual_fee": {"$ref": "#/definitions/currency"},
+          "one_time_fee": {"$ref": "#/definitions/currency"},
+          "per_unit_rate": {"$ref": "#/definitions/currency"},
+          "optional": {"type": "boolean"},
+          "third_party": {"type": "boolean"},
+          "quantity": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["solution_name", "fee_type", "category"]
+      }
+    },
+
+    "terms_conditions": {
+      "type": "object",
+      "properties": {
+        "annual_increase": {"$ref": "#/definitions/percentage"},
+        "early_termination_penalty": {"$ref": "#/definitions/currency"},
+        "minimum_term_months": {
+          "type": "integer",
+          "minimum": 12,
+          "maximum": 120
+        },
+        "auto_renewal": {"type": "boolean"},
+        "notice_period_days": {
+          "type": "integer",
+          "minimum": 30
+        }
+      }
+    },
+
+    "totals": {
+      "type": "object",
+      "properties": {
+        "total_monthly": {"$ref": "#/definitions/currency"},
+        "total_annual": {"$ref": "#/definitions/currency"},
+        "total_one_time": {"$ref": "#/definitions/currency"},
+        "total_contract_value": {"$ref": "#/definitions/currency"}
+      }
+    }
+  },
+
+  "required": ["vendor", "line_items"],
+
+  "validation_rules": {
+    "cross_field": [
+      {
+        "name": "monthly_annual_consistency",
+        "description": "Annual fee should be approximately 12x monthly fee",
+        "condition": "annual_fee == 0 OR abs(annual_fee - monthly_fee * 12) / annual_fee < 0.01"
+      },
+      {
+        "name": "total_sum_check",
+        "description": "Total monthly should equal sum of line item monthly fees",
+        "condition": "abs(totals.total_monthly - sum(line_items.monthly_fee)) < 0.01"
+      },
+      {
+        "name": "required_not_optional",
+        "description": "Required items should not be marked optional",
+        "condition": "category.endswith('Required') implies optional == false"
+      }
+    ],
+
+    "auto_corrections": [
+      {
+        "field": "fee_type",
+        "from": ["monthly", "Monthly", "MONTHLY", "Monthly Fee"],
+        "to": "Monthly F"
+      },
+      {
+        "field": "fee_type",
+        "from": ["annual", "Annual", "ANNUAL", "Yearly"],
+        "to": "Annual"
+      },
+      {
+        "field": "fee_type",
+        "from": ["one-time", "onetime", "One Time", "ONE TIME"],
+        "to": "One-Time"
+      },
+      {
+        "field": "category",
+        "from": ["bundle", "BUNDLE", "Core Bundle"],
+        "to": "Bundle"
+      },
+      {
+        "field": "category",
+        "from": ["optional", "OPTIONAL", "Non-Bundle"],
+        "to": "Non-Bundle Optional"
+      }
+    ],
+
+    "format_fixes": [
+      {
+        "field_type": "currency",
+        "pattern": "^\\$?([\\d,]+(?:\\.\\d{2})?)$",
+        "transform": "float(value.replace('$', '').replace(',', ''))"
+      },
+      {
+        "field_type": "percentage",
+        "pattern": "^([\\d.]+)%?$",
+        "transform": "float(value.replace('%', ''))"
+      },
+      {
+        "field_type": "date",
+        "patterns": [
+          {"from": "MM/DD/YYYY", "to": "YYYY-MM-DD"},
+          {"from": "M/D/YY", "to": "YYYY-MM-DD"}
+        ]
+      }
+    ],
+
+    "warnings": [
+      {
+        "condition": "monthly_fee == 0 AND fee_type == 'Monthly F'",
+        "message": "Zero monthly fee for fixed monthly item - verify if correct"
+      },
+      {
+        "condition": "one_time_fee < 0",
+        "message": "Negative one-time fee - should this be a credit?"
+      },
+      {
+        "condition": "annual_increase > 10",
+        "message": "Annual increase above 10% - unusually high"
+      }
+    ]
+  }
+}

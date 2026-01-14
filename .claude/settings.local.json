@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh auth:*)",
+      "Bash(python extractors/jh_extractor.py:*)",
+      "Bash(git push:*)",
+      "Bash(python -m venv:*)",
+      "Bash(./venv/Scripts/pip install:*)",
+      "Bash(./venv/Scripts/pip freeze:*)",
+      "Bash(requirements.txt)",
+      "Bash(git fetch:*)",
+      "Bash(git stash:*)",
+      "Bash(python scripts/json_to_excel_mapper.py:*)",
+      "Bash(python:*)",
+      "Bash(./venv/Scripts/python:*)",
+      "Bash(del \"Project_Plan_Phase2_DETAILED_20260109_130815.xlsx\")",
+      "Bash(pip install:*)",
+      "Bash(dir:*)",
+      "Bash(ls:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(git reset:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

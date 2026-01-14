@@ -1,0 +1,379 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created_date": "2025-12-08",
+    "source": "WORKBOOK2.xlsx analysis",
+    "purpose": "Field-level data dictionary for TCO Excel template",
+    "description": "Complete specification of all fields expected in TCO analysis"
+  },
+  "fields": [
+    {
+      "field_name": "fee_type",
+      "display_name": "Fee Type",
+      "excel_column": "B",
+      "datatype": "enum",
+      "allowed_values": ["Monthly F", "Monthly V", "Annual", "One-Time"],
+      "required": true,
+      "description": "Type of fee structure",
+      "validation_rules": "Must be one of the allowed enum values",
+      "business_meaning": "Determines how cost is calculated: Fixed monthly, Variable monthly, Annual, or One-time implementation",
+      "examples": ["Monthly F", "Monthly V", "Annual", "One-Time"]
+    },
+    {
+      "field_name": "proposal_date",
+      "display_name": "Proposal Date",
+      "excel_column": "C",
+      "datatype": "string",
+      "allowed_values": null,
+      "required": false,
+      "description": "Date or version identifier for the proposal",
+      "validation_rules": "Format: (MM/YYYY) or free text",
+      "business_meaning": "Identifies which proposal version this pricing comes from",
+      "examples": ["Proposal\n(11/2025)", "(12/2024)"]
+    },
+    {
+      "field_name": "average_monthly_qty",
+      "display_name": "Average Monthly Quantity",
+      "excel_column": "D",
+      "datatype": "numeric",
+      "allowed_values": null,
+      "required": false,
+      "description": "Average monthly quantity for variable fee calculations",
+      "validation_rules": "Positive number or 0. Required if fee_type = 'Monthly V'",
+      "business_meaning": "Used to calculate variable monthly costs: Cost = rate × quantity × 12",
+      "examples": [1000, 5000, 250]
+    },
+    {
+      "field_name": "solution_name",
+      "display_name": "Solution Name / Description",
+      "excel_column": "O",
+      "datatype": "string",
+      "allowed_values": null,
+      "required": true,
+      "description": "Name of the product, service, or solution",
+      "validation_rules": "Non-empty string, max 255 characters",
+      "business_meaning": "Primary identifier for line item",
+      "examples": ["Core: HORIZON", "Digital: D1 Flex", "EFT: Debit Card Production"]
+    },
+    {
+      "field_name": "category",
+      "display_name": "Category",
+      "excel_column": "P",
+      "datatype": "enum",
+      "allowed_values": [
+        "Core",
+        "Digital",
+        "EFT",
+        "Risk, Fraud & Compliance",
+        "Treasury",
+        "Image Solutions",
+        "Item Processing",
+        "FOS",
+        "Lending",
+        "ACH",
+        "Accounts Payable",
+        "Security Plus",
+        "Network",
+        "Other"
+      ],
+      "required": true,
+      "description": "Product category classification",
+      "validation_rules": "Should match standardized category list",
+      "business_meaning": "Groups similar products for reporting and analysis",
+      "examples": ["Core", "Digital", "EFT", "Risk, Fraud & Compliance"]
+    },
+    {
+      "field_name": "per_unit_rate",
+      "display_name": "Per Unit Rate",
+      "excel_column": "Q",
+      "datatype": "currency",
+      "allowed_values": null,
+      "required": true,
+      "description": "Price per unit (monthly, annual, or one-time)",
+      "validation_rules": "Numeric value, can be negative (for credits)",
+      "business_meaning": "Base rate used for all cost calculations",
+      "examples": [16792.00, 35253.00, -10000.00]
+    },
+    {
+      "field_name": "year_1_monthly_cost",
+      "display_name": "Year 1 Monthly Cost",
+      "excel_column": "R",
+      "datatype": "currency",
+      "allowed_values": null,
+      "required": false,
+      "description": "Calculated monthly cost for Year 1",
+      "validation_rules": "Calculated field: depends on fee_type and per_unit_rate",
+      "business_meaning": "Monthly cost in first year of contract",
+      "examples": [16792.00, 2937.75]
+    },
+    {
+      "field_name": "year_1_cost",
+      "display_name": "Year 1 Total Cost",
+      "excel_column": "S",
+      "datatype": "currency",
+      "allowed_values": null,
+      "required": false,
+      "description": "Total cost for Year 1",
+      "validation_rules": "Calculated based on fee_type",
+      "business_meaning": "Annual cost for Year 1 (Monthly × 12, Annual × 1, One-Time × 1)",
+      "examples": [201504.00, 35253.00, 21943.00]
+    },
+    {
+      "field_name": "year_N_cost",
+      "display_name": "Year N Cost",
+      "excel_column": "T-AB (Years 2-10)",
+      "datatype": "currency",
+      "allowed_values": null,
+      "required": false,
+      "description": "Total cost for subsequent years with CPI adjustment",
+      "validation_rules": "Calculated: Year_(N-1)_cost × (1 + CPI)",
+      "business_meaning": "Cost projection with inflation adjustment",
+      "examples": [205533.60, 209644.27, 214036.96]
+    },
+    {
+      "field_name": "year_N_cpi",
+      "display_name": "Year N CPI",
+      "excel_column": "AC-AL (Years 1-10)",
+      "datatype": "percentage",
+      "allowed_values": null,
+      "required": false,
+      "description": "Cost Price Index (inflation adjustment) for each year",
+      "validation_rules": "Decimal between 0.0 and 0.1 (0-10%)",
+      "business_meaning": "Annual cost increase percentage",
+      "examples": [0.02, 0.025, 0.03]
+    },
+    {
+      "field_name": "third_party",
+      "display_name": "Third Party",
+      "excel_column": "New (not in original)",
+      "datatype": "boolean",
+      "allowed_values": [true, false],
+      "required": true,
+      "description": "Indicates if this is a third-party vendor (not primary vendor)",
+      "validation_rules": "Boolean: true or false",
+      "business_meaning": "Determines if payment goes to primary vendor or external party",
+      "examples": [true, false]
+    },
+    {
+      "field_name": "optional",
+      "display_name": "Optional Solution",
+      "excel_column": "New (not in original)",
+      "datatype": "boolean",
+      "allowed_values": [true, false],
+      "required": true,
+      "description": "Indicates if solution is optional (not required for operations)",
+      "validation_rules": "Boolean: true or false",
+      "business_meaning": "Determines if included in base TCO calculation. Optional items shown separately.",
+      "examples": [true, false]
+    },
+    {
+      "field_name": "overall_confidence",
+      "display_name": "Confidence Score",
+      "excel_column": "New (not in original)",
+      "datatype": "numeric",
+      "allowed_values": null,
+      "required": false,
+      "description": "AI extraction confidence score (0.0-1.0)",
+      "validation_rules": "Decimal between 0.0 and 1.0",
+      "business_meaning": "Data quality indicator. Scores < 0.8 should be manually reviewed.",
+      "examples": [0.98, 0.85, 0.92]
+    },
+    {
+      "field_name": "extraction_notes",
+      "display_name": "Extraction Notes",
+      "excel_column": "New (not in original)",
+      "datatype": "string",
+      "allowed_values": null,
+      "required": false,
+      "description": "AI-generated notes about extraction quality or assumptions",
+      "validation_rules": "Free text, max 500 characters",
+      "business_meaning": "Provides context for data quality and extraction decisions",
+      "examples": ["Core banking system pricing clearly defined", "Quantity assumed based on industry averages"]
+    },
+    {
+      "field_name": "unit_description",
+      "display_name": "Unit Description",
+      "excel_column": "New (not in original)",
+      "datatype": "string",
+      "allowed_values": null,
+      "required": false,
+      "description": "Description of pricing unit (per transaction, per account, etc.)",
+      "validation_rules": "Free text",
+      "business_meaning": "Clarifies what the per_unit_rate represents",
+      "examples": ["per transaction", "per account", "per user", "per month"]
+    },
+    {
+      "field_name": "monthly_fee",
+      "display_name": "Monthly Fee (JSON)",
+      "excel_column": "Mapped to Q",
+      "datatype": "currency",
+      "allowed_values": null,
+      "required": false,
+      "description": "Monthly fee from JSON (may differ from per_unit_rate)",
+      "validation_rules": "Numeric, can be 0",
+      "business_meaning": "Direct monthly fee (if different from per-unit calculation)",
+      "examples": [16792.00, 35253.00]
+    },
+    {
+      "field_name": "one_time_fee",
+      "display_name": "One-Time Fee (JSON)",
+      "excel_column": "Mapped to Q (for One-Time rows)",
+      "datatype": "currency",
+      "allowed_values": null,
+      "required": false,
+      "description": "Implementation or setup fee from JSON",
+      "validation_rules": "Numeric, can be 0 or negative (credits)",
+      "business_meaning": "One-time cost charged in Year 1",
+      "examples": [21943.00, 25551.00, -10000.00]
+    },
+    {
+      "field_name": "current_monthly_fee",
+      "display_name": "Current Monthly Fee (JSON)",
+      "excel_column": "New comparison field",
+      "datatype": "currency",
+      "allowed_values": null,
+      "required": false,
+      "description": "Current monthly fee (before proposal) for comparison",
+      "validation_rules": "Numeric, can be 0",
+      "business_meaning": "Used to calculate cost increase/decrease from current state",
+      "examples": [11266.00, 15184.00]
+    },
+    {
+      "field_name": "oid",
+      "display_name": "Object ID",
+      "excel_column": "New metadata field",
+      "datatype": "string",
+      "allowed_values": null,
+      "required": false,
+      "description": "Unique identifier for line item (from source system)",
+      "validation_rules": "Alphanumeric",
+      "business_meaning": "Links back to source proposal document",
+      "examples": ["FIS-001", "JH-Digital-01"]
+    }
+  ],
+  "derived_fields": [
+    {
+      "field_name": "row_section",
+      "display_name": "Row Section",
+      "datatype": "enum",
+      "allowed_values": [
+        "Bundle",
+        "Non-Bundle Required",
+        "Non-Bundle Required Third-Party",
+        "One-Time",
+        "One-Time Third-Party",
+        "Non-Bundle Optional",
+        "Non-Bundle Optional Third-Party"
+      ],
+      "calculation": "Derived from third_party, optional, fee_type, and category fields",
+      "description": "Determines which section of Excel the row belongs to"
+    },
+    {
+      "field_name": "is_bundle",
+      "display_name": "Is Bundle Item",
+      "datatype": "boolean",
+      "calculation": "category contains 'Core' or 'Bundle' or solution_name contains 'HORIZON'",
+      "description": "Identifies if item is part of bundle pricing"
+    },
+    {
+      "field_name": "total_7_year_cost",
+      "display_name": "Total 7-Year Cost",
+      "datatype": "currency",
+      "calculation": "SUM(year_1_cost through year_7_cost)",
+      "description": "Total cost over 7-year contract term"
+    },
+    {
+      "field_name": "monthly_average",
+      "display_name": "Monthly Average Cost",
+      "datatype": "currency",
+      "calculation": "total_7_year_cost / 84 months",
+      "description": "Average monthly cost over contract term"
+    }
+  ],
+  "aggregations": [
+    {
+      "aggregation_name": "total_required_monthly",
+      "description": "Sum of all required (not optional) monthly fees",
+      "scope": "Non-Bundle Required + Bundle",
+      "calculation": "SUM(per_unit_rate WHERE optional=false AND fee_type IN ('Monthly F', 'Monthly V'))"
+    },
+    {
+      "aggregation_name": "total_one_time_fees",
+      "description": "Sum of all one-time implementation fees",
+      "scope": "All One-Time fees",
+      "calculation": "SUM(per_unit_rate WHERE fee_type='One-Time')"
+    },
+    {
+      "aggregation_name": "total_7_year_tco",
+      "description": "Total Cost of Ownership over 7 years",
+      "scope": "All required items",
+      "calculation": "SUM(total_7_year_cost WHERE optional=false)"
+    },
+    {
+      "aggregation_name": "total_optional_monthly",
+      "description": "Sum of all optional monthly fees",
+      "scope": "Optional items only",
+      "calculation": "SUM(per_unit_rate WHERE optional=true AND fee_type IN ('Monthly F', 'Monthly V'))"
+    }
+  ],
+  "relationships": [
+    {
+      "relationship": "proposal_to_line_items",
+      "description": "One proposal contains many line items",
+      "cardinality": "1:N"
+    },
+    {
+      "relationship": "vendor_to_line_items",
+      "description": "Line items belong to either primary vendor or third-party vendors",
+      "cardinality": "1:N"
+    }
+  ],
+  "validation_rules": {
+    "required_field_check": "fee_type, solution_name, category, per_unit_rate, third_party, optional must not be null",
+    "fee_type_quantity_rule": "If fee_type='Monthly V', then average_monthly_qty must be > 0",
+    "one_time_year_rule": "If fee_type='One-Time', cost should only appear in Year 1",
+    "confidence_score_rule": "If overall_confidence < 0.8, flag for manual review",
+    "bundle_placement_rule": "If is_bundle=true, must be in Bundle section (rows 7-20)",
+    "third_party_placement_rule": "If third_party=true, must be in Third-Party section",
+    "optional_placement_rule": "If optional=true, must be in Optional section (rows 121+)"
+  },
+  "business_rules": {
+    "cost_calculation": {
+      "Monthly F": "year_1_cost = per_unit_rate × 12",
+      "Monthly V": "year_1_cost = per_unit_rate × average_monthly_qty × 12",
+      "Annual": "year_1_cost = per_unit_rate",
+      "One-Time": "year_1_cost = per_unit_rate (Year 1 only, 0 for subsequent years)"
+    },
+    "cpi_adjustment": "year_N_cost = year_(N-1)_cost × (1 + year_N_cpi)",
+    "bundle_identification": "Items with category='Core' or solution_name contains 'HORIZON' or 'Bundle' → Bundle section",
+    "item_splitting": "If monthly_fee > 0 AND one_time_fee > 0, split into two rows: one Monthly, one One-Time"
+  },
+  "enums": {
+    "fee_type": ["Monthly F", "Monthly V", "Annual", "One-Time"],
+    "row_section": [
+      "Bundle",
+      "Non-Bundle Required",
+      "Non-Bundle Required Third-Party",
+      "One-Time",
+      "One-Time Third-Party",
+      "Non-Bundle Optional",
+      "Non-Bundle Optional Third-Party"
+    ],
+    "category": [
+      "Core",
+      "Digital",
+      "EFT",
+      "Risk, Fraud & Compliance",
+      "Treasury",
+      "Image Solutions",
+      "Item Processing",
+      "FOS",
+      "Lending",
+      "ACH",
+      "Accounts Payable",
+      "Security Plus",
+      "Network",
+      "Other"
+    ]
+  }
+}

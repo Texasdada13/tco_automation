@@ -1,0 +1,121 @@
+[
+  {
+    "column": "A",
+    "name": "Item #",
+    "type": "integer",
+    "description": "Sequential line item number",
+    "required": true
+  },
+  {
+    "column": "B",
+    "name": "Solution Name",
+    "type": "string",
+    "description": "Full product/service name",
+    "required": true
+  },
+  {
+    "column": "C",
+    "name": "Category",
+    "type": "string",
+    "description": "Product category (standardized)",
+    "required": true
+  },
+  {
+    "column": "D",
+    "name": "Fee Type",
+    "type": "enum",
+    "description": "Monthly F, Monthly V, Annual, One-Time",
+    "required": true
+  },
+  {
+    "column": "E",
+    "name": "Monthly Fee",
+    "type": "currency",
+    "description": "Fixed monthly fee (or estimated for variable)",
+    "required": false
+  },
+  {
+    "column": "F",
+    "name": "Per Unit Rate",
+    "type": "currency",
+    "description": "Cost per unit (for variable fees)",
+    "required": false
+  },
+  {
+    "column": "G",
+    "name": "Unit Description",
+    "type": "string",
+    "description": "What the unit represents (e.g., per transaction, per user)",
+    "required": false
+  },
+  {
+    "column": "H",
+    "name": "Estimated Volume",
+    "type": "integer",
+    "description": "Estimated monthly volume/quantity",
+    "required": false
+  },
+  {
+    "column": "I",
+    "name": "One-Time Fee",
+    "type": "currency",
+    "description": "Implementation/setup fee (can be negative for credits)",
+    "required": false
+  },
+  {
+    "column": "J",
+    "name": "Year 1 Annual Cost",
+    "type": "currency",
+    "description": "Total cost for Year 1 (calculated)",
+    "required": true
+  },
+  {
+    "column": "K",
+    "name": "Year 2 Annual Cost",
+    "type": "currency",
+    "description": "Year 2 with growth applied",
+    "required": false
+  },
+  {
+    "column": "L",
+    "name": "Year 3 Annual Cost",
+    "type": "currency",
+    "description": "Year 3 with growth applied",
+    "required": false
+  },
+  {
+    "column": "M",
+    "name": "Year 5 Annual Cost",
+    "type": "currency",
+    "description": "Year 5 with growth applied",
+    "required": false
+  },
+  {
+    "column": "N",
+    "name": "Year 7 Annual Cost",
+    "type": "currency",
+    "description": "Year 7 with growth applied",
+    "required": false
+  },
+  {
+    "column": "O",
+    "name": "Optional",
+    "type": "boolean",
+    "description": "Yes/No - is this an optional product",
+    "required": true
+  },
+  {
+    "column": "P",
+    "name": "Third Party",
+    "type": "boolean",
+    "description": "Yes/No - is this a third-party solution",
+    "required": true
+  },
+  {
+    "column": "Q",
+    "name": "Notes",
+    "type": "string",
+    "description": "Additional notes/extraction notes",
+    "required": false
+  }
+]

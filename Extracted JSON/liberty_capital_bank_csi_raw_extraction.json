@@ -1,0 +1,491 @@
+{
+  "vendor": "LIBERTY_CAPITAL_BANK_CSI",
+  "source_file": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\Proposal\\CSI Pricing Proposal (Organic Growth 7-yr) for Liberty Capital & Texas Heritage (COMBINED) 12-16-24 (1).pdf",
+  "document_type": "pdf",
+  "total_pages": 10,
+  "tables": [
+    {
+      "page_number": 2,
+      "table_index": 1,
+      "rows": 5,
+      "columns": 2,
+      "data": [
+        [
+          "CSI One-Time Fee:\nEquipment Fees:\nCredit for One-Time Fees:\nSpecial Incentive Billing Credit:",
+          "$ 261,102"
+        ],
+        [
+          null,
+          "$ 76,933"
+        ],
+        [
+          null,
+          "($338,034)"
+        ],
+        [
+          null,
+          "($375,000)"
+        ],
+        [
+          "Total One-Time Fees:",
+          "$ ( 375,000)"
+        ]
+      ]
+    },
+    {
+      "page_number": 2,
+      "table_index": 2,
+      "rows": 4,
+      "columns": 2,
+      "data": [
+        [
+          "CSI Fees Included in Organic Growth Based Pricing:",
+          "$ 38,663"
+        ],
+        [
+          "Other Processing Fees:",
+          "$ 12,734"
+        ],
+        [
+          "Monthly Equipment Fees:",
+          "$ 250"
+        ],
+        [
+          "Total Monthly to CSI:",
+          "$ 51,648"
+        ]
+      ]
+    },
+    {
+      "page_number": 2,
+      "table_index": 3,
+      "rows": 1,
+      "columns": 2,
+      "data": [
+        [
+          "CSI Annual Forms & Statements:",
+          "$ 2 ,044"
+        ]
+      ]
+    },
+    {
+      "page_number": 2,
+      "table_index": 4,
+      "rows": 2,
+      "columns": 1,
+      "data": [
+        [
+          "Highlights of CSI Proposed Core Routine Services"
+        ],
+        [
+          "Core Data & EFT\nTransaction Deposits, Time Deposits, Loan Core Processing, Optional Loan Services, General Ledger, Online Services, Central Information File, Online Miscellaneous, Check\nImaging, Teller Capture, Statement & Notice Rendering, Miscellaneous Image Processing, Document Imaging & Report Archival, New Account Opening, 3rd Party Interfaces,\nDigital EFT Solutions, Card Fulfillment, Fraud Mitigation\nDigital Services\nDigital Banking Spanish Translate, External Transfers (A2A), Out of Band Authentication (OOBA), Text Messages, Voice, CSI Mobile Banking Solution, Design Pro Web Site\nDesign and Hosting, Telephone Banking, Data Backup & Device Encryption\nBusiness Intelligence\nBusiness Intelligence Tools, CSI CRM - Contact Management, CSI CRM - Relationship, CSI CRM - Case and Workflow Management, CSI CRM - Campaign Management , CSI\nCRM - Sales and Referral Tracking, FMS Margin Manager, FMS Profit Performer, Financial Dashboard, NuPoint Transaction Manager (Paperless Ticketing), Loan Relationship\nPricing , Accounts Payable, Fixed Assets"
+        ]
+      ]
+    },
+    {
+      "page_number": 2,
+      "table_index": 5,
+      "rows": 2,
+      "columns": 1,
+      "data": [
+        [
+          "Additional CSI Products/Services demonstrated but not included in current fees"
+        ],
+        [
+          "(Please see Details sections below)"
+        ]
+      ]
+    },
+    {
+      "page_number": 2,
+      "table_index": 6,
+      "rows": 2,
+      "columns": 1,
+      "data": [
+        [
+          "Organic Growth Based Pricing Details:"
+        ],
+        [
+          "MPLS, CSINet, and Managed I.T. Services are not included and are provided as Exclusions (as below and noted throughout individual pricing pages):\na separate proposal from CSI Managed Services. - Professional Services/One Time Fees\nTravel Expenses Not to Exceed $65,000 - Third Party Products Provided By CSI (e.g. Bill Payment)\nNXTsoft Annual Maintenance Fee is not included. - Pass-through Charges (e.g. Postage, Telecommunications, EFT)\n- Equipment\n- Forms and Supplies (e.g. Card Plastics)\n- Visa, MasterCard and third party network fees\n- CSI Bridge (any implementation or maintenance costs)\n- Debit Card Activation Fees via CenterVoice\n- NXTsoft Estimated Conversion Cost = $75,000 included in SIB Credit"
+        ]
+      ]
+    },
+    {
+      "page_number": 3,
+      "table_index": 1,
+      "rows": 4,
+      "columns": 4,
+      "data": [
+        [
+          "Core Processing Volume Volume",
+          null,
+          null,
+          null
+        ],
+        [
+          "Transaction Deposits\nDemand Deposit Accounts\nSavings Accounts\nHealth Savings Accounts\nAutomated Transfer System\nTime Deposits\nIndividual Retirement Accounts\nCertificate of Deposit Accounts\nLoan Core Processing\nLoan Accounts\nLNS Automatic Payment Allocation\nOptional Loan Services\nCredit Bureau Reporting (3)\nTranche Lending\nRisk Management System\nCollateral Valuation System\nNuPoint Exception Tracker (Tickler System)",
+          "5,682\n1,278\n27\n3,483\n59\n365\n3,490\n3,490\nY\nN\nY\nY\nY",
+          "General Ledger\nIntegrated General Ledger Accounts\nOnline Services\nOnline Account Records\nTotal Online Addresses\nOnline Printers - NuPoint File Viewer\nCentral Information File\nCIF Customers\nClosed Accounts\nRemarks Module\nField Edit Manager\nOnline Miscellaneous\nACH Transactions\nACH Originations\nACH Plus\nOFAC Check of ACH Transactions (IAT)\nSafe Deposit Box Processing",
+          "2,153\n13,055\n88\nY\n13,071\n8,376\nY\nY\n38,710\n7,435\n1\nY\nY"
+        ],
+        [
+          "Image Processing Volume Volume",
+          null,
+          null,
+          null
+        ],
+        [
+          "Check Imaging\nInclearings Captured at CSI\nBranch Capture\nMerchant Capture Items\nMiscellaneous Image Processing\nImageEIP (Return, Chargeback & Exception Handling)\nMemo Post Option on Inclearings, Merchant Items, etc.\nExtended Image Storage @ CSI (7 Years)\nNSF Notices Billed on Image Pages\nCash Letter Intercept",
+          "27,117\nN\n7,018\nY\nY\nY\nY\nY",
+          "Statement & Notice Rendering\nDDA Accounts -- Mid-month\nDDA Accounts -- End of Month\nSavings Statements\nPremier Print Plus Notices (Includes Archival)\nAbove Notices to be Emailed\nDoc Imaging & Report Archival\nCenterView\nCenterDoc Full Document Imaging\nCenterDoc Scanning Users\nCenterDoc Photo ID Users\nIn-Person Digital Signature",
+          "2,881\n2,881\n135\n1,464\n366\nY\nY\n25\n25\nY"
+        ]
+      ]
+    },
+    {
+      "page_number": 3,
+      "table_index": 2,
+      "rows": 2,
+      "columns": 4,
+      "data": [
+        [
+          "Branch Automation Volume Volume",
+          null,
+          null,
+          null
+        ],
+        [
+          "New Account Opening\nNew Accounts System - NuPoint Platform\nNuFund Online New Account Opening\nCSI NuPoint Teller System\nCSI Teller Capture (Includes basic Teller Functions)\nCSI NuPoint Teller",
+          "Y\nY\nY\nN",
+          "3rd Party Interfaces\nLoan Platform Interactive Interface\nDeposit Platform Interactive Interface\nDaily Downloads",
+          "Y\nN\nY"
+        ]
+      ]
+    },
+    {
+      "page_number": 3,
+      "table_index": 3,
+      "rows": 2,
+      "columns": 4,
+      "data": [
+        [
+          "Card Services Volume Volume",
+          null,
+          null,
+          null
+        ],
+        [
+          "ATM Services & Networks\nATM Processing\nITM Processing\nInterface to National Networks\nCard Fulfillment\nContinuous Card Issue Base Fee\nFraud Mitigation\nCard Sentry Pro\nCard Sentry RTD - Real Time Denials\nWhite Listed Cards\nFedNow",
+          "3\nN\nY\nY\n64,438\nY\n3\nY",
+          "Card Management & Transactions\nCardholders\nVisa Sponsorship\nMastercard Sponsorship\nBusiness & Consumer Card Accounts\nPinned Posted Transactions\nPinned Interchange Transactions\nSignature Settlement Transactions\nSurcharge Transactions\nEMV Transaction Processing\nCard Alerts**\nPayment Tokenization (Apple Pay, Google, Etc.)",
+          "3,700\nN\nY\n3,672\n23,337\n23,008\n41,101\n407\n49,275\nY\nY"
+        ]
+      ]
+    },
+    {
+      "page_number": 3,
+      "table_index": 4,
+      "rows": 3,
+      "columns": 4,
+      "data": [
+        [
+          "Solutions Proposed and Not Included in CSI Processing Fees Volume Unit Cost Monthly Cost",
+          null,
+          null,
+          null
+        ],
+        [
+          "Connection to Recyclers/Dispensers\nImage Capture Processing Fees\nA2iA CAR/LAR\nMonthly Statement Processing Materials\nEnvelopes & Paper\nEFT Non-Processing Fees\nPIN Change\nCard Production - Standard Issue\nCard Production - Instant Issue\nEMV Card Production Fee (Plastic Excluded)\nContactless EMV Card Production Fee (Plastic Excluded)\n3D Secure 2.0*\nEFT Processing Fees - Primary Network\nMastercard\nEFT Processing Fees - Secondary Network\nPulse\nNetwork Sponsorship\nCIRRUS Network Sponsorship\nPLUS Network Sponsorship",
+          "0\n23,248\n5,897\n51\n23\n85\n0\n108\n3,672\n41,101\n22,710\nN\nY",
+          "$11.67\n$0.008\n$0.13\n$0.50\n$2.00\n$1.00\n$0.50\n$0.75\n$0.02\n$0.01\n$0.00\n$50\n$50",
+          "Not Selected\n$186\n$767\n$26\n$46\n$85\nNot Selected\n$81\n$73\n$514\n$68\nNot Selected\n$50"
+        ],
+        [
+          "Total Not Included in CSI Fees",
+          null,
+          null,
+          "$1,845"
+        ]
+      ]
+    },
+    {
+      "page_number": 4,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 4,
+      "data": [
+        [
+          "Digital Banking (Internet & Mobile) & Website Design Volume Volume",
+          null,
+          null,
+          null
+        ],
+        [
+          "Internet Banking\nConsumer Internet Banking\nBusiness Internet Banking\nOnline Statements via Internet Banking\nFraud Anomaly Detection - Consumer\nFraud Anomaly Detection - Business\nDigital Banking Spanish Translate\nDigital Payment Solution\nP2P Payments (Spin)",
+          "2,027\n324\nY\nY\nY\nY\nY",
+          "CSI Mobile Banking Solution\nMobile Banking Users (Applications)\nInternet Banking Authentication Options\nExternal Transfers (A2A)\nSecure Email\neSafe Branding\nPassword Security\nPassword Security check\nDesign Pro Web Site Design and Hosting\nDesign and Hosting - Custom (Up to 174 Pages)",
+          "1,466\nY\nY\nY\nY"
+        ]
+      ]
+    },
+    {
+      "page_number": 4,
+      "table_index": 2,
+      "rows": 5,
+      "columns": 5,
+      "data": [
+        [
+          "Telephone Banking Volume Volume",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Telephone Banking\nTransactions\nCard Activations",
+          "79\nY",
+          "Telephone Banking\nCenterVoice Plus\nTransfer to Bank",
+          null,
+          "Y\nY"
+        ],
+        [
+          "Solutions Proposed and Not Included in CSI Processing Fees",
+          null,
+          "Volume",
+          "Unit Cost",
+          "Monthly Cost"
+        ],
+        [
+          "Internet Banking\nAutobooks (Included at no additional cost)\niPay Online Bill Pay\niPay Business Bill Pay Program ($300 minimum)\nIntegrated (PFM)\nIntegrated (PFM) + Aggregation\nQuicken & QuickBooks (Direct Connect and Web Connect)\nPlaid External Account Authorization\nMy Credit Manager by Array\nInternet Banking Authentication Options\nOut of Band Authentications (OOBA) ($300 Base Fee)*\nText Messages\nVoice\nCSI Mobile Banking Solution\nMobile Banking Text Banking and/or Text Alerts\nMobile Banking Push Notifications ($100 Base Fee)\nMobile Deposit ($525 + transaction fees)\nCard Alerts ($0.025 per SMS Text Message)\nDigital Wallet - Push Provisioning\nTelephone Banking\n800 Number\nDigital Chat\nLinkLive Embedded Package Included\nCSIBridge\neSign (IMM)\nCSIBridge API Call Volume",
+          null,
+          "Y\n1,398\n102 users\n290 payments\n470\n94\nY\nN\nN\n2,027\n10,730\n51\n3,223\n500\n1,416\n600\n20\n121\nY\n1\n0",
+          "$0.00\n$0.95\n$5.95/user + $0.45/payment\n$0.75\n$1.00\n$736.67\n2.95 each\n$0 Monthly Min. with 0 Users Included\n$0.05\n$0.01\n$0.02\n$0.05\n$0.01\n$0.55\n$0.20\n$1 Plus $100 Base Fee\n$0.10\n$0.00\n$500 per Fintech, $250 per add'l application\nthrough same Fintech\n$0 Plus $0 From Previous Tiers",
+          null
+        ],
+        [
+          "Total Not Included in CSI Fees",
+          null,
+          null,
+          null,
+          "$6,080"
+        ]
+      ]
+    },
+    {
+      "page_number": 5,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 4,
+      "data": [
+        [
+          "Business Intelligence and Risk & Compliance Volume Volume",
+          null,
+          null,
+          null
+        ],
+        [
+          "Business Intelligence Tools\nFinancial Dashboard\nNuPoint Transaction Manager (Paperless Ticketing)\nLoan Relationship Pricing\nNuPoint Positive Pay & Recon\nPayee Matching\nALM Custom Report System\nCSI IQ Creator\nCSI IQ Catalog\nCSI CRM - Contact Management\nCSI CRM - Relationship\nCSI CRM - Case and Workflow Management\nCSI CRM - Campaign Management*\nCSI CRM - Sales and Referral Tracking\nAccount Analysis",
+          "Y\nY\nY\nY\nY\nY\nY\nY\nY\nY\nY\nY\nY\nY",
+          "Risk & Compliance Solutions\nOFAC Compare and Reporting\nFINCEN Compare and Reporting\nNuMonitor BSA/AML Solution\nCIP Storage",
+          "10,874\n10,874\nY\n55"
+        ]
+      ]
+    },
+    {
+      "page_number": 5,
+      "table_index": 2,
+      "rows": 3,
+      "columns": 4,
+      "data": [
+        [
+          "Solutions Proposed and Not Included in CSI Processing Fees Volume Unit Cost",
+          null,
+          null,
+          "Monthly Cost"
+        ],
+        [
+          "Call Report File Download (SmartCall)\nChild Support Accounts\nFMS Margin Performer ($250 minimum if less than 25,000 records)\nFMS Profit Performer ($250 minimum if less than 25,000 records)\nWatchDog CIP\nWatchDog CIP License (Billed Annually, Shown Monthly)\nLevel 2 ID Verification Transactions\nOut of Wallet Transactions\nCSI Wire\nCSI Wire (Fedline Advantage + FedLine Direct)\nWire Extract",
+          "Y\n100\n10,874\n10,874\nY\n53\n39\n1022\nN",
+          "$100.00\n$0.01\n$0.03\n$0.03\n$249.58\n$2.50\n$2.50\n$3.50\n$300.00",
+          null
+        ],
+        [
+          "Total Not Included in CSI Fees",
+          null,
+          null,
+          "$4,758"
+        ]
+      ]
+    },
+    {
+      "page_number": 6,
+      "table_index": 1,
+      "rows": 4,
+      "columns": 4,
+      "data": [
+        [
+          "Forms, Equipment, and License Fees",
+          null,
+          null,
+          null
+        ],
+        [
+          "Annual Forms, and Statements Volume Unit Price EOY Processing",
+          null,
+          null,
+          null
+        ],
+        [
+          "Loan Coupon Books (excl. S & H)\nCD Checks -- Laser checks\nDDA Statement Artwork-Laser/Image\nPremier Notice Artwork\nEOY Form (Everything But 1099 R or 1042 S)\nEOY Form 1099 R\nEOY Form 1042 S\nLNS Interest Paid Notice\nAnnual IRA Statements\nSemi-Annual IRA Statements\nQuarterly IRA Statements",
+          "0\n0\n1\n1\n3,024\n0\n0\n1,745\n59\n30\n15",
+          "$1\n$75\n$300\n$300\n$0.26\n$0.28\n$0.41\n$0.25\n$2\n$1\n$0.75",
+          "$0\n$0\n$300\n$300\n$786\n$0\n$0\n$436\n$118\n$59\n$44"
+        ],
+        [
+          "Annual - Forms and Statements Total",
+          null,
+          null,
+          "$2,044"
+        ]
+      ]
+    },
+    {
+      "page_number": 6,
+      "table_index": 2,
+      "rows": 3,
+      "columns": 4,
+      "data": [
+        [
+          "Equipment Units Unit Price One-Time Fee",
+          null,
+          null,
+          null
+        ],
+        [
+          "Teller Equipment\nTeller Workstations\nTeller Printers (Standard)\nTeller Printers (Teller Capture)\nTeller Scanners\nTeller Recyclers\nTeller Dispensers\nBranch Capture Equipment\nSmartSource 120 + Kit (120 DPM)\nSmartSource 55 DPM Merchant Elite\nPurchased Branch Capture PCs\nPC Staging Fees for Branch Capture\nItem Jogger\nDoc Imaging Equipment\nDuplex Doc Imaging Scanner (100 PPM)\nDuplex Doc Imaging Scanner (60 PPM)\nDuplex Doc Imaging Scanner (30 PPM)\neSign Pads for Document Imaging\nOther\nMICR Printer (For Printing IRD's)\nInstant Issue Precision (Monochrome) Printers [New]\nInstant Issue Spectrum (Full Color) Printers [New]\nInstant Issue Printers [Converted]\nBusiness Card/Photo ID Scanner\nPIN Pads",
+          "0\n0\n25\n25\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n5\n0\n0\n0\n0",
+          "$1,100\n$491\n$447\n$965\n$40,000\n$30,000\n$1,395\n$655\n$1,100\n$550\n$175\n$4,500\n$2,500\n$550\n$325\n$1,000\n$8,327\n$13,096\n$250\n$710\n$368",
+          "$0\n$0\n$11,175\n$24,125\n$0\n$0\n$0\n$0\n$0\n$0\n$0\n$0\n$0\n$0\n$0\n$0\n$41,633\n$0\n$0\n$0\n$0"
+        ],
+        [
+          "Equipment Fees Total",
+          null,
+          null,
+          "$76,933"
+        ]
+      ]
+    },
+    {
+      "page_number": 7,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 2,
+      "data": [
+        [
+          "Key File Delivery Timelines\nIt is key to the success of the project that all file delivery dates be met. Delays in obtaining files may negatively impact the project or the banks\u2019 ability to train and\ncomplete data validation.",
+          null
+        ],
+        [
+          "Core Vendor Test Files \u2013 First Set\nCore Vendor Test Files \u2013 Second Set (If Required)\nInternet Banking Test Files\nBill Pay Test Files\nCard Files \u2013 Test CAF\nCard Files \u2013 Final CAF\n*Note: Core, Internet Banking, and Bill Pay Test Files will require a live set of files at\nconversion.",
+          "225 \u2013 210 Days Prior to Conversion Date\n70 \u2013 60 Days Prior to Conversion Date\n240 \u2013 200 Days Prior to Conversion Date\n120 \u2013 90 Days Prior to Conversion Date\n180 \u2013 120 Days Prior to Conversion Date\n28 \u2013 7 Days Prior to Conversion Date"
+        ]
+      ]
+    },
+    {
+      "page_number": 7,
+      "table_index": 2,
+      "rows": 4,
+      "columns": 2,
+      "data": [
+        [
+          "Standards and Best Practices\nFor CSI to be able to convert the data per the standards, the data must be present in the deconversion files received from the prior vendor. If data is\nnot present, CSI will inform the bank.",
+          null
+        ],
+        [
+          "TDA",
+          "\u2022 End of Year Reporting for Distributions and Contributions:\no Will only report Distributions for the Tax Year of the conversion.\no Will only report Contributions for Prior Year if the conversion is prior to the tax deadline.\n\u2022 CD activity will not be converted.\n\u2022 IRA monetary activity will convert only for tax reportable year(s).\n\u2022 Officer/CSR codes or initials should be cleaned up prior to the first test file pull.\no Officer/CSR Initials will convert as is, those greater than 3 characters will be programmatically changed."
+        ],
+        [
+          "NuFund",
+          "\u2022 This process is a post-conversion implementation, typically starting 90 days or later after conversion."
+        ],
+        [
+          "Loans",
+          "\u2022 CSI NuPoint loan account numbers consist of two parts: An 8-digit Borrower Number and a 5-digit Note Number (each part may\nhave leading zero\u2019s). For account number conversion, we will move the rightmost 8 positions of your current loan account number\nto the Borrower # with the Note # = 00010 for each loan account.\n\u2022 Loans that are closed and have been paid out more than 5 years will not be converted. A list of these loans will be provided.\n\u2022 Risk Management System (RMS) If purchased, notes in the current system for open loans can be moved. Notes are not moved for\nclosed loans but the note and note date will be.\n\u2022 Collateral Valuation System (CVS) If purchased, is a post conversion project. The detail and complexity of this product does not\nallow us to convert data into the system.\n\u2022 Consumer Revolving Credit loans (RVC) produce billing statements. The standard for all other loans is billing notices.\n\u2022 Loan history is converted on open/active loans for your convenience only. Converted loan history should not be considered the\nlegal history on the note. Closed loan history is not converted. Loans closed within the last 60 days of conversion may have history\nconverted.\n\u2022 Credit Bureau Reporting for consumer accounts Experian/TRW, Innovis, Trans Union and Equifax are available. Commercial and/or\nSBA reporting we support Dunn & Bradstreet, Experian, and Equifax. The first reporting will occur after the first full month on CSI\nNuPoint."
+        ]
+      ]
+    },
+    {
+      "page_number": 8,
+      "table_index": 1,
+      "rows": 8,
+      "columns": 2,
+      "data": [
+        [
+          "Standards and Best Practices\nFor CSI to be able to convert the data per the standards, the data must be present in the deconversion files received from the prior vendor. If data is\nnot present, CSI will inform the bank.",
+          null
+        ],
+        [
+          "CIF\nNames",
+          "\u2022 Converted from the current processor CIF Name\n\u2022 Individual Names convert as LAST NAME, FIRST NAME, MI\n\u2022 Non-individual Names convert as is.\n\u2022 Alternate Names are not converted.\n\u2022 DBA CIF Profiles will be created in the conversion whether they are a title line or have their own CIF Profile on current processor.\n\u2022 Name titling such as CUSTODIAN, REP PAYEE, TRUSTEE converts with title behind the name at the account level Name Line. The\nName title will not be part of the CIF Profile.\n\u2022 POD Name titles are not converted.\n\u2022 Tax reporting Entity is converted to Name Line 1 on accounts.\n\u2022 Data that converts on the Account Name Lines will print on statements and notices."
+        ],
+        [
+          "CIF\nAddresses",
+          "\u2022 Physical Address (if available to convert from current processor fields) is converted to the CIF Profile Address Lines\n\u2022 Mailing Address is converted to the Account Address lines.\n\u2022 Alternate Address types, Alternate/Seasonal, Additional Statement, and IRS Address (for EOY tax documents) are converted to\nAccount level only. Alternate addresses are not available at the CIF level.\n\u2022 Non-address text does not convert to an Address line (example: a Customer Name, an Account Title)\n\u2022 Data that converts on Account Address Lines will print on statements and notices."
+        ],
+        [
+          "CIF\nRelationship\nCodes",
+          "\u2022 Indirect Relationships are not converted on Closed accounts.\n\u2022 Relationship Codes designate Name Titles (see bullet #4 under Names Conversion section)\n\u2022 Only one account relationship is converted per customer, per account."
+        ],
+        [
+          "CIF\nAdditional\nFields",
+          "\u2022 One form of customer Identification is converted.\n\u2022 Cell phone converts first as the customer Primary phone number unless current processor has a Primary phone indicator.\n\u2022 CIP value is converted as \u201cCertified Prior to conversion\u201d unless there are specific CIP values in the current processor CIF file.\n\u2022 Customers converting without a TIN number will be assigned a TIN Certification Code of \u201cNot Certified.\u201d\n\u2022 Other CIF fields may be converted if there are values in the CIF file from their current processor.\n\u2022 Officer/CSR Initials will convert as is, those greater than 3 characters will be programmatically changed."
+        ],
+        [
+          "FMS",
+          "\u2022 If converting from a core vendor, we will convert the current year and prior year end of month balances including averages. Net\nchange and aggregates are calculated and loaded as well.\n\u2022 If converting from a third-party vendor and the third-party vendor will continue to be used post conversion, we will convert a\ncurrent balance only. Current balance is defined as the balance on the day of conversion. This will be the starting balance. Historical\ndata is not necessary when a third-party program will be the official general ledger record.\n\u2022 We do not convert FMS transactional activity. We will provide the FMS Transaction activity to NXTSoft (if contracted) for\nconversion into their platform if the information is received from the vendor from whom we are converting.\n\u2022 Standard Call Report Download spec options will be applied.\n\u2022 A standard set of Balance Sheets and Income Statements will be set up by the department and consolidated. These will archive\nboth daily and monthly. Additional reports can be set up at the bank's request or post-conversion by bank personnel.\n\u2022 Standing Journal entries (recurring GL to GL transactions) are not converted.\n\u2022 Recurring Batches (GL to GL batches) are not converted.\n\u2022 Budget is not converted."
+        ],
+        [
+          "FMS\nThird Party\nExtracts",
+          "\u2022 During the conversion process, we will provide a solution for your current third-party vendors to obtain core data to the best of\nour ability."
+        ],
+        [
+          "Transfers",
+          "\u2022 Customer related recurring transfers set up on the current (old) core vendor will be converted into the NuPoint transfer system.\n\u2022 All recurring transfers will be examined to determine if there are any items that cannot be converted. If items are found, a reason\nwill be provided per transfer and given to the bank for review.\n\u2022 Payment type transfers that can be properly identified and accommodated, will move to their respective application within the\nNuPoint system. This includes Loan Payments, SDB Payments, and TDA Interest Payments.\n\u2022 ACH transfers, both debits and credits, will also be converted with their necessary ACH Origination information.\n\u2022 Standing Journal entries (recurring GL to GL transactions) are not converted. This is a post conversion training item to allow bank\npersonnel to become more comfortable utilizing the FMS system."
+        ]
+      ]
+    },
+    {
+      "page_number": 9,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 2,
+      "data": [
+        [
+          "Standards and Best Practices\nFor CSI to be able to convert the data per the standards, the data must be present in the deconversion files received from the prior vendor. If data is\nnot present, CSI will inform the bank.",
+          null
+        ],
+        [
+          "DDA -\nSavings",
+          "\u2022 We will combine similar grandfathered products.\n\u2022 All interest will be paid at deconversion. This will include any type of club account.\n\u2022 Exception interest rates will be maintained at the account level, not through rate parameters.\n\u2022 All statements will be cut, and a paper statement will be generated at deconversion. Accounts will convert as a digital statement if\ncoded the same on the current processor. This ensures the final statement is provided in a timely manner. The delivery of digital\nstatements from your current processor can be delayed at deconversion.\n\u2022 Any type of reward product will qualify for a higher rate of interest at deconversion. Reward products, excluding Kasasa, will auto-\nqualify the first statement cycle post-conversion for any additional rewards, i.e., surcharge reimbursement.\n\u2022 The first cycle to cut post-conversion will not be service charged. It is recommended service charges not be assessed for 30-days\npost-conversion.\n\u2022 DDA Statement Cycles will be combined into two to four cycles. EOM will convert as is. Personal cycles typically convert as 05, 10,\n15 or 20.\n\u2022 Cycles are not cut during the first-week post-conversion. An exception will be made as needed for an End of Month cut.\n\u2022 Officer/CSR Initials will convert as is, those greater than 3 characters will be programmatically changed.\n\u2022 All closed accounts received in the live files will be converted.\n\u2022 If an Inactive Status is only utilized on the current core for pre-dormancy notification, this feature will not be brought forward into\nNuPoint.\n\u2022 Account types, i.e., personal, commercial, public funds, will convert into predefined type codes.\n\u2022 If IntraFi or Reich & Tang are processed manually on the current provider, they will convert the same. If the bank desires\nautomated integration, it will need to be post-conversion based on scheduling availability.\n\u2022 Products will be developed based on the TISA and product configuration documents provided by the bank.\n\u2022 Similar legacy or grandfathered products will be combined.\n\u2022 Email address will convert from either the CIF or application, when available.\n\u2022 Dormant account status will convert based on the account\u2019s most current customer-initiated transaction to align to NuPoint\nprocessing. The date of last contact will be converted, if available, to be utilized to identify accounts for escheatment.\n\u2022 Historical statements may be converted for all accounts from your current vendor for Digital display. In NuPoint, statements begin\nbuilding for Digital viewing when an account is coded for a Digital Statement. For accounts that convert as a paper statement and\nchange to Digital Statement after accepting the E-sign post-conversion there will be a gap in the statements that are viewable in\nDigital between the conversion date and the date the first Digital Statement is generated.\nNote: if on your current system, all customers who have internet access can view an electronic statement without accepting the e-\nsign agreement, i.e., customers\nreceive a paper statement but can view a formatted statement in Digital Banking, they will be unable to view digital statements\nuntil the E-sign has been accepted."
+        ]
+      ]
+    },
+    {
+      "page_number": 10,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 2,
+      "data": [
+        [
+          "Standards and Best Practices\nFor CSI to be able to convert the data per the standards, the data must be present in the deconversion files received from the prior vendor. If data is\nnot present, CSI will inform the bank.",
+          null
+        ],
+        [
+          "Card",
+          "Mass Reissue of Cards Project: - CSI Recommendation\n\u2022 CSI will generate Card Keys and meet all up-to-date security compliance requirements for PVK, CVK and EMV.\n\u2022 This ensures Contactless EMV cards work across all merchant devices.\n\u2022 Secures Card programs by issuing randomized card numbers for fraud deterrence.\n\u2022 Prepares the bank\u2019s card programs for 8-digit BIN migration.\n\u2022 Updates bank information on the back of the cards.\n\u2022 Leverage marketing and new technology for the upgrade to Contactless EMV cards.\n\u2022 Reduces dependency on Deconversion PM when they are assigned 60 days ahead of conversion.\n\u2022 CSI recommends this method to reduce dependency on Deconversion PMs when the outgoing EFT processor assigns them less\nthan 120 days ahead of conversion.\nConversion of Existing Cards Project:\n\u2022 The bank must own their BINs, or the existing BINs must be transferable to CSI.\n\u2022 Test Card File must be delivered to CSI 150 days ahead of the conversion.\n\u2022 The bank must create and deliver a set of Test Cards to CSI per BIN and per method of issuance 150 days ahead of conversion.\n\u2022 The bank must meet all Visa or Mastercard requirements to start the BIN transfer process to CSI by 135 days ahead of conversion.\n\u2022 The bank must deliver Card Keys for a complete evaluation 135 days ahead of conversion.\nEFT Networks Supported:\n\u2022 Visa, Plus, PAVD\n\u2022 Mastercard, Cirrus, Maestro (required for De Novo)\n\u2022 Pulse (Primary Gateway Selection)\n\u2022 NYCE (Secondary Gateway Selection)\n\u2022 Shazam (Iowa Banks Only)\n\u2022 Star (does not include Star Access)\n\u2022 Other networks, including surcharge free options, are available through the Gateway provider selected."
+        ]
+      ]
+    }
+  ]
+}

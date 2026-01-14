@@ -1,0 +1,69 @@
+================================================================================
+SOURCE-TO-OUTPUT TRACEABILITY REPORT
+================================================================================
+Generated: 2025-12-02 14:31:34
+Vendor: Jack Henry
+Source: proposal.xlsx
+Output: tco_output.xlsx
+
+--------------------------------------------------------------------------------
+SUMMARY
+--------------------------------------------------------------------------------
+Total Records Traced:  5
+Matched (exact):       2
+Transformed:           2
+Missing in Output:     1
+Errors:                0
+Match Rate:            40.0%
+
+--------------------------------------------------------------------------------
+DETAILED TRACEABILITY
+--------------------------------------------------------------------------------
+
+
+MATCHED RECORDS (Source = Output) (2 records)
+----------------------------------------
+  Source:  Proposal_1!B15
+    Value: 1500.0
+  Mapped:  per_unit_rate (conf: 95%)
+    Value: 1500.0
+  Output:  Line Items!BD7
+    Value: 1500.0
+
+  Source:  Proposal_1!D20
+    Value: 3500.0
+  Mapped:  per_unit_rate (conf: 100%)
+    Value: 3500.0
+  Output:  Line Items!BD10
+    Value: 3500.0
+
+
+TRANSFORMED RECORDS (Value Changed) (2 records)
+----------------------------------------
+  Source:  Proposal_1!B16
+    Value: Digital Banking
+  Mapped:  solution_name (conf: 85%)
+    Value: Digital Banking Platform
+  Output:  Line Items!BB8
+    Value: Digital Banking Platform
+  Notes:   Name normalized via fuzzy matching
+
+  Source:  Proposal_1!C20
+    Value: SilverLake Core
+  Mapped:  solution_name (conf: 92%)
+    Value: SilverLake Core Processing
+  Output:  Line Items!BB10
+    Value: SilverLake Core Processing
+
+
+MISSING RECORDS (Not in Output) (1 records)
+----------------------------------------
+  Source:  Proposal_1!B17
+    Value: 250.0
+  Mapped:  monthly_fee (conf: 90%)
+    Value: 250.0
+  Output:  Line Items!BD9
+    Value: None
+  Notes:   Output cell was empty
+
+================================================================================

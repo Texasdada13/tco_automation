@@ -1,0 +1,237 @@
+{
+  "B": {
+    "row4": "Type (Monthly/Annual)",
+    "row5": null,
+    "combined": "Type (Monthly/Annual)"
+  },
+  "C": {
+    "row4": null,
+    "row5": "Proposal\n(11/2025)",
+    "combined": "Proposal\n(11/2025)"
+  },
+  "D": {
+    "row4": "Average Monthly QTY",
+    "row5": null,
+    "combined": "Average Monthly QTY"
+  },
+  "E": {
+    "row4": "Quantity Per Year with Growth",
+    "row5": "Year 1 Quantity",
+    "combined": "Quantity Per Year with Growth"
+  },
+  "F": {
+    "row4": null,
+    "row5": "Year 2 Quantity",
+    "combined": "Year 2 Quantity"
+  },
+  "G": {
+    "row4": null,
+    "row5": "Year 3 Quantity",
+    "combined": "Year 3 Quantity"
+  },
+  "H": {
+    "row4": null,
+    "row5": "Year 4 Quantity",
+    "combined": "Year 4 Quantity"
+  },
+  "I": {
+    "row4": null,
+    "row5": "Year 5 Quantity",
+    "combined": "Year 5 Quantity"
+  },
+  "J": {
+    "row4": null,
+    "row5": "Year 6 Quantity",
+    "combined": "Year 6 Quantity"
+  },
+  "K": {
+    "row4": null,
+    "row5": "Year 7 Quantity",
+    "combined": "Year 7 Quantity"
+  },
+  "L": {
+    "row4": null,
+    "row5": "Year 8 Quantity",
+    "combined": "Year 8 Quantity"
+  },
+  "M": {
+    "row4": null,
+    "row5": "Year 9 Quantity",
+    "combined": "Year 9 Quantity"
+  },
+  "N": {
+    "row4": null,
+    "row5": "Year 10 Quantity",
+    "combined": "Year 10 Quantity"
+  },
+  "O": {
+    "row4": "FIS",
+    "row5": "Solution Name/Description",
+    "combined": "FIS"
+  },
+  "P": {
+    "row4": null,
+    "row5": "Category",
+    "combined": "Category"
+  },
+  "Q": {
+    "row4": null,
+    "row5": "Per Unit Rate",
+    "combined": "Per Unit Rate"
+  },
+  "R": {
+    "row4": null,
+    "row5": "Year 1 Monthly Cost",
+    "combined": "Year 1 Monthly Cost"
+  },
+  "S": {
+    "row4": null,
+    "row5": "Year 1 Cost",
+    "combined": "Year 1 Cost"
+  },
+  "T": {
+    "row4": null,
+    "row5": "Year 2 Cost",
+    "combined": "Year 2 Cost"
+  },
+  "U": {
+    "row4": null,
+    "row5": "Year 3 Cost",
+    "combined": "Year 3 Cost"
+  },
+  "V": {
+    "row4": null,
+    "row5": "Year 4 Cost",
+    "combined": "Year 4 Cost"
+  },
+  "W": {
+    "row4": null,
+    "row5": "Year 5 Cost",
+    "combined": "Year 5 Cost"
+  },
+  "X": {
+    "row4": null,
+    "row5": "Year 6 Cost",
+    "combined": "Year 6 Cost"
+  },
+  "Y": {
+    "row4": null,
+    "row5": "Year 7 Cost",
+    "combined": "Year 7 Cost"
+  },
+  "Z": {
+    "row4": null,
+    "row5": "Year 8 Cost",
+    "combined": "Year 8 Cost"
+  },
+  "AA": {
+    "row4": null,
+    "row5": "Year 9 Cost",
+    "combined": "Year 9 Cost"
+  },
+  "AB": {
+    "row4": null,
+    "row5": "Year 10 Cost",
+    "combined": "Year 10 Cost"
+  },
+  "AC": {
+    "row4": null,
+    "row5": "Year 1 CPI",
+    "combined": "Year 1 CPI"
+  },
+  "AD": {
+    "row4": null,
+    "row5": "Year 2 CPI",
+    "combined": "Year 2 CPI"
+  },
+  "AE": {
+    "row4": null,
+    "row5": "Year 3 CPI",
+    "combined": "Year 3 CPI"
+  },
+  "AF": {
+    "row4": null,
+    "row5": "Year 4 CPI",
+    "combined": "Year 4 CPI"
+  },
+  "AG": {
+    "row4": null,
+    "row5": "Year 5 CPI",
+    "combined": "Year 5 CPI"
+  },
+  "AH": {
+    "row4": null,
+    "row5": "Year 6 CPI",
+    "combined": "Year 6 CPI"
+  },
+  "AI": {
+    "row4": null,
+    "row5": "Year 7 CPI",
+    "combined": "Year 7 CPI"
+  },
+  "AJ": {
+    "row4": null,
+    "row5": "Year 8 CPI",
+    "combined": "Year 8 CPI"
+  },
+  "AK": {
+    "row4": null,
+    "row5": "Year 9 CPI",
+    "combined": "Year 9 CPI"
+  },
+  "AL": {
+    "row4": null,
+    "row5": "Year 10 CPI",
+    "combined": "Year 10 CPI"
+  },
+  "AM": {
+    "row4": null,
+    "row5": "CPI",
+    "combined": "CPI"
+  },
+  "AN": {
+    "row4": null,
+    "row5": "Total Term Cost",
+    "combined": "Total Term Cost"
+  },
+  "AP": {
+    "row4": "Type (Monthly/Annual)",
+    "row5": null,
+    "combined": "Type (Monthly/Annual)"
+  },
+  "AQ": {
+    "row4": "Average Monthly QTY",
+    "row5": null,
+    "combined": "Average Monthly QTY"
+  },
+  "AR": {
+    "row4": "Quantity Per Year with Growth",
+    "row5": "Year 1 Quantity",
+    "combined": "Quantity Per Year with Growth"
+  },
+  "AS": {
+    "row4": null,
+    "row5": "Year 2 Quantity",
+    "combined": "Year 2 Quantity"
+  },
+  "AT": {
+    "row4": null,
+    "row5": "Year 3 Quantity",
+    "combined": "Year 3 Quantity"
+  },
+  "AU": {
+    "row4": null,
+    "row5": "Year 4 Quantity",
+    "combined": "Year 4 Quantity"
+  },
+  "AV": {
+    "row4": null,
+    "row5": "Year 5 Quantity",
+    "combined": "Year 5 Quantity"
+  },
+  "AW": {
+    "row4": null,
+    "row5": "Year 6 Quantity",
+    "combined": "Year 6 Quantity"
+  }
+}
