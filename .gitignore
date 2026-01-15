@@ -47,3 +47,10 @@ data/
 
 # Logs
 *.log
+
+# Environment files
+.env
+.env.local
+
+# Claude Code temporary files
+tmpclaude-*

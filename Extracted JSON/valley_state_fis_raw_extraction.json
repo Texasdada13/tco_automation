@@ -1,0 +1,184 @@
+{
+  "vendor": "VALLEY_STATE_FIS",
+  "source_file": "testing-data/dummy-proposals/fis-like/Valley_State_FIS_Proposal_2025.docx",
+  "document_type": "docx",
+  "total_pages": 1,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 8,
+      "columns": 4,
+      "data": [
+        [
+          "Solution",
+          "Category",
+          "Monthly Fee",
+          "Fee Type"
+        ],
+        [
+          "HORIZON Core Platform",
+          "Bundle",
+          "$12,800.00",
+          "Monthly F"
+        ],
+        [
+          "Digital One Online Banking",
+          "Bundle",
+          "$7,500.00",
+          "Monthly F"
+        ],
+        [
+          "Payments One",
+          "Bundle",
+          "$5,200.00",
+          "Monthly F"
+        ],
+        [
+          "ImageCentre Document Mgmt",
+          "Bundle",
+          "$3,800.00",
+          "Monthly F"
+        ],
+        [
+          "Analytics Dashboard",
+          "Bundle",
+          "$2,100.00",
+          "Monthly F"
+        ],
+        [
+          "Compliance Manager",
+          "Bundle",
+          "$1,400.00",
+          "Monthly F"
+        ],
+        [
+          "BUNDLE TOTAL",
+          "",
+          "$32,800.00",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 2,
+      "rows": 7,
+      "columns": 4,
+      "data": [
+        [
+          "Service",
+          "Monthly Base",
+          "Per-Item Fee",
+          "Fee Type"
+        ],
+        [
+          "ACH Processing",
+          "$750.00",
+          "$0.07/item",
+          "Monthly V"
+        ],
+        [
+          "Wire Services",
+          "$425.00",
+          "$15.00/domestic",
+          "Monthly V"
+        ],
+        [
+          "Remote Deposit",
+          "$575.00",
+          "-",
+          "Monthly F"
+        ],
+        [
+          "Positive Pay",
+          "$350.00",
+          "-",
+          "Monthly F"
+        ],
+        [
+          "Mobile Banking App",
+          "$1,100.00",
+          "-",
+          "Monthly F"
+        ],
+        [
+          "Bill Payment",
+          "$275.00",
+          "$0.32/payment",
+          "Monthly V"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 3,
+      "rows": 6,
+      "columns": 3,
+      "data": [
+        [
+          "Service",
+          "Monthly Fee",
+          "Notes"
+        ],
+        [
+          "Commercial Lockbox",
+          "$1,400.00",
+          "Plus $0.45/item"
+        ],
+        [
+          "International Wires",
+          "$300.00",
+          "Plus $35/wire"
+        ],
+        [
+          "API Gateway Access",
+          "$800.00",
+          "Up to 50,000 calls"
+        ],
+        [
+          "Fraud Analytics Pro",
+          "$525.00",
+          "Real-time monitoring"
+        ],
+        [
+          "Extended Support",
+          "$375.00",
+          "24/7 coverage"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 4,
+      "rows": 6,
+      "columns": 2,
+      "data": [
+        [
+          "Item",
+          "One-Time Fee"
+        ],
+        [
+          "Core Implementation",
+          "$98,000.00"
+        ],
+        [
+          "Data Migration",
+          "$35,000.00"
+        ],
+        [
+          "Training Package",
+          "$15,000.00"
+        ],
+        [
+          "Project Management",
+          "$18,000.00"
+        ],
+        [
+          "Conversion Credit",
+          "($25,000.00)"
+        ]
+      ]
+    }
+  ]
+}

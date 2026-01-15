@@ -1,0 +1,60 @@
+vendor:
+  name: Jack Henry
+  aliases:
+  - jh
+  - jack henry
+  - jackhenry
+  - silverlake
+  - symitar
+detection:
+  filename_patterns:
+  - jack
+  - henry
+  - jh
+  - silverlake
+  - symitar
+  content_keywords:
+  - Jack Henry
+  - SilverLake
+  - Symitar
+  - Xperience
+  - JHA
+extraction:
+  table_headers:
+    monthly_fee:
+    - Monthly Net
+    - Monthly List
+    - Monthly
+    - MRC
+    one_time:
+    - License Net
+    - Install Net
+    - One-Time
+    - License List
+mapping:
+  category_rules:
+  - pattern: SilverLake
+    category: Core
+  - pattern: Xperience
+    category: Core
+  - pattern: Core
+    category: Core
+  - pattern: Banno
+    category: Digital
+  - pattern: Digital
+    category: Digital
+  - pattern: OnBoard
+    category: Digital
+  - pattern: iPay
+    category: Digital
+  - pattern: Teller
+    category: Core
+  fee_type_mappings:
+    monthly net: Monthly F
+    monthly list: Monthly F
+    license net: One-Time
+    install net: One-Time
+    maintenance: Monthly F
+defaults:
+  contract_term: 7
+  annual_increase: 0.03

@@ -1,0 +1,91 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-01-15T14:21:24.020625",
+    "vendor": "FIS",
+    "client": "Echelon Bank Fresh",
+    "report_type": "qa_validation"
+  },
+  "summary": {
+    "total_items": 22,
+    "average_confidence": 0.9022727272727272,
+    "items_auto_approved": 15,
+    "items_need_review": 7,
+    "validation_passed": false
+  },
+  "confidence_distribution": {
+    "high": 15,
+    "medium": 7,
+    "low": 0
+  },
+  "financial_summary": {
+    "total_monthly": 33908.0,
+    "total_annual": 0.0,
+    "total_one_time": 0.0,
+    "estimated_year_1": 406896.0
+  },
+  "category_distribution": {
+    "Core": 1,
+    "Other": 6,
+    "EFT": 8,
+    "Risk, Fraud & Compliance": 4,
+    "Digital": 2,
+    "Lending": 1
+  },
+  "fee_type_distribution": {
+    "Monthly F": 10,
+    "Monthly V": 12
+  },
+  "issues": {
+    "validation_errors": [
+      {
+        "type": "sum_mismatch",
+        "item": "Monthly Total",
+        "message": "Sum mismatch: stated $7,765.00 vs calculated $33,908.00 (336.7% diff)"
+      }
+    ],
+    "warnings": [],
+    "missing_fields": [],
+    "low_confidence_items": [
+      {
+        "solution_name": "DirectLink Risk Review (DLRR)",
+        "confidence": 0.88,
+        "reason": "Medium confidence - needs verification"
+      },
+      {
+        "solution_name": "Payments One Debit Card Fraud Case Investigation",
+        "confidence": 0.85,
+        "reason": "Medium confidence - needs verification"
+      },
+      {
+        "solution_name": "Tokenization (ApplePay, Additional Pays)",
+        "confidence": 0.88,
+        "reason": "Medium confidence - needs verification"
+      },
+      {
+        "solution_name": "IBM Cognos (HORIZON 360)",
+        "confidence": 0.88,
+        "reason": "Medium confidence - needs verification"
+      },
+      {
+        "solution_name": "Zelle",
+        "confidence": 0.88,
+        "reason": "Medium confidence - needs verification"
+      },
+      {
+        "solution_name": "Credit Insights",
+        "confidence": 0.85,
+        "reason": "Medium confidence - needs verification"
+      },
+      {
+        "solution_name": "AvidAscend",
+        "confidence": 0.88,
+        "reason": "Medium confidence - needs verification"
+      }
+    ]
+  },
+  "recommendations": [
+    "Extraction quality is good. Spot-check flagged items before finalizing.",
+    "Review the 7 flagged items in the 'Items Requiring Review' section.",
+    "Address the 1 validation error(s) before finalizing."
+  ]
+}

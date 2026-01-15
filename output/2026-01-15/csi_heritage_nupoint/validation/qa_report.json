@@ -1,0 +1,56 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-01-15T12:37:29.293600",
+    "vendor": "CSI",
+    "client": "Heritage Nupoint",
+    "report_type": "qa_validation"
+  },
+  "summary": {
+    "total_items": 23,
+    "average_confidence": 0.9391304347826086,
+    "items_auto_approved": 23,
+    "items_need_review": 0,
+    "validation_passed": false
+  },
+  "confidence_distribution": {
+    "high": 23,
+    "medium": 0,
+    "low": 0
+  },
+  "financial_summary": {
+    "total_monthly": 38935.0,
+    "total_annual": 0.0,
+    "total_one_time": 176000.0,
+    "estimated_year_1": 643220.0
+  },
+  "category_distribution": {
+    "Core": 1,
+    "Digital": 5,
+    "Image Solutions": 1,
+    "Other": 9,
+    "Risk, Fraud & Compliance": 3,
+    "ACH": 1,
+    "Treasury": 3
+  },
+  "fee_type_distribution": {
+    "Monthly F": 9,
+    "Monthly V": 8,
+    "One-Time": 6
+  },
+  "issues": {
+    "validation_errors": [
+      {
+        "type": "sum_mismatch",
+        "item": "Monthly Total",
+        "message": "Sum mismatch: stated $34,955.00 vs calculated $38,935.00 (11.4% diff)"
+      }
+    ],
+    "warnings": [],
+    "missing_fields": [],
+    "low_confidence_items": []
+  },
+  "recommendations": [
+    "Extraction quality is good. Spot-check flagged items before finalizing.",
+    "Address the 1 validation error(s) before finalizing."
+  ]
+}

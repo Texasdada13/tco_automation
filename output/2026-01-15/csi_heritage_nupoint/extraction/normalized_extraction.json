@@ -1,0 +1,1590 @@
+{
+  "metadata": {
+    "normalization_version": "1.0",
+    "generated_at": "2026-01-15T12:37:29.427354",
+    "taxonomy_schema": {
+      "version": "1.0",
+      "description": "Universal Cost Breakdown Structure for Vendor Comparison",
+      "buckets": [
+        {
+          "id": "SETUP_IMPLEMENTATION",
+          "display_name": "Setup/Implementation",
+          "categories": [
+            {
+              "name": "Project Management",
+              "description": "Project oversight, coordination, and management",
+              "keywords": [
+                "project management",
+                "pm",
+                "project coordination",
+                "program management"
+              ]
+            },
+            {
+              "name": "Data Migration",
+              "description": "Historical data transfer and conversion",
+              "keywords": [
+                "data migration",
+                "data conversion",
+                "data transfer",
+                "migration",
+                "conversion"
+              ]
+            },
+            {
+              "name": "System Configuration",
+              "description": "Initial system setup and configuration",
+              "keywords": [
+                "configuration",
+                "setup",
+                "deployment",
+                "installation",
+                "activation"
+              ]
+            },
+            {
+              "name": "Implementation Services",
+              "description": "Core implementation and onboarding",
+              "keywords": [
+                "implementation",
+                "onboarding",
+                "go-live",
+                "launch"
+              ]
+            },
+            {
+              "name": "Implementation Credits",
+              "description": "Credits or discounts on implementation",
+              "keywords": [
+                "credit",
+                "discount",
+                "signing bonus",
+                "incentive",
+                "waiver"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "LICENSING_SUBSCRIPTION",
+          "display_name": "Licensing/Subscription",
+          "categories": [
+            {
+              "name": "Core Platform",
+              "description": "Base platform or core system licensing",
+              "keywords": [
+                "core",
+                "platform",
+                "base",
+                "horizon",
+                "nupoint",
+                "silverlake",
+                "fusion"
+              ]
+            },
+            {
+              "name": "Module Licensing",
+              "description": "Add-on module or feature licensing",
+              "keywords": [
+                "module",
+                "add-on",
+                "feature",
+                "component"
+              ]
+            },
+            {
+              "name": "User/Seat Licensing",
+              "description": "Per-user or per-seat license fees",
+              "keywords": [
+                "per user",
+                "per seat",
+                "user license",
+                "seat",
+                "named user"
+              ]
+            },
+            {
+              "name": "Subscription Fees",
+              "description": "Recurring subscription or platform fees",
+              "keywords": [
+                "subscription",
+                "mrc",
+                "monthly recurring",
+                "platform fee"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TRANSACTION_USAGE",
+          "display_name": "Transaction/Usage",
+          "categories": [
+            {
+              "name": "Per-Transaction Fees",
+              "description": "Fees charged per transaction processed",
+              "keywords": [
+                "per transaction",
+                "per item",
+                "transaction fee",
+                "per call"
+              ]
+            },
+            {
+              "name": "Volume-Based Fees",
+              "description": "Fees based on processing volume",
+              "keywords": [
+                "volume",
+                "usage",
+                "consumption",
+                "throughput"
+              ]
+            },
+            {
+              "name": "API/Integration Calls",
+              "description": "Fees for API calls or integration usage",
+              "keywords": [
+                "api",
+                "api call",
+                "integration",
+                "web service"
+              ]
+            },
+            {
+              "name": "Overage Fees",
+              "description": "Fees for exceeding volume tiers",
+              "keywords": [
+                "overage",
+                "excess",
+                "additional",
+                "tier"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TRAINING_ENABLEMENT",
+          "display_name": "Training/Enablement",
+          "categories": [
+            {
+              "name": "Initial Training",
+              "description": "Upfront training during implementation",
+              "keywords": [
+                "initial training",
+                "implementation training",
+                "go-live training"
+              ]
+            },
+            {
+              "name": "User Training",
+              "description": "End-user training programs",
+              "keywords": [
+                "user training",
+                "end user",
+                "staff training",
+                "employee training"
+              ]
+            },
+            {
+              "name": "Administrator Training",
+              "description": "System administrator training",
+              "keywords": [
+                "admin training",
+                "administrator",
+                "system admin",
+                "technical training"
+              ]
+            },
+            {
+              "name": "Certification Programs",
+              "description": "Professional certification and credentials",
+              "keywords": [
+                "certification",
+                "certified",
+                "credential",
+                "accreditation"
+              ]
+            },
+            {
+              "name": "Training Materials",
+              "description": "Documentation and training resources",
+              "keywords": [
+                "materials",
+                "documentation",
+                "manuals",
+                "guides",
+                "resources"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUPPORT_MAINTENANCE",
+          "display_name": "Support/Maintenance",
+          "categories": [
+            {
+              "name": "Standard Support",
+              "description": "Basic technical support included",
+              "keywords": [
+                "standard support",
+                "basic support",
+                "help desk",
+                "technical support"
+              ]
+            },
+            {
+              "name": "Premium Support",
+              "description": "Enhanced support with better SLA",
+              "keywords": [
+                "premium support",
+                "priority support",
+                "24/7",
+                "dedicated support"
+              ]
+            },
+            {
+              "name": "Annual Maintenance",
+              "description": "Annual maintenance fees (AMF)",
+              "keywords": [
+                "annual maintenance",
+                "amf",
+                "maintenance fee",
+                "yearly maintenance"
+              ]
+            },
+            {
+              "name": "Software Updates",
+              "description": "Software updates and patches",
+              "keywords": [
+                "updates",
+                "patches",
+                "upgrades",
+                "releases",
+                "versions"
+              ]
+            },
+            {
+              "name": "SLA Fees",
+              "description": "Service level agreement fees",
+              "keywords": [
+                "sla",
+                "service level",
+                "uptime",
+                "availability"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "PROFESSIONAL_SERVICES",
+          "display_name": "Professional Services",
+          "categories": [
+            {
+              "name": "Consulting Services",
+              "description": "Advisory and consulting work",
+              "keywords": [
+                "consulting",
+                "advisory",
+                "consultant",
+                "expert services"
+              ]
+            },
+            {
+              "name": "Custom Development",
+              "description": "Custom software development",
+              "keywords": [
+                "custom development",
+                "customization",
+                "custom code",
+                "bespoke"
+              ]
+            },
+            {
+              "name": "Integration Services",
+              "description": "Third-party system integration",
+              "keywords": [
+                "integration",
+                "interface",
+                "connector",
+                "middleware"
+              ]
+            },
+            {
+              "name": "Report Development",
+              "description": "Custom report and analytics development",
+              "keywords": [
+                "reports",
+                "reporting",
+                "analytics",
+                "dashboards",
+                "bi"
+              ]
+            },
+            {
+              "name": "PS Hours",
+              "description": "Professional services hourly work",
+              "keywords": [
+                "ps hours",
+                "professional services",
+                "hourly",
+                "time and materials"
+              ]
+            }
+          ]
+        }
+      ],
+      "terminology_mappings": {
+        "implementation": "Setup/Implementation",
+        "onboarding": "Setup/Implementation",
+        "deployment": "Setup/Implementation",
+        "activation": "Setup/Implementation",
+        "conversion": "Setup/Implementation",
+        "configuration": "Setup/Implementation",
+        "setup": "Setup/Implementation",
+        "install": "Setup/Implementation",
+        "installation": "Setup/Implementation",
+        "go-live": "Setup/Implementation",
+        "migration": "Setup/Implementation",
+        "deconversion": "Setup/Implementation",
+        "project management": "Setup/Implementation",
+        "license": "Licensing/Subscription",
+        "licensing": "Licensing/Subscription",
+        "subscription": "Licensing/Subscription",
+        "platform fee": "Licensing/Subscription",
+        "base fee": "Licensing/Subscription",
+        "seat fee": "Licensing/Subscription",
+        "per-user": "Licensing/Subscription",
+        "per user": "Licensing/Subscription",
+        "mrc": "Licensing/Subscription",
+        "monthly recurring": "Licensing/Subscription",
+        "core": "Licensing/Subscription",
+        "platform": "Licensing/Subscription",
+        "per-transaction": "Transaction/Usage",
+        "per transaction": "Transaction/Usage",
+        "per-item": "Transaction/Usage",
+        "per item": "Transaction/Usage",
+        "per-call": "Transaction/Usage",
+        "per call": "Transaction/Usage",
+        "per-api": "Transaction/Usage",
+        "usage-based": "Transaction/Usage",
+        "usage based": "Transaction/Usage",
+        "consumption": "Transaction/Usage",
+        "volume": "Transaction/Usage",
+        "variable": "Transaction/Usage",
+        "training": "Training/Enablement",
+        "certification": "Training/Enablement",
+        "workshop": "Training/Enablement",
+        "education": "Training/Enablement",
+        "learning": "Training/Enablement",
+        "enablement": "Training/Enablement",
+        "support": "Support/Maintenance",
+        "maintenance": "Support/Maintenance",
+        "sla": "Support/Maintenance",
+        "help desk": "Support/Maintenance",
+        "helpdesk": "Support/Maintenance",
+        "premium support": "Support/Maintenance",
+        "amf": "Support/Maintenance",
+        "annual maintenance": "Support/Maintenance",
+        "consulting": "Professional Services",
+        "customization": "Professional Services",
+        "custom development": "Professional Services",
+        "custom dev": "Professional Services",
+        "ps hours": "Professional Services",
+        "professional services": "Professional Services",
+        "integration services": "Professional Services"
+      },
+      "time_normalizations": {
+        "monthly": {
+          "multiplier": 12.0,
+          "description": "Monthly x 12 = Annual"
+        },
+        "monthly f": {
+          "multiplier": 12.0,
+          "description": "Fixed Monthly x 12 = Annual"
+        },
+        "monthly v": {
+          "multiplier": 12.0,
+          "description": "Variable Monthly x 12 = Annual"
+        },
+        "quarterly": {
+          "multiplier": 4.0,
+          "description": "Quarterly x 4 = Annual"
+        },
+        "semi-annual": {
+          "multiplier": 2.0,
+          "description": "Semi-Annual x 2 = Annual"
+        },
+        "annual": {
+          "multiplier": 1.0,
+          "description": "Annual = Annual"
+        },
+        "one-time": {
+          "multiplier": 1.0,
+          "description": "One-Time (Year 1 only)"
+        },
+        "per-seat": {
+          "multiplier": 1.0,
+          "description": "Per-Seat x User Count = Annual"
+        }
+      },
+      "normalization_metrics": [
+        {
+          "name": "Cost per Account",
+          "formula": "Total TCO / Number of Accounts",
+          "use_case": "Retail banking comparison"
+        },
+        {
+          "name": "Cost per User",
+          "formula": "Total TCO / Number of Users",
+          "use_case": "User-licensed software comparison"
+        },
+        {
+          "name": "Cost per Transaction",
+          "formula": "Total TCO / Annual Transaction Volume",
+          "use_case": "High-volume processing comparison"
+        },
+        {
+          "name": "Cost per Month",
+          "formula": "Total TCO / Contract Months",
+          "use_case": "Cash flow analysis"
+        },
+        {
+          "name": "Cost per Asset",
+          "formula": "Total TCO / Total Assets (in millions)",
+          "use_case": "Institution size comparison"
+        }
+      ]
+    }
+  },
+  "proposal": {
+    "proposal_id": "CSI_Heritage_20260115_123729",
+    "vendor": "CSI",
+    "client": "Heritage",
+    "proposal_date": "2025",
+    "extraction_date": "2026-01-15T12:37:29.427354",
+    "contract_term_years": 7,
+    "annual_cpi_rate": 0.03,
+    "line_items": [
+      {
+        "item_id": "CSI_0000",
+        "solution_name": "NuPoint Core Processing",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "NuPoint Core Processing",
+        "annual_cost": 170400.0,
+        "year_1_cost": 170400.0,
+        "total_7_year_cost": 1305683.5556132619,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 14200.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 0,
+          "source_page": null,
+          "original_text": "NuPoint Core Processing",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Core bundle component"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Core",
+          "original_solution_name": "NuPoint Core Processing",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Terminology match: 'core' -> Licensing/Subscription",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0001",
+        "solution_name": "Digital Banking Suite",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Digital Banking Suite",
+        "annual_cost": 81600.0,
+        "year_1_cost": 81600.0,
+        "total_7_year_cost": 625256.9139556463,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 6800.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 1,
+          "source_page": null,
+          "original_text": "Digital Banking Suite",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Core bundle component"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Digital",
+          "original_solution_name": "Digital Banking Suite",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0002",
+        "solution_name": "NuPoint Mobile",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "NuPoint Mobile",
+        "annual_cost": 49200.0,
+        "year_1_cost": 49200.0,
+        "total_7_year_cost": 376993.13929678686,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 4100.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 2,
+          "source_page": null,
+          "original_text": "NuPoint Mobile",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Core bundle component"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Digital",
+          "original_solution_name": "NuPoint Mobile",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0003",
+        "solution_name": "Document Imaging",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Document Imaging",
+        "annual_cost": 38400.0,
+        "year_1_cost": 38400.0,
+        "total_7_year_cost": 294238.54774383357,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 3200.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 3,
+          "source_page": null,
+          "original_text": "Document Imaging",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Core bundle component"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Image Solutions",
+          "original_solution_name": "Document Imaging",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0004",
+        "solution_name": "Analytics & Reporting",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Analytics & Reporting",
+        "annual_cost": 28800.0,
+        "year_1_cost": 28800.0,
+        "total_7_year_cost": 220678.91080787522,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 2400.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 4,
+          "source_page": null,
+          "original_text": "Analytics & Reporting",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Core bundle component"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Other",
+          "original_solution_name": "Analytics & Reporting",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0005",
+        "solution_name": "Security Center",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Security Center",
+        "annual_cost": 21600.0,
+        "year_1_cost": 21600.0,
+        "total_7_year_cost": 165509.1831059064,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1800.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 5,
+          "source_page": null,
+          "original_text": "Security Center",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Core bundle component"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Risk, Fraud & Compliance",
+          "original_solution_name": "Security Center",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0006",
+        "solution_name": "ACH Origination",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "Per-Transaction Fees",
+        "level_3_detail": "ACH Origination",
+        "annual_cost": 8160.0,
+        "year_1_cost": 8160.0,
+        "total_7_year_cost": 62525.691395564645,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 680.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.065,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 6,
+          "source_page": null,
+          "original_text": "ACH Origination",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Non-bundle required service with per-transaction pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "ACH",
+          "original_solution_name": "ACH Origination",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "Per-Transaction Fees",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly V",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0007",
+        "solution_name": "Wire Services",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "Per-Transaction Fees",
+        "level_3_detail": "Wire Services",
+        "annual_cost": 4560.0,
+        "year_1_cost": 4560.0,
+        "total_7_year_cost": 34940.82754458024,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 380.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 14.0,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 7,
+          "source_page": null,
+          "original_text": "Wire Services",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Non-bundle required service with per-transaction pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "Treasury",
+          "original_solution_name": "Wire Services",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "Per-Transaction Fees",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly V",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0008",
+        "solution_name": "Remote Deposit Capture",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "Per-Transaction Fees",
+        "level_3_detail": "Remote Deposit Capture",
+        "annual_cost": 6240.0,
+        "year_1_cost": 6240.0,
+        "total_7_year_cost": 47813.764008372964,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 520.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.08,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 8,
+          "source_page": null,
+          "original_text": "Remote Deposit Capture",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Non-bundle required service with per-transaction pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "Other",
+          "original_solution_name": "Remote Deposit Capture",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "Per-Transaction Fees",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly V",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0009",
+        "solution_name": "Bill Pay Platform",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Bill Pay Platform",
+        "annual_cost": 3480.0,
+        "year_1_cost": 3480.0,
+        "total_7_year_cost": 26665.368389284915,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 290.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.3,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 9,
+          "source_page": null,
+          "original_text": "Bill Pay Platform",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Non-bundle required service with per-transaction pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "Digital",
+          "original_solution_name": "Bill Pay Platform",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Terminology match: 'platform' -> Licensing/Subscription",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0010",
+        "solution_name": "Positive Pay",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "Per-Transaction Fees",
+        "level_3_detail": "Positive Pay",
+        "annual_cost": 4080.0,
+        "year_1_cost": 4080.0,
+        "total_7_year_cost": 31262.845697782323,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 340.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.05,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 10,
+          "source_page": null,
+          "original_text": "Positive Pay",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Non-bundle required service with per-transaction pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "Risk, Fraud & Compliance",
+          "original_solution_name": "Positive Pay",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "Per-Transaction Fees",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly V",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0011",
+        "solution_name": "eStatements",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "Per-Transaction Fees",
+        "level_3_detail": "eStatements",
+        "annual_cost": 2940.0,
+        "year_1_cost": 2940.0,
+        "total_7_year_cost": 22527.638811637265,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 245.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.1,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 11,
+          "source_page": null,
+          "original_text": "eStatements",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Non-bundle required service with per-transaction pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "Digital",
+          "original_solution_name": "eStatements",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "Per-Transaction Fees",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly V",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0012",
+        "solution_name": "Commercial Cash Management",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Commercial Cash Management",
+        "annual_cost": 15000.0,
+        "year_1_cost": 15000.0,
+        "total_7_year_cost": 114936.932712435,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1250.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": true,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 12,
+          "source_page": null,
+          "original_text": "Commercial Cash Management",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.9,
+          "extraction_notes": "Optional service - Full TM suite"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Treasury",
+          "original_solution_name": "Commercial Cash Management",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.9
+      },
+      {
+        "item_id": "CSI_0013",
+        "solution_name": "Lockbox Processing",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "Per-Transaction Fees",
+        "level_3_detail": "Lockbox Processing",
+        "annual_cost": 13200.0,
+        "year_1_cost": 13200.0,
+        "total_7_year_cost": 101144.50078694281,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 1100.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.38,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": true,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 13,
+          "source_page": null,
+          "original_text": "Lockbox Processing",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.9,
+          "extraction_notes": "Optional service with per-item pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "Other",
+          "original_solution_name": "Lockbox Processing",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "Per-Transaction Fees",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly V",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.9
+      },
+      {
+        "item_id": "CSI_0014",
+        "solution_name": "International Services",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "Per-Transaction Fees",
+        "level_3_detail": "International Services",
+        "annual_cost": 5100.0,
+        "year_1_cost": 5100.0,
+        "total_7_year_cost": 39078.557122227896,
+        "original_fee_type": "Monthly V",
+        "original_monthly_fee": 425.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 32.0,
+        "is_recurring": true,
+        "is_variable": true,
+        "is_third_party": false,
+        "is_optional": true,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 14,
+          "source_page": null,
+          "original_text": "International Services",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.9,
+          "extraction_notes": "Optional service with per-wire pricing"
+        },
+        "audit": {
+          "original_fee_type": "Monthly V",
+          "original_category": "Treasury",
+          "original_solution_name": "International Services",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "Per-Transaction Fees",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly V",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.9
+      },
+      {
+        "item_id": "CSI_0015",
+        "solution_name": "API Developer Portal",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Transaction/Usage",
+        "level_2_category": "API/Integration Calls",
+        "level_3_detail": "API Developer Portal",
+        "annual_cost": 8700.0,
+        "year_1_cost": 8700.0,
+        "total_7_year_cost": 66663.42097321231,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 725.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": true,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 15,
+          "source_page": null,
+          "original_text": "API Developer Portal",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.9,
+          "extraction_notes": "Optional service - Open banking APIs"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Digital",
+          "original_solution_name": "API Developer Portal",
+          "normalized_bucket": "Transaction/Usage",
+          "normalized_category": "API/Integration Calls",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.9
+      },
+      {
+        "item_id": "CSI_0016",
+        "solution_name": "Advanced Fraud Detection",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Advanced Fraud Detection",
+        "annual_cost": 5760.0,
+        "year_1_cost": 5760.0,
+        "total_7_year_cost": 44135.78216157504,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 480.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": true,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 16,
+          "source_page": null,
+          "original_text": "Advanced Fraud Detection",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.9,
+          "extraction_notes": "Optional service - AI-powered monitoring"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Risk, Fraud & Compliance",
+          "original_solution_name": "Advanced Fraud Detection",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:37:29.425725",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.9
+      },
+      {
+        "item_id": "CSI_0017",
+        "solution_name": "NuPoint Implementation",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Setup/Implementation",
+        "level_2_category": "Implementation Services",
+        "level_3_detail": "NuPoint Implementation",
+        "annual_cost": 110000.0,
+        "year_1_cost": 110000.0,
+        "total_7_year_cost": 110000.0,
+        "original_fee_type": "One-Time",
+        "original_monthly_fee": 0.0,
+        "original_one_time_fee": 110000.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": false,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 17,
+          "source_page": null,
+          "original_text": "NuPoint Implementation",
+          "extraction_timestamp": "2026-01-15T12:37:29.425725",
+          "confidence_score": 0.95,
+          "extraction_notes": "Implementation fee"
+        },
+        "audit": {
+          "original_fee_type": "One-Time",
+          "original_category": "Other",
+          "original_solution_name": "NuPoint Implementation",
+          "normalized_bucket": "Setup/Implementation",
+          "normalized_category": "Implementation Services",
+          "normalization_rule_applied": "Terminology match: 'implementation' -> Setup/Implementation",
+          "time_normalization_applied": "One-Time (Year 1 only)",
+          "normalization_timestamp": "2026-01-15T12:37:29.427354",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0018",
+        "solution_name": "Data Migration",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Setup/Implementation",
+        "level_2_category": "Data Migration",
+        "level_3_detail": "Data Migration",
+        "annual_cost": 38000.0,
+        "year_1_cost": 38000.0,
+        "total_7_year_cost": 38000.0,
+        "original_fee_type": "One-Time",
+        "original_monthly_fee": 0.0,
+        "original_one_time_fee": 38000.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": false,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 18,
+          "source_page": null,
+          "original_text": "Data Migration",
+          "extraction_timestamp": "2026-01-15T12:37:29.427354",
+          "confidence_score": 0.95,
+          "extraction_notes": "Implementation fee"
+        },
+        "audit": {
+          "original_fee_type": "One-Time",
+          "original_category": "Other",
+          "original_solution_name": "Data Migration",
+          "normalized_bucket": "Setup/Implementation",
+          "normalized_category": "Data Migration",
+          "normalization_rule_applied": "Terminology match: 'migration' -> Setup/Implementation",
+          "time_normalization_applied": "One-Time (Year 1 only)",
+          "normalization_timestamp": "2026-01-15T12:37:29.427354",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0019",
+        "solution_name": "Training & Certification",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Setup/Implementation",
+        "level_2_category": "Implementation Services",
+        "level_3_detail": "Training & Certification",
+        "annual_cost": 16500.0,
+        "year_1_cost": 16500.0,
+        "total_7_year_cost": 16500.0,
+        "original_fee_type": "One-Time",
+        "original_monthly_fee": 0.0,
+        "original_one_time_fee": 16500.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": false,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 19,
+          "source_page": null,
+          "original_text": "Training & Certification",
+          "extraction_timestamp": "2026-01-15T12:37:29.427354",
+          "confidence_score": 0.95,
+          "extraction_notes": "Implementation fee"
+        },
+        "audit": {
+          "original_fee_type": "One-Time",
+          "original_category": "Other",
+          "original_solution_name": "Training & Certification",
+          "normalized_bucket": "Setup/Implementation",
+          "normalized_category": "Implementation Services",
+          "normalization_rule_applied": "Default classification based on fee_type: One-Time",
+          "time_normalization_applied": "One-Time (Year 1 only)",
+          "normalization_timestamp": "2026-01-15T12:37:29.427354",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0020",
+        "solution_name": "Project Management",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Setup/Implementation",
+        "level_2_category": "Project Management",
+        "level_3_detail": "Project Management",
+        "annual_cost": 19500.0,
+        "year_1_cost": 19500.0,
+        "total_7_year_cost": 19500.0,
+        "original_fee_type": "One-Time",
+        "original_monthly_fee": 0.0,
+        "original_one_time_fee": 19500.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": false,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 20,
+          "source_page": null,
+          "original_text": "Project Management",
+          "extraction_timestamp": "2026-01-15T12:37:29.427354",
+          "confidence_score": 0.95,
+          "extraction_notes": "Implementation fee"
+        },
+        "audit": {
+          "original_fee_type": "One-Time",
+          "original_category": "Other",
+          "original_solution_name": "Project Management",
+          "normalized_bucket": "Setup/Implementation",
+          "normalized_category": "Project Management",
+          "normalization_rule_applied": "Terminology match: 'project management' -> Setup/Implementation",
+          "time_normalization_applied": "One-Time (Year 1 only)",
+          "normalization_timestamp": "2026-01-15T12:37:29.427354",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0021",
+        "solution_name": "Custom Integrations",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Setup/Implementation",
+        "level_2_category": "Implementation Services",
+        "level_3_detail": "Custom Integrations",
+        "annual_cost": 22000.0,
+        "year_1_cost": 22000.0,
+        "total_7_year_cost": 22000.0,
+        "original_fee_type": "One-Time",
+        "original_monthly_fee": 0.0,
+        "original_one_time_fee": 22000.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": false,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 21,
+          "source_page": null,
+          "original_text": "Custom Integrations",
+          "extraction_timestamp": "2026-01-15T12:37:29.427354",
+          "confidence_score": 0.95,
+          "extraction_notes": "Implementation fee"
+        },
+        "audit": {
+          "original_fee_type": "One-Time",
+          "original_category": "Other",
+          "original_solution_name": "Custom Integrations",
+          "normalized_bucket": "Setup/Implementation",
+          "normalized_category": "Implementation Services",
+          "normalization_rule_applied": "Default classification based on fee_type: One-Time",
+          "time_normalization_applied": "One-Time (Year 1 only)",
+          "normalization_timestamp": "2026-01-15T12:37:29.427354",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "CSI_0022",
+        "solution_name": "New Customer Credit",
+        "vendor": "CSI",
+        "client": "Heritage",
+        "level_1_bucket": "Setup/Implementation",
+        "level_2_category": "Implementation Services",
+        "level_3_detail": "New Customer Credit",
+        "annual_cost": -30000.0,
+        "year_1_cost": -30000.0,
+        "total_7_year_cost": -30000.0,
+        "original_fee_type": "One-Time",
+        "original_monthly_fee": 0.0,
+        "original_one_time_fee": -30000.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": false,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 22,
+          "source_page": null,
+          "original_text": "New Customer Credit",
+          "extraction_timestamp": "2026-01-15T12:37:29.427354",
+          "confidence_score": 0.95,
+          "extraction_notes": "Implementation credit"
+        },
+        "audit": {
+          "original_fee_type": "One-Time",
+          "original_category": "Other",
+          "original_solution_name": "New Customer Credit",
+          "normalized_bucket": "Setup/Implementation",
+          "normalized_category": "Implementation Services",
+          "normalization_rule_applied": "Default classification based on fee_type: One-Time",
+          "time_normalization_applied": "One-Time (Year 1 only)",
+          "normalization_timestamp": "2026-01-15T12:37:29.427354",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      }
+    ],
+    "bucket_totals": {
+      "Setup/Implementation": {
+        "annual_cost": 176000.0,
+        "total_7_year": 176000.0,
+        "required_annual": 176000.0,
+        "required_7_year": 176000.0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 6,
+        "required_count": 6,
+        "optional_count": 0
+      },
+      "Licensing/Subscription": {
+        "annual_cost": 414240.0,
+        "total_7_year": 3174098.333786605,
+        "required_annual": 393480.0,
+        "required_7_year": 3015025.618912595,
+        "optional_annual": 20760.0,
+        "optional_7_year": 159072.71487401004,
+        "item_count": 9,
+        "required_count": 7,
+        "optional_count": 2
+      },
+      "Transaction/Usage": {
+        "annual_cost": 52980.0,
+        "total_7_year": 405957.24634032045,
+        "required_annual": 25980.0,
+        "required_7_year": 199070.76745793744,
+        "optional_annual": 27000.0,
+        "optional_7_year": 206886.478882383,
+        "item_count": 8,
+        "required_count": 5,
+        "optional_count": 3
+      },
+      "Training/Enablement": {
+        "annual_cost": 0,
+        "total_7_year": 0,
+        "required_annual": 0,
+        "required_7_year": 0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 0,
+        "required_count": 0,
+        "optional_count": 0
+      },
+      "Support/Maintenance": {
+        "annual_cost": 0,
+        "total_7_year": 0,
+        "required_annual": 0,
+        "required_7_year": 0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 0,
+        "required_count": 0,
+        "optional_count": 0
+      },
+      "Professional Services": {
+        "annual_cost": 0,
+        "total_7_year": 0,
+        "required_annual": 0,
+        "required_7_year": 0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 0,
+        "required_count": 0,
+        "optional_count": 0
+      }
+    },
+    "normalized_metrics": {
+      "Cost per Account": 75.1211116025385,
+      "Cost per User": 7512.11116025385,
+      "Cost per Transaction": 3.7560555801269255,
+      "Cost per Month": 44714.9473824634,
+      "Cost per Asset": 7512.11116025385
+    },
+    "institution_params": {
+      "total_accounts": 50000,
+      "total_users": 500,
+      "annual_transactions": 1000000,
+      "total_assets_millions": 500,
+      "contract_months": 84
+    },
+    "average_confidence": 0.9391304347826086,
+    "normalization_version": "1.0",
+    "normalization_timestamp": "2026-01-15T12:37:29.427354"
+  },
+  "comparison_ready": true
+}

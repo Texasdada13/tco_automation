@@ -1,0 +1,31 @@
+{
+  "extraction_id": "20260114_193312_FIS_Community_State_Bank",
+  "source_file": "testing-data\\dummy-proposals\\fis-like\\Community_State_Bank_FIS_Investment_Summary_2025.docx",
+  "vendor": "FIS",
+  "client": "Community State Bank",
+  "timestamp": "2026-01-14T19:33:41.305035",
+  "pipeline_version": "2.0",
+  "stages": {
+    "raw_extraction": {
+      "tables_found": 2,
+      "pages": 1
+    },
+    "ai_enhancement": {
+      "model": "claude-sonnet-4-20250514",
+      "items_extracted": 22
+    },
+    "qa_validation": {
+      "average_confidence": 0.9499999999999996,
+      "items_auto_approved": 22,
+      "items_need_review": 0,
+      "validation_errors": 1,
+      "warnings": 0
+    }
+  },
+  "outputs": {
+    "raw_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_community_state_bank\\extraction\\raw_extraction.json",
+    "ai_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_community_state_bank\\extraction\\ai_extraction.json",
+    "qa_report_json": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_community_state_bank\\validation\\qa_report.json",
+    "qa_report_docx": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_community_state_bank\\validation\\qa_report.docx"
+  }
+}

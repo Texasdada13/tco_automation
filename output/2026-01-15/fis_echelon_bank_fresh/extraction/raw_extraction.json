@@ -1,0 +1,582 @@
+{
+  "vendor": "FIS",
+  "source_file": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\Proposal\\proposal1.docx",
+  "document_type": "docx",
+  "total_pages": 1,
+  "extracted_at": "2026-01-15T14:20:49.564118",
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 2,
+      "columns": 4,
+      "data": [
+        [
+          "FileName_DeleteThisLineFirst:Echelon_FISProposal_10.29.25(1).docx",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 2,
+      "rows": 12,
+      "columns": 4,
+      "data": [
+        [
+          "Topic",
+          "5-Year Term",
+          "7-Year Term",
+          "10-Year Term"
+        ],
+        [
+          "Signing Bonus || Contract must be signed by 12/19/2025*",
+          "$ -",
+          "$ -",
+          "($75,000)"
+        ],
+        [
+          "First-Year Free FIS Processing || Calculation:  FIS monthly bundle x 12 months*",
+          "$ -",
+          "$ -",
+          "($180,000)"
+        ],
+        [
+          "One-Time Credit for FIS Conversion / Implementation Fees || Does not include any third-party one-time fees**",
+          "($844,093)",
+          "($844,093)",
+          "($844,093)"
+        ],
+        [
+          "One-Time Credit for Third-Party Conversion / Implementation Fees ||  Example:  TruStage, Zelle, Network, Digital, IBM Cognos**",
+          "$ -",
+          "$ -",
+          "($137,070)"
+        ],
+        [
+          "One-Time Credit for Bank to Hire Industry Consultant || Provided to assist bank with project management of conversion process*",
+          "$ -",
+          "$ -",
+          "($50,000)"
+        ],
+        [
+          "One-Time Credit for Special Conversion-Related Professional Services ||      17 days of on-site training ($100,000 value)**",
+          "($100,000)",
+          "($100,000)",
+          "($100,000)"
+        ],
+        [
+          "One-Time Credit for Special Conversion-Related Professional Services  ||   On-site resources for conversion/live weekend and one week following ($80,000 value)**",
+          "($80,000)",
+          "($80,000)",
+          "($80,000)"
+        ],
+        [
+          "One-Time Credit for Special Conversion-Related Professional Services ||   One HORIZON Health Check ($40,000 value)**",
+          "($40,000)",
+          "($40,000)",
+          "($40,000)"
+        ],
+        [
+          "One-Time Credit for Special Conversion-Related Professional Services ||   One HORIZON Health Check ($40,000 value).  This is a second HORIZON Health Check ($40,000 value)**",
+          "Optional Service",
+          "Optional Service",
+          "($40,000)"
+        ],
+        [
+          "One-Time Credit for Special Conversion-Related Professional Services ||   120 hours of HORIZON 360 report writing assistance ($30,000 value)**",
+          "Optional Service",
+          "Optional Service",
+          "($30,000)"
+        ],
+        [
+          "Total",
+          "($1,064,093)",
+          "($1,064,093)",
+          "($1,551,163)"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 3,
+      "rows": 16,
+      "columns": 4,
+      "data": [
+        [
+          "Topic",
+          "5-Year Term",
+          "7-Year Term",
+          "10-Year Term"
+        ],
+        [
+          "Annual Increase on FIS Bundle || Includes ECI/CPI",
+          "7%",
+          "6.5%",
+          "6%"
+        ],
+        [
+          "Annual Increase on Solutions Outside FIS Bundle || Standard government annual published rate (varies annually).",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Capped Liquidated Damages (LDs) || If your bank leaves FIS, for any reason, prior to end of your contract term, FIS will cap LDs at 50%, no cap on third-party solutions.",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Capped Deconversion Fees || If your bank leaves FIS, for any reason, FIS will cap your FIS (not just core) deconversion fee.  This does not include image deconversion fees or any third-party deconversion fee.  Under $500M ($250,000), $500M -$1B ($350,000), $1B-$3B ($450,000), Over $3B ($600,000).",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Capped FIS Image Deconversion Fees for Image Files || If your bank leaves FIS, for any reason, FIS will cap your FIS image deconversion file fees at $75 per gigabyte (GB) of data.",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Capped FIS Acquisition (Convert/Merge) Fee || Under $250M ($250,000), $251M-$500M ($300,000), $501M-$1B ($400,000), $1B-$3B ($500,000), $3B-$5B ($600,000), Over $5B (custom quote required).  This includes any image conversion.  This does not include any third-party fees.",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Capped Increase to FIS Bundle due to Acquisition ||  In the event your bank acquires another financial institution, FIS will increase the monthly fee on your FIS bundle by the following calculation.  This increase will take effect the month following your bank\u2019s live convert/merge.  The calculation will be 50% of your bank\u2019s asset growth.  Example, if your bank is $2B and you acquire a $500M financial institution, your asset growth is 25%; therefore, your monthly bundle fee will increase by 12.5% (50% of your asset growth).",
+          "",
+          "",
+          ""
+        ],
+        [
+          "FIS Conversion Training / Education || FIS will provide 17 days of on-site conversion education/training.***",
+          "",
+          "",
+          ""
+        ],
+        [
+          "FIS Conversion Training / Education || FIS will provide team of subject matter experts onsite for live weekend and one full week post live conversion for additional support, responsiveness, attention, and care.***",
+          "",
+          "",
+          ""
+        ],
+        [
+          "FIS Conversion Training / Education ||  FIS will provide client with two (2) HORIZON Health Checks over the term of our agreement.  Goal of this service is to ensure proper utilization of HORIZON.***",
+          "One (1) HORIZON               Health Check",
+          "One (1) HORIZON               Health Check",
+          ""
+        ],
+        [
+          "FIS Conversion Training / Education ||  FIS will provide client with 120 professional service hours to assist client with HORIZON 360 reports.  Goal is to ensure your bank\u2019s most critical reports are created prior to your bank\u2019s live conversion date on HORIZON.  This is above and beyond to standard HORIZON 360 training / education as part of your conversion.***",
+          "Optional Service",
+          "Optional Service",
+          ""
+        ],
+        [
+          "FIS Conversion Program and Project Management ||  FIS will provide one (1) Program Manager who will lead and oversee your bank\u2019s overall conversion process from FIS.  In addition, for each major application (core, debit, item processing), FIS will provide a Project Manager.  This team will work in collaboration with your bank\u2019s conversion team to ensure a successful conversion.***",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Relationship and Service ||  FIS agrees to assign a Client Success Manager (CSM) at FIS, to your bank.  Your bank\u2019s CSM will serve as your bank\u2019s main point of contact from FIS.",
+          "",
+          "",
+          ""
+        ],
+        [
+          "FIS Annual Client Conference, Emerald ||  FIS will provide client with two (2) free annual passes to our flagship client conference, Emerald.***",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Client Reference || If client is happy with our partnership, client agrees to serve as FIS client reference for other FIS prospects and clients.",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 4,
+      "rows": 8,
+      "columns": 4,
+      "data": [
+        [
+          "Monthly Bundle Investment",
+          "5 \u2013 Year Term",
+          "7-Year Term",
+          "10 \u2013 Year Term"
+        ],
+        [
+          "Year 1",
+          "$17,500",
+          "$15,000",
+          "$15,000"
+        ],
+        [
+          "Year 2",
+          "$20,000",
+          "$17,500",
+          "$17,500"
+        ],
+        [
+          "Year 3",
+          "$25,000",
+          "$22,500",
+          "$20,000"
+        ],
+        [
+          "Year 4",
+          "$35,000",
+          "$28,000",
+          "$22,500"
+        ],
+        [
+          "Year 5",
+          "N/A",
+          "$35,000",
+          "$25,000"
+        ],
+        [
+          "Year 6",
+          "N/A",
+          "N/A",
+          "$30,000"
+        ],
+        [
+          "Year 7",
+          "N/A",
+          "N/A",
+          "$35,000"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 5,
+      "rows": 19,
+      "columns": 4,
+      "data": [
+        [
+          "Solution",
+          "Estimated Monthly Fee",
+          "One-Time Fee",
+          "Estimated Monthly Fee Calculation"
+        ],
+        [
+          "FIS Solutions",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Paper and Envelopes\n(statements and notices)",
+          "$29",
+          "N/A",
+          "$0.0136 per piece of paper x 1,000 = $13.60\n$0.0314 per envelope x 500 = $15.70"
+        ],
+        [
+          "Debit Card Production",
+          "$1,018",
+          "$1,250",
+          "29 debit card production files/jobs per month x $12 per file/job = $348\n25 debit cards produced per month x $6.82 = $170 \nCardPro Connect, $500 per month"
+        ],
+        [
+          "DirectLink Risk Review (DLRR)",
+          "$233",
+          "$17,015",
+          "Monthly minimum fee of $200\n10,000 transactions x $0.0033 = $33"
+        ],
+        [
+          "Card Suite Pro (digital debit card controls)",
+          "$425",
+          "$4,000",
+          "Based on the volume of active users:\n189 at $1.24 = $234, monthly minimum of $375\nCall Center Assistance:  $1.50 / minute, monthly minimum of $50.00\nOver 5,000, $1.20 per active user"
+        ],
+        [
+          "Payments One Debit Card Fraud Case Investigation Sheets",
+          "$500",
+          "N/A",
+          "Estimating 5 cases per month at $25.00 per case\nMonthly minimum fee of $500"
+        ],
+        [
+          "Payments One Full-Service Debit Card Fraud Disputes",
+          "$175",
+          "$1,500",
+          "Estimating 5 disputes per month at $35.00 / dispute\n5 x $35.00 = $175"
+        ],
+        [
+          "Tokenization (ApplePay, Additional Pays)",
+          "$337",
+          "$13,600",
+          "Token Provisioning:  16 at $0.05 = $1.00\nStep Up Authentication:  $100.00 / month\nCall Center Support:  $65.00 / month\nCall Center Support per Minute:  45 Minutes at $1.50 = $67.50\nAutomated Customer Notification:  $100.00\nEmail Notices:  50 at $0.015 = $1.00\nSMS Notices: 50 at $0.05 = $3.00"
+        ],
+        [
+          "NYCE Preferred Debit Card Network",
+          "$152",
+          "$1,500",
+          "1,500 transactions  x $0.035 = $52\n$100 monthly participation fee"
+        ],
+        [
+          "Third-Party Solutions",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Network Services (connectivity to data center)",
+          "$2,088",
+          "$7,905",
+          "Standard backbone connection to FIS Data Center"
+        ],
+        [
+          "SmartSign (eSignature)",
+          "$478",
+          "$15,000",
+          "Based on current asset size:\nUp to $99M = $478\n$100M - $199M = $717\n$200M - $399M = $1,127"
+        ],
+        [
+          "TruStage (new deposit account documents)",
+          "$1,158",
+          "$7,650",
+          "Based on current asset size:\nAnnual Fee divided by 12 months:\n$13,895 / 12 months = $1,158"
+        ],
+        [
+          "IBM Cognos (HORIZON 360)",
+          "$1,172",
+          "$36,698",
+          "Web Administrator = $563 / month\nEnterprise license based on current asset size:\nUp to $250M = $609 / month\n$251M - $499M = $835 / month\n$500M - $999M = $1,620"
+        ],
+        [
+          "Pass-Through Fees",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Postage (statements and notices)",
+          "TBD",
+          "N/A",
+          "Pass-Through Fees"
+        ],
+        [
+          "Visa / Mastercard Pass-Through Fees",
+          "TBD",
+          "N/A",
+          "Pass-Through Fees"
+        ],
+        [
+          "Total",
+          "$7,765",
+          "$106,118",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 6,
+      "rows": 13,
+      "columns": 4,
+      "data": [
+        [
+          "Solution",
+          "Estimated Monthly Fee",
+          "One-Time Fee",
+          "Estimated Monthly Fee Calculation"
+        ],
+        [
+          "FIS Solutions",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Subpoena Centre",
+          "$382",
+          "$3,399",
+          "Flat monthly fee of $382 / month"
+        ],
+        [
+          "Start Card (Temporary Debit Card)",
+          "$150",
+          "$2,000",
+          "100 card minimum order at $1.50 per card"
+        ],
+        [
+          "FedNOW (Receive Only)",
+          "$1,500",
+          "$9,000",
+          "Includes 10,000 receive transactions\nOver 10,000, $0.02 per transaction"
+        ],
+        [
+          "Real-Time Payments (RTP) (Receive Only)",
+          "$1,500",
+          "$9,000",
+          "Includes 10,000 receive transactions\nOver 10,000, $0.02 per transaction"
+        ],
+        [
+          "Third-Party Solutions",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Zelle (Consumer and Small Business)",
+          "$1,325",
+          "$37,500",
+          "Monthly Participation Fee (Consumer):  $1,000 / month\nMonthly Participation Fee (Small Business):  $250 / Month\nTransaction Volume:  116 x $0.65 = $75 / month"
+        ],
+        [
+          "WebConnect and DirectConnect",
+          "$859",
+          "$6,099",
+          "Monthly Minimum Fee:  $859"
+        ],
+        [
+          "Credit Insights",
+          "$1,000",
+          "$5,000",
+          "Monthly Minimum Fee:  $1,000"
+        ],
+        [
+          "Collaboration Hub",
+          "$3,300",
+          "$16,134",
+          "Flat monthly fee for up to 10 users"
+        ],
+        [
+          "AvidAscend (Accounts Payable, Fixed Assets, and Prepaids)",
+          "$1,127",
+          "$5,044",
+          "Accounts Payable, $492 / month\nFixed Assets, $311 / month\nPrepaids, $109 / month\nApproval Workflow, $154 / month\nInvoices, $61 / month"
+        ],
+        [
+          "Total",
+          "$11,143",
+          "$93,176",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 7,
+      "rows": 8,
+      "columns": 4,
+      "data": [
+        [
+          "One-Time Credit",
+          "5-Year Term",
+          "7-Year Term",
+          "10-Year Term"
+        ],
+        [
+          "Signing Bonus",
+          "$ -",
+          "$ -",
+          "($75,000)"
+        ],
+        [
+          "First-Year Free FIS Processing",
+          "$ -",
+          "$ -",
+          "($180,000)"
+        ],
+        [
+          "FIS Conversion / Implementation Fees",
+          "($844,093)",
+          "($844,093)",
+          "($844,093)"
+        ],
+        [
+          "Third-Party Conversion / Implementation Fees",
+          "$ -",
+          "$ -",
+          "($137,070)"
+        ],
+        [
+          "Special Credit to Hire Industry Consultant",
+          "$ -",
+          "$ -",
+          "($50,000)"
+        ],
+        [
+          "Conversion-Related Professional Service Fees",
+          "($220,000)",
+          "($220,000)",
+          "($290,000)"
+        ],
+        [
+          "Total",
+          "($1,064,093)",
+          "($1,064,093)",
+          "($1,551,163)"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 8,
+      "rows": 5,
+      "columns": 4,
+      "data": [
+        [
+          "One-Time Credit",
+          "5-Year Term",
+          "7-Year Term",
+          "10-Year Term"
+        ],
+        [
+          "FIS Conversion / Implementation Fees",
+          "$844,093",
+          "$844,093",
+          "$844,093"
+        ],
+        [
+          "Third-Party Conversion / Implementation Fees",
+          "$137,070",
+          "$137,070",
+          "$137,070"
+        ],
+        [
+          "Conversion-Related Professional Service Fees",
+          "$220,000",
+          "$220,000",
+          "$290,000"
+        ],
+        [
+          "Total",
+          "$1,201,163",
+          "$1,201,163",
+          "$1,271,163"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 9,
+      "rows": 1,
+      "columns": 1,
+      "data": [
+        [
+          ""
+        ]
+      ]
+    }
+  ]
+}

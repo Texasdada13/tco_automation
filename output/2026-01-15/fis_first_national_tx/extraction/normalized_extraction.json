@@ -1,0 +1,1545 @@
+{
+  "metadata": {
+    "normalization_version": "1.0",
+    "generated_at": "2026-01-15T12:58:17.860530",
+    "taxonomy_schema": {
+      "version": "1.0",
+      "description": "Universal Cost Breakdown Structure for Vendor Comparison",
+      "buckets": [
+        {
+          "id": "SETUP_IMPLEMENTATION",
+          "display_name": "Setup/Implementation",
+          "categories": [
+            {
+              "name": "Project Management",
+              "description": "Project oversight, coordination, and management",
+              "keywords": [
+                "project management",
+                "pm",
+                "project coordination",
+                "program management"
+              ]
+            },
+            {
+              "name": "Data Migration",
+              "description": "Historical data transfer and conversion",
+              "keywords": [
+                "data migration",
+                "data conversion",
+                "data transfer",
+                "migration",
+                "conversion"
+              ]
+            },
+            {
+              "name": "System Configuration",
+              "description": "Initial system setup and configuration",
+              "keywords": [
+                "configuration",
+                "setup",
+                "deployment",
+                "installation",
+                "activation"
+              ]
+            },
+            {
+              "name": "Implementation Services",
+              "description": "Core implementation and onboarding",
+              "keywords": [
+                "implementation",
+                "onboarding",
+                "go-live",
+                "launch"
+              ]
+            },
+            {
+              "name": "Implementation Credits",
+              "description": "Credits or discounts on implementation",
+              "keywords": [
+                "credit",
+                "discount",
+                "signing bonus",
+                "incentive",
+                "waiver"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "LICENSING_SUBSCRIPTION",
+          "display_name": "Licensing/Subscription",
+          "categories": [
+            {
+              "name": "Core Platform",
+              "description": "Base platform or core system licensing",
+              "keywords": [
+                "core",
+                "platform",
+                "base",
+                "horizon",
+                "nupoint",
+                "silverlake",
+                "fusion"
+              ]
+            },
+            {
+              "name": "Module Licensing",
+              "description": "Add-on module or feature licensing",
+              "keywords": [
+                "module",
+                "add-on",
+                "feature",
+                "component"
+              ]
+            },
+            {
+              "name": "User/Seat Licensing",
+              "description": "Per-user or per-seat license fees",
+              "keywords": [
+                "per user",
+                "per seat",
+                "user license",
+                "seat",
+                "named user"
+              ]
+            },
+            {
+              "name": "Subscription Fees",
+              "description": "Recurring subscription or platform fees",
+              "keywords": [
+                "subscription",
+                "mrc",
+                "monthly recurring",
+                "platform fee"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TRANSACTION_USAGE",
+          "display_name": "Transaction/Usage",
+          "categories": [
+            {
+              "name": "Per-Transaction Fees",
+              "description": "Fees charged per transaction processed",
+              "keywords": [
+                "per transaction",
+                "per item",
+                "transaction fee",
+                "per call"
+              ]
+            },
+            {
+              "name": "Volume-Based Fees",
+              "description": "Fees based on processing volume",
+              "keywords": [
+                "volume",
+                "usage",
+                "consumption",
+                "throughput"
+              ]
+            },
+            {
+              "name": "API/Integration Calls",
+              "description": "Fees for API calls or integration usage",
+              "keywords": [
+                "api",
+                "api call",
+                "integration",
+                "web service"
+              ]
+            },
+            {
+              "name": "Overage Fees",
+              "description": "Fees for exceeding volume tiers",
+              "keywords": [
+                "overage",
+                "excess",
+                "additional",
+                "tier"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TRAINING_ENABLEMENT",
+          "display_name": "Training/Enablement",
+          "categories": [
+            {
+              "name": "Initial Training",
+              "description": "Upfront training during implementation",
+              "keywords": [
+                "initial training",
+                "implementation training",
+                "go-live training"
+              ]
+            },
+            {
+              "name": "User Training",
+              "description": "End-user training programs",
+              "keywords": [
+                "user training",
+                "end user",
+                "staff training",
+                "employee training"
+              ]
+            },
+            {
+              "name": "Administrator Training",
+              "description": "System administrator training",
+              "keywords": [
+                "admin training",
+                "administrator",
+                "system admin",
+                "technical training"
+              ]
+            },
+            {
+              "name": "Certification Programs",
+              "description": "Professional certification and credentials",
+              "keywords": [
+                "certification",
+                "certified",
+                "credential",
+                "accreditation"
+              ]
+            },
+            {
+              "name": "Training Materials",
+              "description": "Documentation and training resources",
+              "keywords": [
+                "materials",
+                "documentation",
+                "manuals",
+                "guides",
+                "resources"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUPPORT_MAINTENANCE",
+          "display_name": "Support/Maintenance",
+          "categories": [
+            {
+              "name": "Standard Support",
+              "description": "Basic technical support included",
+              "keywords": [
+                "standard support",
+                "basic support",
+                "help desk",
+                "technical support"
+              ]
+            },
+            {
+              "name": "Premium Support",
+              "description": "Enhanced support with better SLA",
+              "keywords": [
+                "premium support",
+                "priority support",
+                "24/7",
+                "dedicated support"
+              ]
+            },
+            {
+              "name": "Annual Maintenance",
+              "description": "Annual maintenance fees (AMF)",
+              "keywords": [
+                "annual maintenance",
+                "amf",
+                "maintenance fee",
+                "yearly maintenance"
+              ]
+            },
+            {
+              "name": "Software Updates",
+              "description": "Software updates and patches",
+              "keywords": [
+                "updates",
+                "patches",
+                "upgrades",
+                "releases",
+                "versions"
+              ]
+            },
+            {
+              "name": "SLA Fees",
+              "description": "Service level agreement fees",
+              "keywords": [
+                "sla",
+                "service level",
+                "uptime",
+                "availability"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "PROFESSIONAL_SERVICES",
+          "display_name": "Professional Services",
+          "categories": [
+            {
+              "name": "Consulting Services",
+              "description": "Advisory and consulting work",
+              "keywords": [
+                "consulting",
+                "advisory",
+                "consultant",
+                "expert services"
+              ]
+            },
+            {
+              "name": "Custom Development",
+              "description": "Custom software development",
+              "keywords": [
+                "custom development",
+                "customization",
+                "custom code",
+                "bespoke"
+              ]
+            },
+            {
+              "name": "Integration Services",
+              "description": "Third-party system integration",
+              "keywords": [
+                "integration",
+                "interface",
+                "connector",
+                "middleware"
+              ]
+            },
+            {
+              "name": "Report Development",
+              "description": "Custom report and analytics development",
+              "keywords": [
+                "reports",
+                "reporting",
+                "analytics",
+                "dashboards",
+                "bi"
+              ]
+            },
+            {
+              "name": "PS Hours",
+              "description": "Professional services hourly work",
+              "keywords": [
+                "ps hours",
+                "professional services",
+                "hourly",
+                "time and materials"
+              ]
+            }
+          ]
+        }
+      ],
+      "terminology_mappings": {
+        "implementation": "Setup/Implementation",
+        "onboarding": "Setup/Implementation",
+        "deployment": "Setup/Implementation",
+        "activation": "Setup/Implementation",
+        "conversion": "Setup/Implementation",
+        "configuration": "Setup/Implementation",
+        "setup": "Setup/Implementation",
+        "install": "Setup/Implementation",
+        "installation": "Setup/Implementation",
+        "go-live": "Setup/Implementation",
+        "migration": "Setup/Implementation",
+        "deconversion": "Setup/Implementation",
+        "project management": "Setup/Implementation",
+        "license": "Licensing/Subscription",
+        "licensing": "Licensing/Subscription",
+        "subscription": "Licensing/Subscription",
+        "platform fee": "Licensing/Subscription",
+        "base fee": "Licensing/Subscription",
+        "seat fee": "Licensing/Subscription",
+        "per-user": "Licensing/Subscription",
+        "per user": "Licensing/Subscription",
+        "mrc": "Licensing/Subscription",
+        "monthly recurring": "Licensing/Subscription",
+        "core": "Licensing/Subscription",
+        "platform": "Licensing/Subscription",
+        "per-transaction": "Transaction/Usage",
+        "per transaction": "Transaction/Usage",
+        "per-item": "Transaction/Usage",
+        "per item": "Transaction/Usage",
+        "per-call": "Transaction/Usage",
+        "per call": "Transaction/Usage",
+        "per-api": "Transaction/Usage",
+        "usage-based": "Transaction/Usage",
+        "usage based": "Transaction/Usage",
+        "consumption": "Transaction/Usage",
+        "volume": "Transaction/Usage",
+        "variable": "Transaction/Usage",
+        "training": "Training/Enablement",
+        "certification": "Training/Enablement",
+        "workshop": "Training/Enablement",
+        "education": "Training/Enablement",
+        "learning": "Training/Enablement",
+        "enablement": "Training/Enablement",
+        "support": "Support/Maintenance",
+        "maintenance": "Support/Maintenance",
+        "sla": "Support/Maintenance",
+        "help desk": "Support/Maintenance",
+        "helpdesk": "Support/Maintenance",
+        "premium support": "Support/Maintenance",
+        "amf": "Support/Maintenance",
+        "annual maintenance": "Support/Maintenance",
+        "consulting": "Professional Services",
+        "customization": "Professional Services",
+        "custom development": "Professional Services",
+        "custom dev": "Professional Services",
+        "ps hours": "Professional Services",
+        "professional services": "Professional Services",
+        "integration services": "Professional Services"
+      },
+      "time_normalizations": {
+        "monthly": {
+          "multiplier": 12.0,
+          "description": "Monthly x 12 = Annual"
+        },
+        "monthly f": {
+          "multiplier": 12.0,
+          "description": "Fixed Monthly x 12 = Annual"
+        },
+        "monthly v": {
+          "multiplier": 12.0,
+          "description": "Variable Monthly x 12 = Annual"
+        },
+        "quarterly": {
+          "multiplier": 4.0,
+          "description": "Quarterly x 4 = Annual"
+        },
+        "semi-annual": {
+          "multiplier": 2.0,
+          "description": "Semi-Annual x 2 = Annual"
+        },
+        "annual": {
+          "multiplier": 1.0,
+          "description": "Annual = Annual"
+        },
+        "one-time": {
+          "multiplier": 1.0,
+          "description": "One-Time (Year 1 only)"
+        },
+        "per-seat": {
+          "multiplier": 1.0,
+          "description": "Per-Seat x User Count = Annual"
+        }
+      },
+      "normalization_metrics": [
+        {
+          "name": "Cost per Account",
+          "formula": "Total TCO / Number of Accounts",
+          "use_case": "Retail banking comparison"
+        },
+        {
+          "name": "Cost per User",
+          "formula": "Total TCO / Number of Users",
+          "use_case": "User-licensed software comparison"
+        },
+        {
+          "name": "Cost per Transaction",
+          "formula": "Total TCO / Annual Transaction Volume",
+          "use_case": "High-volume processing comparison"
+        },
+        {
+          "name": "Cost per Month",
+          "formula": "Total TCO / Contract Months",
+          "use_case": "Cash flow analysis"
+        },
+        {
+          "name": "Cost per Asset",
+          "formula": "Total TCO / Total Assets (in millions)",
+          "use_case": "Institution size comparison"
+        }
+      ]
+    }
+  },
+  "proposal": {
+    "proposal_id": "FIS_First National TX_20260115_125817",
+    "vendor": "FIS",
+    "client": "First National TX",
+    "proposal_date": "2025",
+    "extraction_date": "2026-01-15T12:58:17.860530",
+    "contract_term_years": 7,
+    "annual_cpi_rate": 0.03,
+    "line_items": [
+      {
+        "item_id": "FIS_0000",
+        "solution_name": "HORIZON Core Banking",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "HORIZON Core Banking",
+        "annual_cost": 247728.0,
+        "year_1_cost": 247728.0,
+        "total_7_year_cost": 1898206.431132407,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 20644.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 0,
+          "source_page": null,
+          "original_text": "HORIZON Core Banking",
+          "extraction_timestamp": "2026-01-15T12:58:17.854861",
+          "confidence_score": 0.95,
+          "extraction_notes": "Core banking platform pricing increase from $13,050 to $20,644"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Core",
+          "original_solution_name": "HORIZON Core Banking",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Terminology match: 'core' -> Licensing/Subscription",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.854861",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0001",
+        "solution_name": "D1 Flex, D1 Business, Mobile, Bill Pay",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Professional Services",
+        "level_2_category": "Report Development",
+        "level_3_detail": "D1 Flex, D1 Business, Mobile, Bill Pay",
+        "annual_cost": 454440.0,
+        "year_1_cost": 454440.0,
+        "total_7_year_cost": 3482129.313455931,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 37870.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 1,
+          "source_page": null,
+          "original_text": "D1 Flex, D1 Business, Mobile, Bill Pay",
+          "extraction_timestamp": "2026-01-15T12:58:17.854861",
+          "confidence_score": 0.95,
+          "extraction_notes": "Digital banking suite pricing increase from $14,633 to $37,870"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Digital",
+          "original_solution_name": "D1 Flex, D1 Business, Mobile, Bill Pay",
+          "normalized_bucket": "Professional Services",
+          "normalized_category": "Report Development",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.854861",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0002",
+        "solution_name": "Website Services",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Website Services",
+        "annual_cost": 6864.0,
+        "year_1_cost": 6864.0,
+        "total_7_year_cost": 52595.14040921025,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 572.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 2,
+          "source_page": null,
+          "original_text": "Website Services",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Website services pricing increase from $537 to $572"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Digital",
+          "original_solution_name": "Website Services",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0003",
+        "solution_name": "Zelle",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Zelle",
+        "annual_cost": 7260.0,
+        "year_1_cost": 7260.0,
+        "total_7_year_cost": 55629.47543281854,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 605.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 3,
+          "source_page": null,
+          "original_text": "Zelle",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Zelle pricing decrease from $706 to $605"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Digital",
+          "original_solution_name": "Zelle",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0004",
+        "solution_name": "EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
+        "annual_cost": 92076.0,
+        "year_1_cost": 92076.0,
+        "total_7_year_cost": 705528.867762011,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 7673.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 4,
+          "source_page": null,
+          "original_text": "EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "EFT services pricing increase from $1,737 to $7,673"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "EFT",
+          "original_solution_name": "EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0005",
+        "solution_name": "Decision Solutions",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Decision Solutions",
+        "annual_cost": 9708.0,
+        "year_1_cost": 9708.0,
+        "total_7_year_cost": 74387.18285148795,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 809.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 5,
+          "source_page": null,
+          "original_text": "Decision Solutions",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Risk and fraud solutions pricing decrease from $895 to $809"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Risk, Fraud & Compliance",
+          "original_solution_name": "Decision Solutions",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0006",
+        "solution_name": "eWire (Business)",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "eWire (Business)",
+        "annual_cost": 34356.0,
+        "year_1_cost": 34356.0,
+        "total_7_year_cost": 263251.5506845611,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 2863.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 6,
+          "source_page": null,
+          "original_text": "eWire (Business)",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Business wire services pricing increase from $2,690 to $2,863"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Treasury",
+          "original_solution_name": "eWire (Business)",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0007",
+        "solution_name": "RTP (Receive)",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "RTP (Receive)",
+        "annual_cost": 12324.0,
+        "year_1_cost": 12324.0,
+        "total_7_year_cost": 94432.18391653661,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1027.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 7,
+          "source_page": null,
+          "original_text": "RTP (Receive)",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Real-time payments receive pricing increase from $801 to $1,027"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Image Solutions",
+          "original_solution_name": "RTP (Receive)",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0008",
+        "solution_name": "FCM, IP, Branch Capture, CCX, FXD, DLRR",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "FCM, IP, Branch Capture, CCX, FXD, DLRR",
+        "annual_cost": 243216.0,
+        "year_1_cost": 243216.0,
+        "total_7_year_cost": 1863633.401772506,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 20268.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 8,
+          "source_page": null,
+          "original_text": "FCM, IP, Branch Capture, CCX, FXD, DLRR",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Item processing suite pricing increase from $9,851 to $20,268"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Item Processing",
+          "original_solution_name": "FCM, IP, Branch Capture, CCX, FXD, DLRR",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0009",
+        "solution_name": "eDelivery, Print/Render, Forms & Envelopes",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "eDelivery, Print/Render, Forms & Envelopes",
+        "annual_cost": 32544.0,
+        "year_1_cost": 32544.0,
+        "total_7_year_cost": 249367.16921289905,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 2712.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 9,
+          "source_page": null,
+          "original_text": "eDelivery, Print/Render, Forms & Envelopes",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "FOS services pricing increase from $1,152 to $2,712"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Other",
+          "original_solution_name": "eDelivery, Print/Render, Forms & Envelopes",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0010",
+        "solution_name": "FLO",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "FLO",
+        "annual_cost": 12228.0,
+        "year_1_cost": 12228.0,
+        "total_7_year_cost": 93696.58754717701,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1019.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 10,
+          "source_page": null,
+          "original_text": "FLO",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "FLO lending platform pricing decrease from $1,104 to $1,019"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Lending",
+          "original_solution_name": "FLO",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0011",
+        "solution_name": "CRA Wiz/Fair Lending",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "CRA Wiz/Fair Lending",
+        "annual_cost": 16428.0,
+        "year_1_cost": 16428.0,
+        "total_7_year_cost": 125878.92870665883,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1369.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 11,
+          "source_page": null,
+          "original_text": "CRA Wiz/Fair Lending",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "CRA and fair lending tools pricing increase from $1,090 to $1,369"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Lending",
+          "original_solution_name": "CRA Wiz/Fair Lending",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0012",
+        "solution_name": "Regulatory Compliance",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Regulatory Compliance",
+        "annual_cost": 74220.0,
+        "year_1_cost": 74220.0,
+        "total_7_year_cost": 568707.9430611285,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 6185.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 12,
+          "source_page": null,
+          "original_text": "Regulatory Compliance",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Regulatory compliance services pricing increase from $5,839 to $6,185"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Risk, Fraud & Compliance",
+          "original_solution_name": "Regulatory Compliance",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0013",
+        "solution_name": "IRS Reporting",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Professional Services",
+        "level_2_category": "Report Development",
+        "level_3_detail": "IRS Reporting",
+        "annual_cost": 28020.0,
+        "year_1_cost": 28020.0,
+        "total_7_year_cost": 214702.1903068286,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 2335.0,
+        "original_one_time_fee": 0.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 13,
+          "source_page": null,
+          "original_text": "IRS Reporting",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "IRS reporting services pricing decrease from $2,469 to $2,335"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Risk, Fraud & Compliance",
+          "original_solution_name": "IRS Reporting",
+          "normalized_bucket": "Professional Services",
+          "normalized_category": "Report Development",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0014",
+        "solution_name": "DirectLink Merchant (via RegO)",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "DirectLink Merchant (via RegO)",
+        "annual_cost": 43271.76,
+        "year_1_cost": 43271.76,
+        "total_7_year_cost": 331568.22449790913,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 3605.98,
+        "original_one_time_fee": 27563.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": true,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 14,
+          "source_page": null,
+          "original_text": "DirectLink Merchant (via RegO)",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Recommended merchant processing solution via third-party RegO"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Item Processing",
+          "original_solution_name": "DirectLink Merchant (via RegO)",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0015",
+        "solution_name": "DirectLink Consumer (via FIS)",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "DirectLink Consumer (via FIS)",
+        "annual_cost": 15995.76,
+        "year_1_cost": 15995.76,
+        "total_7_year_cost": 122566.90605361729,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1332.98,
+        "original_one_time_fee": 30884.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": true,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 15,
+          "source_page": null,
+          "original_text": "DirectLink Consumer (via FIS)",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Optional consumer processing solution"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Item Processing",
+          "original_solution_name": "DirectLink Consumer (via FIS)",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0016",
+        "solution_name": "HORIZON Conditional Processing",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "HORIZON Conditional Processing",
+        "annual_cost": 15086.04,
+        "year_1_cost": 15086.04,
+        "total_7_year_cost": 115596.21095847356,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1257.17,
+        "original_one_time_fee": 16883.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 16,
+          "source_page": null,
+          "original_text": "HORIZON Conditional Processing",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Recommended conditional processing module for HORIZON"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Core",
+          "original_solution_name": "HORIZON Conditional Processing",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0017",
+        "solution_name": "eWire (Consumer)",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "eWire (Consumer)",
+        "annual_cost": 61.800000000000004,
+        "year_1_cost": 61.800000000000004,
+        "total_7_year_cost": 473.5401627752322,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 5.15,
+        "original_one_time_fee": 1010.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 17,
+          "source_page": null,
+          "original_text": "eWire (Consumer)",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Recommended consumer wire services"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Treasury",
+          "original_solution_name": "eWire (Consumer)",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0018",
+        "solution_name": "Extended Account Analysis",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Extended Account Analysis",
+        "annual_cost": 13060.800000000001,
+        "year_1_cost": 13060.800000000001,
+        "total_7_year_cost": 100077.8860513714,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 1088.4,
+        "original_one_time_fee": 65768.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 18,
+          "source_page": null,
+          "original_text": "Extended Account Analysis",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Recommended extended account analysis functionality"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Treasury",
+          "original_solution_name": "Extended Account Analysis",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0019",
+        "solution_name": "RTP Send for Business",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Professional Services",
+        "level_2_category": "Report Development",
+        "level_3_detail": "RTP Send for Business",
+        "annual_cost": 1906.08,
+        "year_1_cost": 1906.08,
+        "total_7_year_cost": 14605.265913634543,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 158.84,
+        "original_one_time_fee": 8735.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 19,
+          "source_page": null,
+          "original_text": "RTP Send for Business",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Recommended real-time payments send capability for business"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Image Solutions",
+          "original_solution_name": "RTP Send for Business",
+          "normalized_bucket": "Professional Services",
+          "normalized_category": "Report Development",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0020",
+        "solution_name": "FedNOW (both Send/Receive)",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Professional Services",
+        "level_2_category": "Report Development",
+        "level_3_detail": "FedNOW (both Send/Receive)",
+        "annual_cost": 43584.12,
+        "year_1_cost": 43584.12,
+        "total_7_year_cost": 333961.6711847129,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 3632.01,
+        "original_one_time_fee": 12552.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": true,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 20,
+          "source_page": null,
+          "original_text": "FedNOW (both Send/Receive)",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Optional FedNOW instant payments capability"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Image Solutions",
+          "original_solution_name": "FedNOW (both Send/Receive)",
+          "normalized_bucket": "Professional Services",
+          "normalized_category": "Report Development",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      },
+      {
+        "item_id": "FIS_0021",
+        "solution_name": "Chargeback Manager",
+        "vendor": "FIS",
+        "client": "First National TX",
+        "level_1_bucket": "Licensing/Subscription",
+        "level_2_category": "Core Platform",
+        "level_3_detail": "Chargeback Manager",
+        "annual_cost": 3408.0,
+        "year_1_cost": 3408.0,
+        "total_7_year_cost": 26113.671112265238,
+        "original_fee_type": "Monthly F",
+        "original_monthly_fee": 284.0,
+        "original_one_time_fee": 6967.0,
+        "original_per_unit_rate": 0.0,
+        "is_recurring": true,
+        "is_variable": false,
+        "is_third_party": false,
+        "is_optional": false,
+        "traceability": {
+          "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+          "extraction_method": "ai_enhanced",
+          "source_table_index": null,
+          "source_row_index": 21,
+          "source_page": null,
+          "original_text": "Chargeback Manager",
+          "extraction_timestamp": "2026-01-15T12:58:17.858402",
+          "confidence_score": 0.95,
+          "extraction_notes": "Recommended chargeback management solution"
+        },
+        "audit": {
+          "original_fee_type": "Monthly F",
+          "original_category": "Image Solutions",
+          "original_solution_name": "Chargeback Manager",
+          "normalized_bucket": "Licensing/Subscription",
+          "normalized_category": "Core Platform",
+          "normalization_rule_applied": "Default classification based on fee_type: Monthly F",
+          "time_normalization_applied": "Monthly x 12 = Annual",
+          "normalization_timestamp": "2026-01-15T12:58:17.858402",
+          "manual_override": false,
+          "override_justification": null,
+          "reviewer": null
+        },
+        "confidence_score": 0.95
+      }
+    ],
+    "bucket_totals": {
+      "Setup/Implementation": {
+        "annual_cost": 0,
+        "total_7_year": 0,
+        "required_annual": 0,
+        "required_7_year": 0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 0,
+        "required_count": 0,
+        "optional_count": 0
+      },
+      "Licensing/Subscription": {
+        "annual_cost": 879836.1600000001,
+        "total_7_year": 6741711.301325815,
+        "required_annual": 863840.4000000001,
+        "required_7_year": 6619144.395272197,
+        "optional_annual": 15995.76,
+        "optional_7_year": 122566.90605361729,
+        "item_count": 18,
+        "required_count": 17,
+        "optional_count": 1
+      },
+      "Transaction/Usage": {
+        "annual_cost": 0,
+        "total_7_year": 0,
+        "required_annual": 0,
+        "required_7_year": 0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 0,
+        "required_count": 0,
+        "optional_count": 0
+      },
+      "Training/Enablement": {
+        "annual_cost": 0,
+        "total_7_year": 0,
+        "required_annual": 0,
+        "required_7_year": 0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 0,
+        "required_count": 0,
+        "optional_count": 0
+      },
+      "Support/Maintenance": {
+        "annual_cost": 0,
+        "total_7_year": 0,
+        "required_annual": 0,
+        "required_7_year": 0,
+        "optional_annual": 0,
+        "optional_7_year": 0,
+        "item_count": 0,
+        "required_count": 0,
+        "optional_count": 0
+      },
+      "Professional Services": {
+        "annual_cost": 527950.2000000001,
+        "total_7_year": 4045398.440861107,
+        "required_annual": 484366.08,
+        "required_7_year": 3711436.769676394,
+        "optional_annual": 43584.12,
+        "optional_7_year": 333961.6711847129,
+        "item_count": 4,
+        "required_count": 3,
+        "optional_count": 1
+      }
+    },
+    "normalized_metrics": {
+      "Cost per Account": 215.74219484373845,
+      "Cost per User": 21574.219484373843,
+      "Cost per Transaction": 10.787109742186923,
+      "Cost per Month": 128417.9731212729,
+      "Cost per Asset": 21574.219484373843
+    },
+    "institution_params": {
+      "total_accounts": 50000,
+      "total_users": 500,
+      "annual_transactions": 1000000,
+      "total_assets_millions": 500,
+      "contract_months": 84
+    },
+    "average_confidence": 0.9499999999999996,
+    "normalization_version": "1.0",
+    "normalization_timestamp": "2026-01-15T12:58:17.860530"
+  },
+  "comparison_ready": true
+}

@@ -1,0 +1,71 @@
+{
+  "extraction_id": "20260115_142049_FIS_Echelon_Bank_Fresh",
+  "source_file": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\Proposal\\proposal1.docx",
+  "vendor": "FIS",
+  "client": "Echelon Bank Fresh",
+  "timestamp": "2026-01-15T14:21:24.349818",
+  "pipeline_version": "2.1",
+  "stages": {
+    "raw_extraction": {
+      "tables_found": 9,
+      "pages": 1
+    },
+    "ai_enhancement": {
+      "model": "claude-sonnet-4-20250514",
+      "items_extracted": 22
+    },
+    "qa_validation": {
+      "average_confidence": 0.9022727272727272,
+      "items_auto_approved": 15,
+      "items_need_review": 7,
+      "validation_errors": 1,
+      "warnings": 0
+    },
+    "cost_normalization": {
+      "taxonomy_version": "1.0",
+      "buckets_used": 4,
+      "total_items_normalized": 22,
+      "bucket_summary": {
+        "Setup/Implementation": {
+          "item_count": 1,
+          "total_7_year": 91949.54616994802
+        },
+        "Licensing/Subscription": {
+          "item_count": 10,
+          "total_7_year": 2381585.1953478227
+        },
+        "Transaction/Usage": {
+          "item_count": 7,
+          "total_7_year": 449541.33122487576
+        },
+        "Training/Enablement": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Support/Maintenance": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Professional Services": {
+          "item_count": 4,
+          "total_7_year": 194749.13878794987
+        }
+      },
+      "normalized_metrics": {
+        "Cost per Account": 62.35650423061193,
+        "Cost per User": 6235.650423061193,
+        "Cost per Transaction": 3.1178252115305964,
+        "Cost per Month": 37116.96680393567,
+        "Cost per Asset": 6235.650423061193
+      }
+    }
+  },
+  "outputs": {
+    "raw_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh\\extraction\\raw_extraction.json",
+    "ai_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh\\extraction\\ai_extraction.json",
+    "normalized_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh\\extraction\\normalized_extraction.json",
+    "tco_excel_workbook": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh\\output\\TCO_FIS_Echelon_Bank_Fresh.xlsx",
+    "qa_report_json": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh\\validation\\qa_report.json",
+    "qa_report_docx": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh\\validation\\qa_report.docx"
+  }
+}

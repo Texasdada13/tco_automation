@@ -16,7 +16,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "New pricing for combined organization"
+      "extraction_notes": "Current pricing $11,266, new pricing $16,792"
     },
     {
       "solution_name": "Digital: D1 Flex, D1 Business, Mobile, Bill Pay",
@@ -29,7 +29,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "New pricing for combined organization"
+      "extraction_notes": "Current pricing $15,184, new pricing $35,253"
     },
     {
       "solution_name": "Digital: Website Services",
@@ -42,7 +42,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "Digital: Zelle",
@@ -55,7 +55,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "EFT: EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
@@ -68,7 +68,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "New pricing for combined organization"
+      "extraction_notes": "Current pricing $1,736, new pricing $6,675"
     },
     {
       "solution_name": "Risk, Fraud & Compliance: Decision Solutions",
@@ -81,7 +81,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "Treasury: eWire (Business)",
@@ -94,12 +94,12 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "Image Solutions: RTP (Receive)",
       "fee_type": "Monthly F",
-      "category": "Payment Processing",
+      "category": "Image Processing",
       "monthly_fee": 855.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.0,
@@ -107,7 +107,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "Item Processing: FCM, IP, Branch Capture, CCX, FXD, DLRR",
@@ -120,12 +120,12 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "New pricing for combined organization"
+      "extraction_notes": "Current pricing $11,155, new pricing $19,353"
     },
     {
       "solution_name": "FOS: eDelivery, Print/Render, Forms & Envelopes",
       "fee_type": "Monthly F",
-      "category": "Forms and Output",
+      "category": "Forms and Output Services",
       "monthly_fee": 2168.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.0,
@@ -133,7 +133,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "New pricing for combined organization"
+      "extraction_notes": "Current pricing $515, new pricing $2,168"
     },
     {
       "solution_name": "Lending: FLO",
@@ -146,7 +146,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "ACH: Milwaukee ACH",
@@ -159,7 +159,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "Accounts Payable: Avid Ascend",
@@ -172,7 +172,7 @@
       "optional": false,
       "third_party": true,
       "overall_confidence": 0.95,
-      "extraction_notes": "Third-party solution, pricing unchanged"
+      "extraction_notes": "Third-party solution, no pricing change"
     },
     {
       "solution_name": "Security Plus: Data Restore",
@@ -185,7 +185,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "SSL Encryption Certificates: GEOTrust, Verisign",
@@ -198,7 +198,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Billed annually, pricing unchanged"
+      "extraction_notes": "Billed annually, no pricing change"
     },
     {
       "solution_name": "Digital: WebConnect/DirectConnect & Quickbooks",
@@ -211,12 +211,12 @@
       "optional": false,
       "third_party": true,
       "overall_confidence": 0.95,
-      "extraction_notes": "Third-party solution, new pricing for combined organization"
+      "extraction_notes": "Third-party solution, current pricing $2,684, new pricing $2,079"
     },
     {
       "solution_name": "Network: Network Connectivity Services",
       "fee_type": "Monthly F",
-      "category": "Network",
+      "category": "Network Services",
       "monthly_fee": 2176.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.0,
@@ -224,7 +224,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "New pricing for combined organization"
+      "extraction_notes": "Current pricing $2,251, new pricing $2,176"
     },
     {
       "solution_name": "EFT: Debit Card Production",
@@ -237,7 +237,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "EFT: NYCE Debit Card Network",
@@ -250,7 +250,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Pricing unchanged"
+      "extraction_notes": "No pricing change"
     },
     {
       "solution_name": "Recently Signed Solutions: Various",
@@ -262,8 +262,8 @@
       "unit_description": null,
       "optional": false,
       "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "Various solutions, new pricing for combined organization"
+      "overall_confidence": 0.9,
+      "extraction_notes": "Current pricing $313, new pricing $646"
     },
     {
       "solution_name": "Monthly Relationship Credit",
@@ -288,8 +288,8 @@
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Optional solution with one-time implementation fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Optional solution with one-time and monthly fees"
     },
     {
       "solution_name": "IP: DirectLink Consumer (via FXD)",
@@ -301,8 +301,8 @@
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Optional solution with one-time implementation fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Optional solution with one-time and monthly fees"
     },
     {
       "solution_name": "HORIZON: Conditional Processing",
@@ -314,8 +314,8 @@
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Optional solution with one-time implementation fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Optional solution with one-time and monthly fees"
     },
     {
       "solution_name": "Treasury: eWire (Consumer)",
@@ -327,7 +327,7 @@
       "unit_description": "per wire",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
+      "overall_confidence": 0.95,
       "extraction_notes": "Optional solution with per-wire pricing"
     },
     {
@@ -340,47 +340,47 @@
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Optional solution with one-time implementation fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Optional solution with one-time and monthly fees"
     },
     {
       "solution_name": "Image Solutions: RTP Send for D1B",
       "fee_type": "Monthly F",
-      "category": "Payment Processing",
+      "category": "Image Processing",
       "monthly_fee": 150.5,
       "one_time_fee": 7630.0,
       "per_unit_rate": 0.0,
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
+      "overall_confidence": 0.95,
       "extraction_notes": "Optional solution, bank already has RTP Receive"
     },
     {
-      "solution_name": "Image Solutions: FedNOW (Send and Receive)",
+      "solution_name": "Image Solutions: FedNOW (Send and Receive) D1B",
       "fee_type": "Monthly F",
-      "category": "Payment Processing",
+      "category": "Image Processing",
       "monthly_fee": 3550.0,
       "one_time_fee": 12500.0,
       "per_unit_rate": 0.0,
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Optional solution for D1B"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Optional solution with one-time and monthly fees"
     },
     {
       "solution_name": "Image Solutions: Chargeback Manager",
       "fee_type": "Monthly F",
-      "category": "Payment Processing",
+      "category": "Image Processing",
       "monthly_fee": 250.0,
       "one_time_fee": 6064.0,
       "per_unit_rate": 0.0,
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Optional solution with one-time implementation fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Optional solution with one-time and monthly fees"
     },
     {
       "solution_name": "Image Solutions: Collaboration Hub",
@@ -392,17 +392,17 @@
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Optional solution with one-time implementation fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Optional solution with one-time and monthly fees"
     }
   ],
   "summary": {
-    "total_monthly_required": 25274.0,
-    "total_monthly_optional": 7170.69,
+    "total_monthly_required": 60274.0,
+    "total_monthly_optional": 11296.83,
     "total_one_time_fees": 182718.0,
     "total_one_time_credits": 0.0,
     "items_extracted": 30,
-    "average_confidence": 0.92
+    "average_confidence": 0.94
   },
   "extraction_metadata": {
     "model": "claude-sonnet-4-20250514",
