@@ -26,20 +26,27 @@ def parse_vendor_name(vendor_name: str) -> tuple:
         'Liberty_Bank_FIS' -> ('Liberty_Bank', 'FIS')
         'Liberty_Bank_CSI' -> ('Liberty_Bank', 'CSI')
         'Echelon_Bank_FIS' -> ('Echelon_Bank', 'FIS')
+        'echelon_bank_fis_1' -> ('echelon_bank', 'FIS')  # handles numbered suffixes
+        'echelon_bank_fis_2' -> ('echelon_bank', 'FIS')  # handles numbered suffixes
 
     Known vendor suffixes: FIS, CSI, JH (Jack Henry), Fiserv, Finastra
     """
+    import re
+
     known_vendors = ['FIS', 'CSI', 'JH', 'Fiserv', 'Finastra', 'Q2', 'Temenos']
+
+    # Strip numeric suffix (e.g., _1, _2, _retry, _v2, _final) from the end
+    cleaned_name = re.sub(r'_(\d+|retry|v\d+|final)$', '', vendor_name, flags=re.IGNORECASE)
 
     # Check if name ends with a known vendor
     for vendor in known_vendors:
-        if vendor_name.upper().endswith(f"_{vendor.upper()}"):
+        if cleaned_name.upper().endswith(f"_{vendor.upper()}"):
             # Extract client name (everything before the vendor suffix)
-            client = vendor_name[:-(len(vendor) + 1)]  # +1 for underscore
+            client = cleaned_name[:-(len(vendor) + 1)]  # +1 for underscore
             return (client, vendor.upper())
 
     # Fallback: assume last part after underscore is vendor
-    parts = vendor_name.rsplit('_', 1)
+    parts = cleaned_name.rsplit('_', 1)
     if len(parts) == 2:
         return (parts[0], parts[1].upper())
 
@@ -274,6 +281,7 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
                                            all_proposals: list) -> str:
     """
     Create a professionally formatted side-by-side multi-vendor comparison sheet.
+    Dynamically supports N vendors (2, 3, 5, 10, or any number).
 
     Args:
         excel_file: Path to the Excel workbook
@@ -302,6 +310,7 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
     RED = "FFC7CE"
     DARK_RED = "9C0006"
     ORANGE = "FCE4D6"
+    YELLOW = "FFEB9C"
 
     # Fills
     TITLE_FILL = PatternFill(start_color=DARK_BLUE, end_color=DARK_BLUE, fill_type="solid")
@@ -310,8 +319,8 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
     ALT_ROW_FILL = PatternFill(start_color=LIGHT_GRAY, end_color=LIGHT_GRAY, fill_type="solid")
     WINNER_FILL = PatternFill(start_color=GREEN, end_color=GREEN, fill_type="solid")
     LOSER_FILL = PatternFill(start_color=RED, end_color=RED, fill_type="solid")
-    RECOMMENDATION_FILL = PatternFill(start_color=GREEN, end_color=GREEN, fill_type="solid")
     SUMMARY_BOX_FILL = PatternFill(start_color=ORANGE, end_color=ORANGE, fill_type="solid")
+    RANK_2_FILL = PatternFill(start_color=YELLOW, end_color=YELLOW, fill_type="solid")
 
     # Fonts
     TITLE_FONT = Font(bold=True, color="FFFFFF", size=18)
@@ -322,6 +331,7 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
     NORMAL_FONT = Font(size=10)
     BOLD_FONT = Font(bold=True, size=10)
     WINNER_FONT = Font(bold=True, color=DARK_GREEN, size=11)
+    LOSER_FONT = Font(bold=True, color=DARK_RED, size=11)
     TOTAL_FONT = Font(bold=True, color="FFFFFF", size=12)
     RECOMMENDATION_FONT = Font(bold=True, color=DARK_GREEN, size=12)
 
@@ -336,12 +346,6 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
         top=Side(style='thin', color='CCCCCC'),
         bottom=Side(style='thin', color='CCCCCC')
     )
-    MEDIUM_BORDER = Border(
-        left=Side(style='medium'),
-        right=Side(style='medium'),
-        top=Side(style='medium'),
-        bottom=Side(style='medium')
-    )
 
     # ==========================================================================
     # SETUP WORKBOOK
@@ -354,31 +358,36 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
 
     ws = wb.create_sheet("Normalized Comparison")
 
-    # Get vendor data
-    vendors = [v[0] for v in all_proposals]
+    # ==========================================================================
+    # CALCULATE VENDOR DATA & RANKINGS
+    # ==========================================================================
 
-    # Pre-calculate totals
+    vendors = [v[0] for v in all_proposals]
+    num_vendors = len(vendors)
+
+    # Pre-calculate totals for each vendor
     totals = {v: 0 for v in vendors}
     for vendor, proposal in all_proposals:
         for bucket in get_bucket_display_order():
             totals[vendor] += proposal.bucket_totals.get(bucket.value, {}).get('total_7_year', 0)
 
-    total_values = [totals[v] for v in vendors]
+    # Create ranked list of vendors by total TCO (lowest first)
+    ranked_vendors = sorted(vendors, key=lambda v: totals[v])
+    vendor_ranks = {v: idx + 1 for idx, v in enumerate(ranked_vendors)}
 
-    # Determine winner
-    if len(total_values) >= 2:
-        if total_values[0] < total_values[1]:
-            winner, loser = vendors[0], vendors[1]
-            savings = total_values[1] - total_values[0]
-            savings_pct = savings / total_values[1] if total_values[1] > 0 else 0
-        elif total_values[1] < total_values[0]:
-            winner, loser = vendors[1], vendors[0]
-            savings = total_values[0] - total_values[1]
-            savings_pct = savings / total_values[0] if total_values[0] > 0 else 0
-        else:
-            winner, loser, savings, savings_pct = "Tie", "Tie", 0, 0
-    else:
-        winner, loser, savings, savings_pct = vendors[0], None, 0, 0
+    # Winner and loser
+    winner = ranked_vendors[0]  # Lowest cost
+    loser = ranked_vendors[-1]  # Highest cost
+    winner_tco = totals[winner]
+    loser_tco = totals[loser]
+    cost_range = loser_tco - winner_tco
+    savings_pct = cost_range / loser_tco if loser_tco > 0 else 0
+
+    # Calculate dynamic column counts
+    # Cost breakdown: Category + N vendors + "Lowest Cost" column
+    cost_table_cols = 1 + num_vendors + 1
+    # Line items: N vendors × 2 columns (Solution, Cost)
+    line_item_cols = num_vendors * 2
 
     row = 1
 
@@ -386,99 +395,160 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
     # SECTION 1: TITLE HEADER
     # ==========================================================================
 
-    # Title row with dark blue background
-    for col in range(1, 8):
+    title_merge_cols = max(cost_table_cols, 6)
+
+    for col in range(1, title_merge_cols + 1):
         ws.cell(row=row, column=col).fill = TITLE_FILL
 
     ws.cell(row=row, column=1, value=f"VENDOR COMPARISON: {client_name.upper().replace('_', ' ')}")
     ws.cell(row=row, column=1).font = TITLE_FONT
     ws.cell(row=row, column=1).alignment = Alignment(vertical='center')
-    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=7)
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=title_merge_cols)
     ws.row_dimensions[row].height = 30
     row += 1
 
     # Subtitle
-    ws.cell(row=row, column=1, value=f"Normalized Cost Analysis  |  Generated: {datetime.now().strftime('%B %d, %Y')}")
+    ws.cell(row=row, column=1, value=f"Normalized Cost Analysis  |  {num_vendors} Vendors  |  Generated: {datetime.now().strftime('%B %d, %Y')}")
     ws.cell(row=row, column=1).font = SUBTITLE_FONT
-    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=7)
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=title_merge_cols)
     row += 2
 
     # ==========================================================================
-    # SECTION 2: EXECUTIVE SUMMARY BOX
+    # SECTION 2: EXECUTIVE SUMMARY - VENDOR RANKINGS
     # ==========================================================================
 
     ws.cell(row=row, column=1, value="EXECUTIVE SUMMARY")
     ws.cell(row=row, column=1).font = SECTION_FONT
     row += 1
 
-    # Summary box with key metrics
-    summary_start_row = row
-    summary_data = [
-        ("Vendors Compared:", f"{vendors[0]} vs {vendors[1]}" if len(vendors) >= 2 else vendors[0]),
-        (f"{vendors[0]} Total 7-Year TCO:", total_values[0] if total_values else 0),
-        (f"{vendors[1]} Total 7-Year TCO:", total_values[1] if len(total_values) >= 2 else "N/A"),
-        ("Cost Difference:", savings if len(total_values) >= 2 else "N/A"),
-        ("Savings Percentage:", savings_pct if len(total_values) >= 2 else "N/A"),
-        ("Recommended Vendor:", winner),
-    ]
+    # Summary metrics row
+    summary_headers = ["Vendors Analyzed", "Cost Range (High - Low)", "Potential Savings", "Recommended Vendor"]
+    summary_values = [num_vendors, cost_range, savings_pct, winner]
 
-    for idx, (label, value) in enumerate(summary_data):
-        # Label column
-        cell = ws.cell(row=row, column=1, value=label)
+    for col, header in enumerate(summary_headers, 1):
+        cell = ws.cell(row=row, column=col, value=header)
         cell.font = BOLD_FONT
-        cell.fill = SUMMARY_BOX_FILL if idx < len(summary_data) - 1 else WINNER_FILL
+        cell.fill = SUMMARY_BOX_FILL
         cell.border = THIN_BORDER
-        cell.alignment = Alignment(horizontal='right')
+        cell.alignment = Alignment(horizontal='center')
+    row += 1
 
-        # Value column
-        cell = ws.cell(row=row, column=2, value=value)
-        cell.fill = SUMMARY_BOX_FILL if idx < len(summary_data) - 1 else WINNER_FILL
+    for col, value in enumerate(summary_values, 1):
+        cell = ws.cell(row=row, column=col, value=value)
         cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
 
-        # Format based on type
-        if isinstance(value, (int, float)) and "TCO" in label:
+        if col == 2:  # Cost Range
             cell.number_format = CURRENCY_FORMAT
             cell.font = BOLD_FONT
-        elif isinstance(value, (int, float)) and "Difference" in label:
-            cell.number_format = CURRENCY_FORMAT
-            cell.font = WINNER_FONT
-        elif isinstance(value, float) and "Percentage" in label:
+        elif col == 3:  # Savings %
             cell.number_format = PERCENT_FORMAT
             cell.font = WINNER_FONT
-        elif "Recommended" in label:
+        elif col == 4:  # Recommended
+            cell.fill = WINNER_FILL
             cell.font = RECOMMENDATION_FONT
+    row += 2
+
+    # Vendor Rankings Table
+    ws.cell(row=row, column=1, value="VENDOR RANKINGS BY 7-YEAR TCO")
+    ws.cell(row=row, column=1).font = SECTION_FONT
+    row += 1
+
+    # Rankings header
+    rank_headers = ["Rank", "Vendor", "7-Year TCO", "vs Lowest", "Status"]
+    for col, header in enumerate(rank_headers, 1):
+        cell = ws.cell(row=row, column=col, value=header)
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+    row += 1
+
+    # Vendor ranking rows
+    for idx, vendor in enumerate(ranked_vendors):
+        rank = idx + 1
+        tco = totals[vendor]
+        vs_lowest = tco - winner_tco
+
+        # Determine row styling based on rank
+        if rank == 1:
+            row_fill = WINNER_FILL
+            status = "LOWEST COST"
+            status_font = WINNER_FONT
+        elif rank == num_vendors:
+            row_fill = LOSER_FILL
+            status = "HIGHEST COST"
+            status_font = LOSER_FONT
+        else:
+            row_fill = ALT_ROW_FILL if rank % 2 == 0 else None
+            status = ""
+            status_font = NORMAL_FONT
+
+        # Rank
+        cell = ws.cell(row=row, column=1, value=rank)
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        cell.font = BOLD_FONT
+        if row_fill:
+            cell.fill = row_fill
+
+        # Vendor name
+        cell = ws.cell(row=row, column=2, value=vendor)
+        cell.border = THIN_BORDER
+        cell.font = BOLD_FONT
+        if row_fill:
+            cell.fill = row_fill
+
+        # TCO
+        cell = ws.cell(row=row, column=3, value=tco)
+        cell.number_format = CURRENCY_FORMAT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='right')
+        if row_fill:
+            cell.fill = row_fill
+
+        # vs Lowest
+        cell = ws.cell(row=row, column=4, value=vs_lowest if rank > 1 else 0)
+        cell.number_format = '_("$"* +#,##0_);_("$"* -#,##0_);_("$"* "-"_);_(@_)'
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='right')
+        if row_fill:
+            cell.fill = row_fill
+
+        # Status
+        cell = ws.cell(row=row, column=5, value=status)
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        cell.font = status_font
+        if row_fill:
+            cell.fill = row_fill
 
         row += 1
 
     row += 1
 
     # ==========================================================================
-    # SECTION 3: COST BREAKDOWN BY BUCKET
+    # SECTION 3: COST BREAKDOWN BY BUCKET (N VENDORS)
     # ==========================================================================
 
     ws.cell(row=row, column=1, value="7-YEAR TCO BY COST CATEGORY")
     ws.cell(row=row, column=1).font = SECTION_FONT
     row += 1
 
-    # Header row
-    headers = ["Cost Category", vendors[0], vendors[1] if len(vendors) >= 2 else "",
-               "Difference", "Savings %", "Lower Cost"]
+    # Header row: Category + N vendor columns + Lowest Cost
+    headers = ["Cost Category"] + vendors + ["Lowest Cost"]
     for col, header in enumerate(headers, 1):
-        if header:  # Skip empty headers
-            cell = ws.cell(row=row, column=col, value=header)
-            cell.fill = HEADER_FILL
-            cell.font = HEADER_FONT
-            cell.alignment = Alignment(horizontal='center', vertical='center')
-            cell.border = THIN_BORDER
+        cell = ws.cell(row=row, column=col, value=header)
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        cell.alignment = Alignment(horizontal='center', vertical='center')
+        cell.border = THIN_BORDER
     ws.row_dimensions[row].height = 25
     row += 1
 
-    # Bucket rows with alternating colors
-    bucket_start_row = row
+    # Bucket rows
     for idx, bucket in enumerate(get_bucket_display_order()):
         bucket_name = bucket.value
-
-        # Alternating row color
         row_fill = ALT_ROW_FILL if idx % 2 == 0 else None
 
         # Category name
@@ -488,49 +558,37 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
         if row_fill:
             cell.fill = row_fill
 
-        # Vendor values
-        values = []
-        for col, (vendor, proposal) in enumerate(all_proposals, 2):
+        # Collect values for all vendors
+        bucket_values = {}
+        for vendor, proposal in all_proposals:
             tco = proposal.bucket_totals.get(bucket_name, {}).get('total_7_year', 0)
-            values.append(tco)
+            bucket_values[vendor] = tco
 
+        # Find lowest cost vendor for this bucket
+        min_vendor = min(bucket_values.keys(), key=lambda v: bucket_values[v])
+        min_value = bucket_values[min_vendor]
+
+        # Write vendor values
+        for col, vendor in enumerate(vendors, 2):
+            tco = bucket_values[vendor]
             cell = ws.cell(row=row, column=col, value=tco)
             cell.number_format = CURRENCY_FORMAT
             cell.border = THIN_BORDER
             cell.alignment = Alignment(horizontal='right')
-            if row_fill:
+
+            # Highlight lowest cost cell
+            if vendor == min_vendor and tco > 0:
+                cell.fill = WINNER_FILL
+            elif row_fill:
                 cell.fill = row_fill
 
-        # Difference and winner calculation
-        if len(values) >= 2:
-            diff = values[0] - values[1]
-            cell = ws.cell(row=row, column=4, value=diff)
-            cell.number_format = CURRENCY_FORMAT
-            cell.border = THIN_BORDER
-            cell.alignment = Alignment(horizontal='right')
-
-            # Savings percentage for this bucket
-            max_val = max(values[0], values[1])
-            bucket_savings_pct = abs(diff) / max_val if max_val > 0 else 0
-            cell = ws.cell(row=row, column=5, value=bucket_savings_pct)
-            cell.number_format = PERCENT_FORMAT
-            cell.border = THIN_BORDER
-            cell.alignment = Alignment(horizontal='center')
-
-            # Winner for this bucket
-            if values[0] < values[1]:
-                bucket_winner = vendors[0]
-                ws.cell(row=row, column=2).fill = WINNER_FILL
-            elif values[1] < values[0]:
-                bucket_winner = vendors[1]
-                ws.cell(row=row, column=3).fill = WINNER_FILL
-            else:
-                bucket_winner = "Tie"
-
-            cell = ws.cell(row=row, column=6, value=bucket_winner)
-            cell.border = THIN_BORDER
-            cell.alignment = Alignment(horizontal='center')
-            cell.font = BOLD_FONT
+        # Lowest Cost column (vendor name)
+        cell = ws.cell(row=row, column=num_vendors + 2, value=min_vendor if min_value > 0 else "N/A")
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        cell.font = BOLD_FONT
+        if row_fill:
+            cell.fill = row_fill
 
         row += 1
 
@@ -548,29 +606,17 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
         cell.border = THIN_BORDER
         cell.alignment = Alignment(horizontal='right')
 
-    if len(total_values) >= 2:
-        # Total difference
-        total_diff = total_values[0] - total_values[1]
-        cell = ws.cell(row=row, column=4, value=total_diff)
-        cell.number_format = CURRENCY_FORMAT
-        cell.fill = HEADER_FILL
-        cell.font = TOTAL_FONT
-        cell.border = THIN_BORDER
+        # Highlight overall winner
+        if vendor == winner:
+            cell.fill = WINNER_FILL
+            cell.font = Font(bold=True, color=DARK_GREEN, size=12)
 
-        # Total savings %
-        cell = ws.cell(row=row, column=5, value=savings_pct)
-        cell.number_format = PERCENT_FORMAT
-        cell.fill = HEADER_FILL
-        cell.font = TOTAL_FONT
-        cell.border = THIN_BORDER
-        cell.alignment = Alignment(horizontal='center')
-
-        # Overall winner
-        cell = ws.cell(row=row, column=6, value=winner)
-        cell.fill = WINNER_FILL
-        cell.font = RECOMMENDATION_FONT
-        cell.border = THIN_BORDER
-        cell.alignment = Alignment(horizontal='center')
+    # Overall winner in last column
+    cell = ws.cell(row=row, column=num_vendors + 2, value=winner)
+    cell.fill = WINNER_FILL
+    cell.font = RECOMMENDATION_FONT
+    cell.border = THIN_BORDER
+    cell.alignment = Alignment(horizontal='center')
 
     row += 2
 
@@ -578,33 +624,38 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
     # SECTION 4: RECOMMENDATION
     # ==========================================================================
 
-    if len(total_values) >= 2 and winner != "Tie":
-        # Recommendation header
-        for col in range(1, 7):
-            cell = ws.cell(row=row, column=col)
-            cell.fill = WINNER_FILL
-            cell.border = THIN_BORDER
+    rec_cols = num_vendors + 2
 
-        ws.cell(row=row, column=1, value="RECOMMENDATION")
-        ws.cell(row=row, column=1).font = Font(bold=True, color=DARK_GREEN, size=14)
-        ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=6)
-        row += 1
+    # Recommendation header
+    for col in range(1, rec_cols + 1):
+        cell = ws.cell(row=row, column=col)
+        cell.fill = WINNER_FILL
+        cell.border = THIN_BORDER
 
-        # Recommendation text
-        for col in range(1, 7):
-            cell = ws.cell(row=row, column=col)
-            cell.fill = WINNER_FILL
-            cell.border = THIN_BORDER
+    ws.cell(row=row, column=1, value="RECOMMENDATION")
+    ws.cell(row=row, column=1).font = Font(bold=True, color=DARK_GREEN, size=14)
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=rec_cols)
+    row += 1
 
-        recommendation = f"{winner} offers a savings of ${savings:,.0f} ({savings_pct:.1%}) over {loser} across the 7-year contract term."
-        ws.cell(row=row, column=1, value=recommendation)
-        ws.cell(row=row, column=1).font = Font(size=12, color=DARK_GREEN)
-        ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=6)
-        ws.row_dimensions[row].height = 25
-        row += 2
+    # Recommendation text
+    for col in range(1, rec_cols + 1):
+        cell = ws.cell(row=row, column=col)
+        cell.fill = WINNER_FILL
+        cell.border = THIN_BORDER
+
+    if num_vendors == 2:
+        recommendation = f"{winner} offers the lowest 7-year TCO at ${winner_tco:,.0f}, saving ${cost_range:,.0f} ({savings_pct:.1%}) compared to {loser}."
+    else:
+        recommendation = f"{winner} offers the lowest 7-year TCO at ${winner_tco:,.0f}, saving ${cost_range:,.0f} ({savings_pct:.1%}) compared to the highest-cost option ({loser})."
+
+    ws.cell(row=row, column=1, value=recommendation)
+    ws.cell(row=row, column=1).font = Font(size=12, color=DARK_GREEN)
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=rec_cols)
+    ws.row_dimensions[row].height = 25
+    row += 2
 
     # ==========================================================================
-    # SECTION 5: LINE ITEM DETAILS
+    # SECTION 5: LINE ITEM DETAILS (N VENDORS)
     # ==========================================================================
 
     ws.cell(row=row, column=1, value="DETAILED LINE ITEM COMPARISON")
@@ -631,41 +682,46 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
         if not has_items:
             continue
 
-        # Bucket header
-        for col in range(1, 7):
+        # Bucket header - spans all vendor columns
+        total_cols = num_vendors * 2
+        for col in range(1, total_cols + 1):
             cell = ws.cell(row=row, column=col)
             cell.fill = SUBHEADER_FILL
             cell.border = THIN_BORDER
 
         ws.cell(row=row, column=1, value=bucket_name)
         ws.cell(row=row, column=1).font = SUBHEADER_FONT
-        ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=6)
+        ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=total_cols)
         ws.row_dimensions[row].height = 22
         row += 1
 
-        # Column headers for line items
-        item_headers = [f"{vendors[0]} Solution", f"{vendors[0]} Cost",
-                        f"{vendors[1]} Solution" if len(vendors) >= 2 else "",
-                        f"{vendors[1]} Cost" if len(vendors) >= 2 else ""]
-        for col, header in enumerate(item_headers, 1):
-            if header:
-                cell = ws.cell(row=row, column=col, value=header)
-                cell.fill = HEADER_FILL
-                cell.font = HEADER_FONT
-                cell.border = THIN_BORDER
-                cell.alignment = Alignment(horizontal='center')
+        # Column headers for line items - dynamic for N vendors
+        col = 1
+        for vendor in vendors:
+            cell = ws.cell(row=row, column=col, value=f"{vendor} Solution")
+            cell.fill = HEADER_FILL
+            cell.font = HEADER_FONT
+            cell.border = THIN_BORDER
+            cell.alignment = Alignment(horizontal='center')
+
+            cell = ws.cell(row=row, column=col + 1, value=f"{vendor} Cost")
+            cell.fill = HEADER_FILL
+            cell.font = HEADER_FONT
+            cell.border = THIN_BORDER
+            cell.alignment = Alignment(horizontal='center')
+
+            col += 2
         row += 1
 
-        # Get max items
-        max_items = max(len(items) for items in vendor_items.values())
+        # Get max items across all vendors
+        max_items = max(len(items) for items in vendor_items.values()) if vendor_items else 0
 
-        # Write items side by side
+        # Write items side by side for all vendors
         for item_idx in range(max_items):
-            # Alternating row colors
             row_fill = ALT_ROW_FILL if item_idx % 2 == 0 else None
 
             col = 1
-            for vendor, _ in all_proposals:
+            for vendor in vendors:
                 items = vendor_items[vendor]
 
                 if item_idx < len(items):
@@ -697,14 +753,13 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
 
             row += 1
 
-        # Bucket subtotals
-        subtotals = {}
-        for vendor, _ in all_proposals:
-            subtotals[vendor] = sum(i.total_7_year_cost for i in vendor_items[vendor])
+        # Bucket subtotals for all vendors
+        subtotals = {vendor: sum(i.total_7_year_cost for i in vendor_items[vendor]) for vendor in vendors}
+        min_subtotal_vendor = min(subtotals.keys(), key=lambda v: subtotals[v]) if subtotals else None
 
         col = 1
-        for vendor, _ in all_proposals:
-            cell = ws.cell(row=row, column=col, value=f"Subtotal")
+        for vendor in vendors:
+            cell = ws.cell(row=row, column=col, value=f"{vendor} Subtotal")
             cell.font = BOLD_FONT
             cell.fill = SUBHEADER_FILL
             cell.border = THIN_BORDER
@@ -712,31 +767,37 @@ def _create_multi_vendor_comparison_sheet(excel_file: str, client_name: str,
             cell = ws.cell(row=row, column=col + 1, value=subtotals[vendor])
             cell.number_format = CURRENCY_FORMAT
             cell.font = BOLD_FONT
-            cell.fill = SUBHEADER_FILL
             cell.border = THIN_BORDER
             cell.alignment = Alignment(horizontal='right')
+
+            # Highlight lowest subtotal
+            if vendor == min_subtotal_vendor and subtotals[vendor] > 0:
+                cell.fill = WINNER_FILL
+            else:
+                cell.fill = SUBHEADER_FILL
 
             col += 2
 
         row += 2
 
     # ==========================================================================
-    # COLUMN WIDTHS
+    # DYNAMIC COLUMN WIDTHS
     # ==========================================================================
 
-    column_widths = {
-        'A': 35,  # Category/Solution names
-        'B': 18,  # Vendor 1 costs
-        'C': 35,  # Vendor 2 solution names (in detail section)
-        'D': 18,  # Vendor 2 costs / Difference
-        'E': 12,  # Savings %
-        'F': 14,  # Lower Cost
-    }
+    # Column A is always category/solution names
+    ws.column_dimensions['A'].width = 30
 
-    for col_letter, width in column_widths.items():
-        ws.column_dimensions[col_letter].width = width
+    # Vendor columns alternate: Solution (28), Cost (15)
+    col_idx = 2
+    for vendor in vendors:
+        ws.column_dimensions[get_column_letter(col_idx)].width = 28  # Solution
+        ws.column_dimensions[get_column_letter(col_idx + 1)].width = 15  # Cost
+        col_idx += 2
 
-    # Freeze panes at row 4 (after title) for scrolling
+    # "Lowest Cost" column in breakdown table
+    ws.column_dimensions[get_column_letter(num_vendors + 2)].width = 14
+
+    # Freeze panes at row 5 (after title/subtitle)
     ws.freeze_panes = 'A5'
 
     # Save workbook
