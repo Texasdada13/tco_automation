@@ -1,0 +1,158 @@
+{
+  "vendor": "ECHELON_BANK_FIS_2",
+  "source_file": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\Proposal\\Echelon_HeritageProposal.docx",
+  "document_type": "docx",
+  "total_pages": 1,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 16,
+      "columns": 3,
+      "data": [
+        [
+          "Solution",
+          "Current Pricing\n(as of April 2024)",
+          "New Pricing\n(Combined Organization)"
+        ],
+        [
+          "Core: HORIZON",
+          "$9,342",
+          "$15,879"
+        ],
+        [
+          "Digital: D1 Flex, D1 Business, Mobile, Bill Pay",
+          "$12,494",
+          "$28,228"
+        ],
+        [
+          "Digital: Website Services",
+          "$578",
+          "$522"
+        ],
+        [
+          "Digital: Zelle",
+          "$572",
+          "$626"
+        ],
+        [
+          "EFT: EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
+          "$1,707",
+          "$5,450"
+        ],
+        [
+          "Risk, Fraud & Compliance: Decision Solutions",
+          "$635",
+          "$708"
+        ],
+        [
+          "Treasury: eWire (Business)",
+          "$2,095",
+          "$2,123"
+        ],
+        [
+          "Image Solutions: RTP (Receive)",
+          "$822",
+          "$810"
+        ],
+        [
+          "Item Processing: FCM, IP, Branch Capture, CCX, FXD, DLRR",
+          "$8,713",
+          "$15,319"
+        ],
+        [
+          "FOS: eDelivery, Print/Render, Forms & Envelopes",
+          "$1,020",
+          "$1,857"
+        ],
+        [
+          "Lending: FLO",
+          "$1,053",
+          "$878"
+        ],
+        [
+          "Lending: CRA Wiz/Fair Lending",
+          "$920",
+          "$999"
+        ],
+        [
+          "Information Services: Regulatory Compliance",
+          "$4,525",
+          "$4,325"
+        ],
+        [
+          "Information Services: IRS Reporting",
+          "$1,748",
+          "$2,130"
+        ],
+        [
+          "Monthly Subtotal",
+          "$46,224",
+          "$79,853"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 2,
+      "rows": 9,
+      "columns": 4,
+      "data": [
+        [
+          "Solution",
+          "One-Time Investment",
+          "Monthly",
+          "Notes"
+        ],
+        [
+          "IP: DirectLink Merchant (via RegO)",
+          "$19,412",
+          "$3,393.85",
+          "Recommended"
+        ],
+        [
+          "IP: DirectLink Consumer (via FIS)",
+          "$19,896",
+          "$1,210.92",
+          "Optional"
+        ],
+        [
+          "HORIZON: Conditional Processing",
+          "$15,399",
+          "$1,093.08",
+          "Optional"
+        ],
+        [
+          "Treasury: eWire (Consumer)",
+          "$810",
+          "$4.48",
+          "Recommended"
+        ],
+        [
+          "Treasury: Extended Account Analysis",
+          "$56,763",
+          "$877.65",
+          "Recommended"
+        ],
+        [
+          "Image Solutions: RTP Send for Business",
+          "$7,867",
+          "$125.91",
+          "Optional"
+        ],
+        [
+          "Image Solutions: FedNOW (both Send/Receive)",
+          "$11,098",
+          "$3,121.20",
+          "Optional"
+        ],
+        [
+          "Image Solutions: Chargeback Manager",
+          "$6,269",
+          "$228.76",
+          "Optional"
+        ]
+      ]
+    }
+  ]
+}
