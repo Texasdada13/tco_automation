@@ -1,0 +1,229 @@
+{
+  "vendor": "LAKEVIEW_CU_JH",
+  "source_file": "testing-data/dummy-proposals/jack-henry-like/Lakeview_CU_JackHenry_2025.xlsx",
+  "document_type": "xlsx",
+  "total_pages": 2,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 5,
+      "columns": 1,
+      "data": [
+        [
+          "Jack Henry Symitar Proposal"
+        ],
+        [
+          "Lakeview Credit Union"
+        ],
+        [
+          "Asset Size: $280M"
+        ],
+        [
+          "Members: 32,000"
+        ],
+        [
+          "Date: January 2025"
+        ]
+      ]
+    },
+    {
+      "page_number": 2,
+      "table_index": 1,
+      "rows": 19,
+      "columns": 8,
+      "data": [
+        [
+          "Product",
+          "Family",
+          "Type",
+          "License",
+          "Install",
+          "Monthly",
+          "Maint",
+          "Included"
+        ],
+        [
+          "Episys Core",
+          "Core",
+          "Bundle",
+          "62000",
+          "18000",
+          "6200",
+          "11000",
+          "Y"
+        ],
+        [
+          "PowerOn",
+          "Core",
+          "Bundle",
+          "9500",
+          "4000",
+          "950",
+          "1900",
+          "Y"
+        ],
+        [
+          "SymConnect",
+          "Core",
+          "Bundle",
+          "7500",
+          "3000",
+          "750",
+          "1500",
+          "Y"
+        ],
+        [
+          "Member Connect Online",
+          "Digital",
+          "Bundle",
+          "14000",
+          "6500",
+          "1650",
+          "2800",
+          "Y"
+        ],
+        [
+          "Banno Digital Platform",
+          "Digital",
+          "Bundle",
+          "18000",
+          "8000",
+          "2600",
+          "3400",
+          "Y"
+        ],
+        [
+          "Banno Mobile",
+          "Digital",
+          "Bundle",
+          "12000",
+          "5000",
+          "1900",
+          "2400",
+          "Y"
+        ],
+        [
+          "ACH Services",
+          "Payments",
+          "Required",
+          "0",
+          "2000",
+          "520",
+          "950",
+          "Y"
+        ],
+        [
+          "Wire Services",
+          "Payments",
+          "Required",
+          "0",
+          "1200",
+          "320",
+          "600",
+          "Y"
+        ],
+        [
+          "Bill Pay",
+          "Payments",
+          "Required",
+          "0",
+          "2500",
+          "425",
+          "850",
+          "Y"
+        ],
+        [
+          "Remote Deposit",
+          "Imaging",
+          "Required",
+          "0",
+          "3500",
+          "475",
+          "900",
+          "Y"
+        ],
+        [
+          "eStatements",
+          "Imaging",
+          "Required",
+          "0",
+          "1800",
+          "285",
+          "550",
+          "Y"
+        ],
+        [
+          "Card Processing",
+          "Cards",
+          "Optional",
+          "6500",
+          "4000",
+          "780",
+          "1400",
+          "N"
+        ],
+        [
+          "Loan Origination",
+          "Lending",
+          "Optional",
+          "12000",
+          "6000",
+          "1150",
+          "2300",
+          "N"
+        ],
+        [
+          "Document Imaging",
+          "Imaging",
+          "Optional",
+          "7500",
+          "3800",
+          "700",
+          "1350",
+          "N"
+        ],
+        [
+          "Business Intelligence",
+          "Analytics",
+          "Optional",
+          "9500",
+          "5000",
+          "900",
+          "1800",
+          "N"
+        ],
+        [
+          "Symitar EASE Hosting",
+          "Hosting",
+          "Required",
+          "0",
+          "12000",
+          "3600",
+          "6500",
+          "Y"
+        ],
+        [
+          "Security Services",
+          "Hosting",
+          "Required",
+          "0",
+          "6500",
+          "1450",
+          "2800",
+          "Y"
+        ],
+        [
+          "TOTALS",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ]
+}

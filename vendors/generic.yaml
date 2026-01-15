@@ -1,0 +1,52 @@
+vendor:
+  name: Generic
+  aliases:
+  - generic
+  - unknown
+  - other
+detection:
+  filename_patterns: []
+  content_keywords: []
+mapping:
+  category_rules:
+  - pattern: core
+    category: Core
+  - pattern: digital
+    category: Digital
+  - pattern: mobile
+    category: Digital
+  - pattern: online
+    category: Digital
+  - pattern: card
+    category: EFT
+  - pattern: debit
+    category: EFT
+  - pattern: ach
+    category: ACH
+  - pattern: wire
+    category: Treasury
+  - pattern: treasury
+    category: Treasury
+  - pattern: lending
+    category: Lending
+  - pattern: loan
+    category: Lending
+  - pattern: risk
+    category: Risk, Fraud & Compliance
+  - pattern: fraud
+    category: Risk, Fraud & Compliance
+  - pattern: compliance
+    category: Risk, Fraud & Compliance
+  fee_type_mappings:
+    monthly: Monthly F
+    per month: Monthly F
+    recurring: Monthly F
+    variable: Monthly V
+    per transaction: Monthly V
+    per item: Monthly V
+    annual: Annual
+    yearly: Annual
+    one-time: One-Time
+    setup: One-Time
+    implementation: One-Time
+    license: One-Time

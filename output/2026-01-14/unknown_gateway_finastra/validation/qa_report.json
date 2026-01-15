@@ -1,0 +1,48 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-01-14T19:43:18.938319",
+    "vendor": "Unknown",
+    "client": "Gateway Finastra",
+    "report_type": "qa_validation"
+  },
+  "summary": {
+    "total_items": 11,
+    "average_confidence": 0.95,
+    "items_auto_approved": 11,
+    "items_need_review": 0,
+    "validation_passed": true
+  },
+  "confidence_distribution": {
+    "high": 11,
+    "medium": 0,
+    "low": 0
+  },
+  "financial_summary": {
+    "total_monthly": 55585.0,
+    "total_annual": 0.0,
+    "total_one_time": 0.0,
+    "estimated_year_1": 667020.0
+  },
+  "category_distribution": {
+    "Core": 1,
+    "Digital": 3,
+    "EFT": 1,
+    "Image Solutions": 2,
+    "Other": 1,
+    "ACH": 1,
+    "Treasury": 1,
+    "Risk, Fraud & Compliance": 1
+  },
+  "fee_type_distribution": {
+    "Monthly F": 11
+  },
+  "issues": {
+    "validation_errors": [],
+    "warnings": [],
+    "missing_fields": [],
+    "low_confidence_items": []
+  },
+  "recommendations": [
+    "Extraction quality is excellent. Proceed with confidence."
+  ]
+}

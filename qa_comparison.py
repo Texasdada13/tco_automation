@@ -40,7 +40,7 @@ def compare_fis_to_tco(fis_proposal: str, tco_file: str, term: str = '7_year'):
     comparisons = []
     
     # Compare bundle pricing
-    print("\n📊 Comparing Bundle Pricing...")
+    print("\nComparing Bundle Pricing...")
     for year, prices in fis_data['bundle_pricing'].items():
         source_value = prices.get(term, 0)
         
@@ -60,7 +60,7 @@ def compare_fis_to_tco(fis_proposal: str, tco_file: str, term: str = '7_year'):
                     'Item': year,
                     'Source': f"${source_value:,.2f}",
                     'TCO': f"${tco_value:,.2f}",
-                    'Match': '✓' if match else '✗',
+                    'Match': 'Y' if match else 'N',
                     'Difference': f"${abs(source_value - tco_value):,.2f}"
                 })
                 found = True
@@ -72,12 +72,12 @@ def compare_fis_to_tco(fis_proposal: str, tco_file: str, term: str = '7_year'):
                 'Item': year,
                 'Source': f"${source_value:,.2f}",
                 'TCO': 'NOT FOUND',
-                'Match': '✗',
+                'Match': 'N',
                 'Difference': 'N/A'
             })
     
     # Compare monthly fees (sample first 5)
-    print("\n📊 Comparing Monthly Fees (sample)...")
+    print("\nComparing Monthly Fees (sample)...")
     for idx, fee in enumerate(fis_data['monthly_fees'][:5]):
         comparisons.append({
             'Category': 'Monthly Fee',
@@ -89,7 +89,7 @@ def compare_fis_to_tco(fis_proposal: str, tco_file: str, term: str = '7_year'):
         })
     
     # Compare one-time credits
-    print("\n📊 Comparing One-Time Credits...")
+    print("\nComparing One-Time Credits...")
     for desc, values in fis_data['one_time_credits'].items():
         source_value = values.get(term, 0)
         if source_value != 0:
@@ -105,14 +105,14 @@ def compare_fis_to_tco(fis_proposal: str, tco_file: str, term: str = '7_year'):
     df = pd.DataFrame(comparisons)
     
     # Print summary
-    matches = df[df['Match'] == '✓'].shape[0]
-    mismatches = df[df['Match'] == '✗'].shape[0]
-    
+    matches = df[df['Match'] == 'Y'].shape[0]
+    mismatches = df[df['Match'] == 'N'].shape[0]
+
     print("\n" + "="*70)
     print("COMPARISON SUMMARY")
     print("="*70)
-    print(f"✓ Matches: {matches}")
-    print(f"✗ Mismatches: {mismatches}")
+    print(f"[OK] Matches: {matches}")
+    print(f"[X] Mismatches: {mismatches}")
     print(f"? Manual check needed: {df[df['Match'] == '?'].shape[0]}")
     
     return df
@@ -153,7 +153,7 @@ def compare_jh_to_tco(jh_proposal: str, tco_file: str, scenario: str = 'Proposal
     comparisons = []
     
     # Compare sample products (first 10)
-    print(f"\n📊 Comparing Products from {scenario} (sample)...")
+    print(f"\nComparing Products from {scenario} (sample)...")
     
     for product in scenario_data['products'][:10]:
         # Calculate expected monthly from source
@@ -183,7 +183,7 @@ def create_comparison_report(fis_proposal: str = None, jh_proposal: str = None,
     """
     Create comprehensive comparison report in Excel
     """
-    print("\n🔍 Creating Comparison Report...\n")
+    print("\nCreating Comparison Report...\n")
     
     with pd.ExcelWriter(output_excel, engine='openpyxl') as writer:
         
@@ -195,7 +195,7 @@ def create_comparison_report(fis_proposal: str = None, jh_proposal: str = None,
             df_jh = compare_jh_to_tco(jh_proposal, tco_file)
             df_jh.to_excel(writer, sheet_name='JH Comparison', index=False)
     
-    print(f"\n✅ Comparison report saved to: {output_excel}")
+    print(f"\n[DONE] Comparison report saved to: {output_excel}")
     return output_excel
 
 

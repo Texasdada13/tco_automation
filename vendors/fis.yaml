@@ -1,0 +1,73 @@
+vendor:
+  name: FIS
+  aliases:
+  - fis
+  - fidelity
+  - horizon
+detection:
+  filename_patterns:
+  - fis
+  - horizon
+  - fidelity
+  content_keywords:
+  - FIS
+  - HORIZON
+  - Fidelity National
+  - FIS Investment Summary
+extraction:
+  table_headers:
+    monthly_fee:
+    - Monthly
+    - Monthly Fee
+    - MRC
+    - Recurring
+    - New Pricing
+    one_time:
+    - One-Time
+    - Implementation
+    - Setup
+    - Conversion
+    - One-Time Investment
+mapping:
+  category_rules:
+  - pattern: HORIZON
+    category: Core
+  - pattern: 'Core:'
+    category: Core
+  - pattern: 'Digital:'
+    category: Digital
+  - pattern: D1 Flex
+    category: Digital
+  - pattern: 'EFT:'
+    category: EFT
+  - pattern: Debit
+    category: EFT
+  - pattern: 'Treasury:'
+    category: Treasury
+  - pattern: 'Lending:'
+    category: Lending
+  - pattern: Risk
+    category: Risk, Fraud & Compliance
+  - pattern: Fraud
+    category: Risk, Fraud & Compliance
+  - pattern: Image
+    category: Image Solutions
+  - pattern: Item Processing
+    category: Item Processing
+  - pattern: FOS
+    category: FOS
+  fee_type_mappings:
+    monthly: Monthly F
+    per item: Monthly V
+    per transaction: Monthly V
+    annual: Annual
+    one-time: One-Time
+    implementation: One-Time
+  terminology:
+    mrc: Monthly Fee
+    nrc: One-Time Fee
+    signing bonus: One-Time Credit
+    conversion credit: One-Time Credit
+defaults:
+  contract_term: 7
+  annual_increase: 0.03

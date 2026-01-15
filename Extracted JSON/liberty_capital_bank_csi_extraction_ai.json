@@ -68,7 +68,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Core processing fees"
+      "extraction_notes": "Core processing fees under organic growth pricing"
     },
     {
       "solution_name": "Other Processing Fees",
@@ -107,7 +107,7 @@
       "optional": false,
       "third_party": false,
       "overall_confidence": 0.95,
-      "extraction_notes": "Annual fee of $2,044 converted to monthly"
+      "extraction_notes": "Annual fee of $2,044 converted to monthly equivalent"
     },
     {
       "solution_name": "Image Capture Processing Fees",
@@ -141,12 +141,12 @@
       "category": "Statement Processing",
       "monthly_fee": 72.0,
       "one_time_fee": 0.0,
-      "per_unit_rate": 0.5,
-      "unit_description": "per envelope",
+      "per_unit_rate": 1.41,
+      "unit_description": "per statement set",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Combined envelope ($0.50) and paper ($2.00) fees"
+      "overall_confidence": 0.85,
+      "extraction_notes": "Combined envelope ($0.50) and paper ($2.00) costs"
     },
     {
       "solution_name": "PIN Change",
@@ -206,25 +206,25 @@
       "category": "Card Services",
       "monthly_fee": 68.0,
       "one_time_fee": 0.0,
-      "per_unit_rate": 0.0,
+      "per_unit_rate": 0.003,
       "unit_description": "per card",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "22,710 cards at $0.00 per card"
+      "overall_confidence": 0.85,
+      "extraction_notes": "22,710 cards at $0.003 per card (calculated from $68 monthly)"
     },
     {
       "solution_name": "PLUS Network Sponsorship",
       "fee_type": "Monthly F",
-      "category": "Card Services",
+      "category": "Network Services",
       "monthly_fee": 50.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.0,
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Network sponsorship fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Fixed monthly network sponsorship fee"
     },
     {
       "solution_name": "iPay Online Bill Pay",
@@ -236,24 +236,24 @@
       "unit_description": "per user",
       "optional": true,
       "third_party": true,
-      "overall_confidence": 0.85,
+      "overall_confidence": 0.9,
       "extraction_notes": "1,398 users at $0.95 per user"
     },
     {
       "solution_name": "iPay Business Bill Pay Program",
       "fee_type": "Monthly V",
       "category": "Digital Banking",
-      "monthly_fee": 737.0,
+      "monthly_fee": 738.0,
       "one_time_fee": 0.0,
-      "per_unit_rate": 5.95,
-      "unit_description": "per user + $0.45 per payment",
+      "per_unit_rate": 6.4,
+      "unit_description": "per user + per payment",
       "optional": true,
       "third_party": true,
       "overall_confidence": 0.85,
-      "extraction_notes": "102 users at $5.95/user + 290 payments at $0.45/payment"
+      "extraction_notes": "102 users at $5.95 + 290 payments at $0.45 ($300 minimum)"
     },
     {
-      "solution_name": "Integrated (PFM)",
+      "solution_name": "Integrated PFM",
       "fee_type": "Monthly V",
       "category": "Digital Banking",
       "monthly_fee": 353.0,
@@ -262,11 +262,11 @@
       "unit_description": "per user",
       "optional": true,
       "third_party": true,
-      "overall_confidence": 0.85,
+      "overall_confidence": 0.9,
       "extraction_notes": "470 users at $0.75 per user"
     },
     {
-      "solution_name": "Integrated (PFM) + Aggregation",
+      "solution_name": "Integrated PFM + Aggregation",
       "fee_type": "Monthly V",
       "category": "Digital Banking",
       "monthly_fee": 94.0,
@@ -275,138 +275,73 @@
       "unit_description": "per user",
       "optional": true,
       "third_party": true,
-      "overall_confidence": 0.85,
+      "overall_confidence": 0.9,
       "extraction_notes": "94 users at $1.00 per user"
     },
     {
-      "solution_name": "Quicken & QuickBooks",
+      "solution_name": "Quicken & QuickBooks Direct Connect",
       "fee_type": "Monthly F",
       "category": "Digital Banking",
-      "monthly_fee": 736.67,
+      "monthly_fee": 737.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.0,
       "unit_description": null,
       "optional": true,
       "third_party": true,
-      "overall_confidence": 0.85,
-      "extraction_notes": "Fixed monthly fee for integration"
+      "overall_confidence": 0.9,
+      "extraction_notes": "Fixed monthly fee of $736.67"
     },
     {
       "solution_name": "Out of Band Authentication (OOBA)",
       "fee_type": "Monthly V",
       "category": "Digital Banking",
-      "monthly_fee": 101.0,
-      "one_time_fee": 300.0,
+      "monthly_fee": 401.0,
+      "one_time_fee": 0.0,
       "per_unit_rate": 0.05,
       "unit_description": "per authentication",
       "optional": true,
       "third_party": false,
       "overall_confidence": 0.85,
-      "extraction_notes": "2,027 authentications at $0.05 + $300 base fee"
-    },
-    {
-      "solution_name": "Text Messages",
-      "fee_type": "Monthly V",
-      "category": "Digital Banking",
-      "monthly_fee": 107.0,
-      "one_time_fee": 0.0,
-      "per_unit_rate": 0.01,
-      "unit_description": "per message",
-      "optional": true,
-      "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "10,730 messages at $0.01 per message"
-    },
-    {
-      "solution_name": "Voice Authentication",
-      "fee_type": "Monthly V",
-      "category": "Digital Banking",
-      "monthly_fee": 1.0,
-      "one_time_fee": 0.0,
-      "per_unit_rate": 0.02,
-      "unit_description": "per call",
-      "optional": true,
-      "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "51 calls at $0.02 per call"
-    },
-    {
-      "solution_name": "Mobile Banking Push Notifications",
-      "fee_type": "Monthly V",
-      "category": "Digital Banking",
-      "monthly_fee": 161.0,
-      "one_time_fee": 100.0,
-      "per_unit_rate": 0.05,
-      "unit_description": "per notification",
-      "optional": true,
-      "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "3,223 notifications at $0.05 + $100 base fee"
+      "extraction_notes": "2,027 + 10,730 + 51 + 3,223 authentications at $0.05 each ($300 base fee included)"
     },
     {
       "solution_name": "Mobile Deposit",
       "fee_type": "Monthly V",
       "category": "Digital Banking",
-      "monthly_fee": 525.0,
-      "one_time_fee": 525.0,
-      "per_unit_rate": 0.01,
-      "unit_description": "per transaction",
-      "optional": true,
-      "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "500 transactions at $0.01 + $525 base fee"
-    },
-    {
-      "solution_name": "Card Alerts",
-      "fee_type": "Monthly V",
-      "category": "Digital Banking",
-      "monthly_fee": 778.0,
+      "monthly_fee": 583.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.55,
-      "unit_description": "per alert",
+      "unit_description": "per deposit",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "1,416 alerts at $0.55 per alert"
+      "overall_confidence": 0.9,
+      "extraction_notes": "1,416 deposits at $0.55 per deposit ($525 base fee included)"
     },
     {
-      "solution_name": "Digital Wallet - Push Provisioning",
+      "solution_name": "Mobile Banking Push Notifications",
       "fee_type": "Monthly V",
       "category": "Digital Banking",
-      "monthly_fee": 120.0,
+      "monthly_fee": 220.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.2,
-      "unit_description": "per provisioning",
+      "unit_description": "per notification",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "600 provisionings at $0.20 per provisioning"
+      "overall_confidence": 0.9,
+      "extraction_notes": "600 notifications at $0.20 each ($100 base fee included)"
     },
     {
-      "solution_name": "800 Number",
-      "fee_type": "Monthly V",
-      "category": "Telephone Banking",
-      "monthly_fee": 102.0,
-      "one_time_fee": 100.0,
-      "per_unit_rate": 1.0,
-      "unit_description": "per call",
-      "optional": true,
-      "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "20 calls at $1.00 + $100 base fee"
-    },
-    {
-      "solution_name": "Digital Chat",
-      "fee_type": "Monthly V",
+      "solution_name": "Digital Chat - LinkLive",
+      "fee_type": "Monthly F",
       "category": "Digital Banking",
-      "monthly_fee": 12.0,
+      "monthly_fee": 102.0,
       "one_time_fee": 0.0,
-      "per_unit_rate": 0.1,
-      "unit_description": "per chat",
+      "per_unit_rate": 0.0,
+      "unit_description": null,
       "optional": true,
-      "third_party": false,
-      "overall_confidence": 0.85,
-      "extraction_notes": "121 chats at $0.10 per chat"
+      "third_party": true,
+      "overall_confidence": 0.9,
+      "extraction_notes": "Fixed monthly fee for embedded chat package"
     },
     {
       "solution_name": "Call Report File Download (SmartCall)",
@@ -418,8 +353,8 @@
       "unit_description": null,
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "Fixed monthly fee"
+      "overall_confidence": 0.95,
+      "extraction_notes": "Fixed monthly fee for call report downloads"
     },
     {
       "solution_name": "Child Support Accounts",
@@ -444,8 +379,8 @@
       "unit_description": "per record",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "10,874 records at $0.03 per record"
+      "overall_confidence": 0.85,
+      "extraction_notes": "10,874 records at $0.03 per record ($250 minimum)"
     },
     {
       "solution_name": "FMS Profit Performer",
@@ -457,21 +392,21 @@
       "unit_description": "per record",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "10,874 records at $0.03 per record"
+      "overall_confidence": 0.85,
+      "extraction_notes": "10,874 records at $0.03 per record ($250 minimum)"
     },
     {
-      "solution_name": "WatchDog CIP",
+      "solution_name": "WatchDog CIP License",
       "fee_type": "Monthly F",
       "category": "Compliance",
-      "monthly_fee": 249.58,
+      "monthly_fee": 250.0,
       "one_time_fee": 0.0,
       "per_unit_rate": 0.0,
       "unit_description": null,
       "optional": true,
       "third_party": false,
       "overall_confidence": 0.9,
-      "extraction_notes": "Annual license fee shown monthly"
+      "extraction_notes": "Annual license fee of $249.58 shown as monthly equivalent"
     },
     {
       "solution_name": "Level 2 ID Verification Transactions",
@@ -509,8 +444,8 @@
       "unit_description": "per wire",
       "optional": true,
       "third_party": false,
-      "overall_confidence": 0.9,
-      "extraction_notes": "1,022 wires at $3.50 per wire"
+      "overall_confidence": 0.85,
+      "extraction_notes": "1,022 wires at $3.50 per wire plus $300 base fee"
     }
   ],
   "summary": {
@@ -518,8 +453,8 @@
     "total_monthly_optional": 12683.0,
     "total_one_time_fees": 338035.0,
     "total_one_time_credits": 713034.0,
-    "items_extracted": 38,
-    "average_confidence": 0.89
+    "items_extracted": 33,
+    "average_confidence": 0.9
   },
   "extraction_metadata": {
     "model": "claude-sonnet-4-20250514",

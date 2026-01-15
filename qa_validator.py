@@ -55,7 +55,7 @@ class TCOValidator:
             
             # Check bundle pricing
             bundle_years = len(data['bundle_pricing'])
-            print(f"✓ Bundle years extracted: {bundle_years}")
+            print(f"[OK] Bundle years extracted: {bundle_years}")
             
             if expected_counts and 'bundle_years' in expected_counts:
                 if bundle_years != expected_counts['bundle_years']:
@@ -66,7 +66,7 @@ class TCOValidator:
             
             # Check monthly fees
             monthly_count = len(data['monthly_fees'])
-            print(f"✓ Monthly fees extracted: {monthly_count}")
+            print(f"[OK] Monthly fees extracted: {monthly_count}")
             
             if expected_counts and 'monthly_fees' in expected_counts:
                 if monthly_count < expected_counts['monthly_fees'] * 0.8:  # Allow 20% variance
@@ -77,7 +77,7 @@ class TCOValidator:
             
             # Check one-time credits
             credits_count = len(data['one_time_credits'])
-            print(f"✓ One-time credits extracted: {credits_count}")
+            print(f"[OK] One-time credits extracted: {credits_count}")
             
             # Verify no empty/null critical fields
             for year, prices in data['bundle_pricing'].items():
@@ -94,7 +94,7 @@ class TCOValidator:
             
             if bundle_values:
                 avg_bundle = sum(bundle_values) / len(bundle_values)
-                print(f"✓ Average bundle price: ${avg_bundle:,.2f}/month")
+                print(f"[OK] Average bundle price: ${avg_bundle:,.2f}/month")
                 
                 if avg_bundle < 1000 or avg_bundle > 100000:
                     results['issues'].append(
@@ -114,9 +114,9 @@ class TCOValidator:
         self.validation_results['extraction']['FIS'] = results
         
         if results['pass']:
-            print("\n✅ FIS extraction validation PASSED")
+            print("\n[PASS] FIS extraction validation PASSED")
         else:
-            print("\n❌ FIS extraction validation FAILED")
+            print("\n[FAIL] FIS extraction validation FAILED")
             for issue in results['issues']:
                 print(f"   - {issue}")
         
@@ -143,7 +143,7 @@ class TCOValidator:
             
             # Check scenarios
             scenarios_count = len(data['scenarios'])
-            print(f"✓ Scenarios extracted: {scenarios_count}")
+            print(f"[OK] Scenarios extracted: {scenarios_count}")
             
             if expected_counts and 'scenarios' in expected_counts:
                 if scenarios_count != expected_counts['scenarios']:
@@ -155,7 +155,7 @@ class TCOValidator:
             # Check products in each scenario
             for scenario in data['scenarios']:
                 product_count = len(scenario['products'])
-                print(f"✓ {scenario['scenario_name']}: {product_count} products")
+                print(f"[OK] {scenario['scenario_name']}: {product_count} products")
                 
                 if product_count == 0:
                     results['pass'] = False
@@ -183,7 +183,7 @@ class TCOValidator:
             # Check summary data
             if 'summary' in data:
                 monthly_net = data['summary'].get('total_monthly_net', 0)
-                print(f"✓ Total monthly net from summary: ${monthly_net:,.2f}")
+                print(f"[OK] Total monthly net from summary: ${monthly_net:,.2f}")
             
             results['extracted_data'] = {
                 'scenarios': scenarios_count,
@@ -197,9 +197,9 @@ class TCOValidator:
         self.validation_results['extraction']['Jack Henry'] = results
         
         if results['pass']:
-            print("\n✅ Jack Henry extraction validation PASSED")
+            print("\n[PASS] Jack Henry extraction validation PASSED")
         else:
-            print("\n❌ Jack Henry extraction validation FAILED")
+            print("\n[FAIL] Jack Henry extraction validation FAILED")
             for issue in results['issues']:
                 print(f"   - {issue}")
         
@@ -217,7 +217,7 @@ class TCOValidator:
             # Normalize data
             normalized = normalize_vendor_data(extracted_data, vendor)
             
-            print(f"✓ Mapped {len(normalized)} line items")
+            print(f"[OK] Mapped {len(normalized)} line items")
             
             # Check required fields
             required_fields = ['solution_name', 'fee_type', 'category', 'vendor']
@@ -252,7 +252,7 @@ class TCOValidator:
             monthly_fees = [item['monthly_fee'] for item in normalized if item.get('monthly_fee', 0) > 0]
             if monthly_fees:
                 avg_monthly = sum(monthly_fees) / len(monthly_fees)
-                print(f"✓ Average monthly fee: ${avg_monthly:,.2f}")
+                print(f"[OK] Average monthly fee: ${avg_monthly:,.2f}")
             
             # Count by category
             categories = {}
@@ -260,7 +260,7 @@ class TCOValidator:
                 cat = item['category']
                 categories[cat] = categories.get(cat, 0) + 1
             
-            print("\n✓ Line items by category:")
+            print("\n[OK] Line items by category:")
             for cat, count in sorted(categories.items()):
                 print(f"   - {cat}: {count}")
             
@@ -276,9 +276,9 @@ class TCOValidator:
         self.validation_results['mapping'][vendor] = results
         
         if results['pass']:
-            print(f"\n✅ {vendor} mapping validation PASSED")
+            print(f"\n[PASS] {vendor} mapping validation PASSED")
         else:
-            print(f"\n❌ {vendor} mapping validation FAILED")
+            print(f"\n[FAIL] {vendor} mapping validation FAILED")
             for issue in results['issues']:
                 print(f"   - {issue}")
         
@@ -314,7 +314,7 @@ class TCOValidator:
                 if cell_value and str(cell_value).strip():
                     populated_rows += 1
             
-            print(f"✓ Found {populated_rows} populated rows")
+            print(f"[OK] Found {populated_rows} populated rows")
             
             # Check if matches expected
             if abs(populated_rows - expected_items) > 5:  # Allow 5 row variance
@@ -341,7 +341,7 @@ class TCOValidator:
                     if year_1_cost is None:
                         results['issues'].append(f"Row {row}: No Year 1 cost")
             
-            print(f"✓ Sample rows validated")
+            print(f"[OK] Sample rows validated")
             
             results['population_data'] = {
                 'populated_rows': populated_rows,
@@ -355,9 +355,9 @@ class TCOValidator:
         self.validation_results['population'][vendor] = results
         
         if results['pass']:
-            print(f"\n✅ {vendor} TCO population validation PASSED")
+            print(f"\n[PASS] {vendor} TCO population validation PASSED")
         else:
-            print(f"\n❌ {vendor} TCO population validation FAILED")
+            print(f"\n[FAIL] {vendor} TCO population validation FAILED")
             for issue in results['issues']:
                 print(f"   - {issue}")
         
@@ -490,9 +490,9 @@ class TCOValidator:
             ])
             
             if all_passed:
-                f.write("✅ OVERALL STATUS: PASSED\n\n")
+                f.write("[PASS] OVERALL STATUS: PASSED\n\n")
             else:
-                f.write("❌ OVERALL STATUS: FAILED\n\n")
+                f.write("[FAIL] OVERALL STATUS: FAILED\n\n")
             
             # Extraction results
             f.write("EXTRACTION VALIDATION\n")
@@ -574,7 +574,7 @@ class TCOValidator:
 
             f.write("\n" + "="*70 + "\n")
         
-        print(f"\n📄 QA Report saved to: {output_path}")
+        print(f"\nQA Report saved to: {output_path}")
         return output_path
 
 
@@ -591,7 +591,7 @@ def run_full_qa(fis_proposal: str = None, jh_proposal: str = None,
     """
     validator = TCOValidator()
     
-    print("\n🔍 Starting TCO Automation QA Validation...\n")
+    print("\nStarting TCO Automation QA Validation...\n")
     
     # Validate FIS if provided
     if fis_proposal:
@@ -624,8 +624,8 @@ def run_full_qa(fis_proposal: str = None, jh_proposal: str = None,
     # Generate report
     validator.generate_report(report_path)
     
-    print("\n✅ QA Validation Complete!")
-    print(f"📄 See full report: {report_path}")
+    print("\n[DONE] QA Validation Complete!")
+    print(f"See full report: {report_path}")
 
 
 if __name__ == "__main__":

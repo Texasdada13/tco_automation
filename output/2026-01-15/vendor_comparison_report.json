@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "generated_at": "2026-01-15T12:39:13.183202",
+    "vendors_compared": [
+      "CSI",
+      "FIS"
+    ],
+    "comparison_version": "1.0"
+  },
+  "bucket_comparison": {
+    "Setup/Implementation": {
+      "vendors": {
+        "CSI": {
+          "annual_cost": 176000.0,
+          "total_7_year": 176000.0,
+          "item_count": 6
+        },
+        "FIS": {
+          "annual_cost": 72328.32,
+          "total_7_year": 554213.0166028978,
+          "item_count": 3
+        }
+      },
+      "lowest_cost_vendor": "CSI",
+      "lowest_cost_amount": 176000.0,
+      "cost_spread": 378213.0166028978
+    },
+    "Licensing/Subscription": {
+      "vendors": {
+        "CSI": {
+          "annual_cost": 414240.0,
+          "total_7_year": 3174098.333786605,
+          "item_count": 9
+        },
+        "FIS": {
+          "annual_cost": 851091.9600000001,
+          "total_7_year": 6521459.95590763,
+          "item_count": 16
+        }
+      },
+      "lowest_cost_vendor": "CSI",
+      "lowest_cost_amount": 3174098.333786605,
+      "cost_spread": 3347361.622121025
+    },
+    "Transaction/Usage": {
+      "vendors": {
+        "CSI": {
+          "annual_cost": 52980.0,
+          "total_7_year": 405957.24634032045,
+          "item_count": 8
+        },
+        "FIS": {
+          "annual_cost": 0,
+          "total_7_year": 0,
+          "item_count": 0
+        }
+      },
+      "lowest_cost_vendor": "FIS",
+      "lowest_cost_amount": 0,
+      "cost_spread": 405957.24634032045
+    },
+    "Training/Enablement": {
+      "vendors": {
+        "CSI": {
+          "annual_cost": 0,
+          "total_7_year": 0,
+          "item_count": 0
+        },
+        "FIS": {
+          "annual_cost": 0,
+          "total_7_year": 0,
+          "item_count": 0
+        }
+      },
+      "lowest_cost_vendor": "CSI",
+      "lowest_cost_amount": 0,
+      "cost_spread": 0
+    },
+    "Support/Maintenance": {
+      "vendors": {
+        "CSI": {
+          "annual_cost": 0,
+          "total_7_year": 0,
+          "item_count": 0
+        },
+        "FIS": {
+          "annual_cost": 0,
+          "total_7_year": 0,
+          "item_count": 0
+        }
+      },
+      "lowest_cost_vendor": "CSI",
+      "lowest_cost_amount": 0,
+      "cost_spread": 0
+    },
+    "Professional Services": {
+      "vendors": {
+        "CSI": {
+          "annual_cost": 0,
+          "total_7_year": 0,
+          "item_count": 0
+        },
+        "FIS": {
+          "annual_cost": 484366.08,
+          "total_7_year": 3711436.769676394,
+          "item_count": 3
+        }
+      },
+      "lowest_cost_vendor": "CSI",
+      "lowest_cost_amount": 0,
+      "cost_spread": 3711436.769676394
+    }
+  },
+  "metric_comparison": {
+    "Cost per Account": {
+      "vendors": {
+        "CSI": 75.1211116025385,
+        "FIS": 215.74219484373845
+      },
+      "best_vendor": "CSI",
+      "best_value": 75.1211116025385,
+      "formula": "Total TCO / Number of Accounts",
+      "use_case": "Retail banking comparison"
+    },
+    "Cost per User": {
+      "vendors": {
+        "CSI": 7512.11116025385,
+        "FIS": 21574.219484373843
+      },
+      "best_vendor": "CSI",
+      "best_value": 7512.11116025385,
+      "formula": "Total TCO / Number of Users",
+      "use_case": "User-licensed software comparison"
+    },
+    "Cost per Transaction": {
+      "vendors": {
+        "CSI": 3.7560555801269255,
+        "FIS": 10.787109742186923
+      },
+      "best_vendor": "CSI",
+      "best_value": 3.7560555801269255,
+      "formula": "Total TCO / Annual Transaction Volume",
+      "use_case": "High-volume processing comparison"
+    },
+    "Cost per Month": {
+      "vendors": {
+        "CSI": 44714.9473824634,
+        "FIS": 128417.9731212729
+      },
+      "best_vendor": "CSI",
+      "best_value": 44714.9473824634,
+      "formula": "Total TCO / Contract Months",
+      "use_case": "Cash flow analysis"
+    },
+    "Cost per Asset": {
+      "vendors": {
+        "CSI": 7512.11116025385,
+        "FIS": 21574.219484373843
+      },
+      "best_vendor": "CSI",
+      "best_value": 7512.11116025385,
+      "formula": "Total TCO / Total Assets (in millions)",
+      "use_case": "Institution size comparison"
+    }
+  },
+  "total_tco_comparison": {
+    "vendors": {
+      "CSI": {
+        "total_7_year_tco": 3756055.5801269254,
+        "average_monthly": 44714.9473824634,
+        "confidence": 0.9391304347826086
+      },
+      "FIS": {
+        "total_7_year_tco": 10787109.742186923,
+        "average_monthly": 128417.9731212729,
+        "confidence": 0.9499999999999996
+      }
+    },
+    "ranking": [
+      "CSI",
+      "FIS"
+    ],
+    "lowest_tco_vendor": "CSI",
+    "highest_tco_vendor": "FIS",
+    "tco_difference": 7031054.162059997
+  },
+  "recommendation": {
+    "bucket_wins": {
+      "CSI": 5,
+      "FIS": 1
+    },
+    "recommended_vendor": "CSI",
+    "win_count": 5,
+    "total_buckets": 6,
+    "note": "Recommendation based on lowest cost per bucket. Additional factors (risk, support, innovation) should be considered."
+  }
+}

@@ -1,0 +1,702 @@
+{
+  "vendor": "MOUNTAIN_CU_JH",
+  "source_file": "testing-data/dummy-proposals/jack-henry-like/Mountain_CU_JackHenry_2025.xlsx",
+  "document_type": "xlsx",
+  "total_pages": 4,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 8,
+      "columns": 1,
+      "data": [
+        [
+          "Jack Henry & Associates"
+        ],
+        [
+          "Symitar Core Banking Proposal"
+        ],
+        [
+          "Prepared for: Mountain Credit Union"
+        ],
+        [
+          "Date: January 2025"
+        ],
+        [
+          "Proposal Options:"
+        ],
+        [
+          "Proposal_1: Standard Package"
+        ],
+        [
+          "Proposal_2: Enhanced Package"
+        ],
+        [
+          "Proposal_3: Premium Package"
+        ]
+      ]
+    },
+    {
+      "page_number": 2,
+      "table_index": 1,
+      "rows": 20,
+      "columns": 9,
+      "data": [
+        [
+          "Product Name",
+          "Product Family",
+          "Category",
+          "License Fee",
+          "Installation",
+          "Monthly Fee",
+          "Annual Maintenance",
+          "Optional",
+          "Notes"
+        ],
+        [
+          "Symitar Episys Core",
+          "SilverLake",
+          "Bundle",
+          "85000",
+          "25000",
+          "8500",
+          "15000",
+          "N",
+          "Core processing platform"
+        ],
+        [
+          "PowerOn Programming",
+          "SilverLake",
+          "Bundle",
+          "12000",
+          "5000",
+          "1200",
+          "2500",
+          "N",
+          "Custom programming"
+        ],
+        [
+          "Member Connect",
+          "Xperience",
+          "Bundle",
+          "18000",
+          "8000",
+          "2100",
+          "3500",
+          "N",
+          "Member portal"
+        ],
+        [
+          "Banno Digital",
+          "Banno",
+          "Bundle",
+          "22000",
+          "10000",
+          "3200",
+          "4200",
+          "N",
+          "Digital banking"
+        ],
+        [
+          "Banno Mobile",
+          "Banno",
+          "Bundle",
+          "15000",
+          "6000",
+          "2400",
+          "2800",
+          "N",
+          "Mobile app"
+        ],
+        [
+          "ACH Services",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "2500",
+          "650",
+          "1200",
+          "N",
+          "$0.06/item"
+        ],
+        [
+          "Wire Transfer",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "1500",
+          "400",
+          "800",
+          "N",
+          "$12/wire"
+        ],
+        [
+          "Bill Pay",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "3000",
+          "525",
+          "1100",
+          "N",
+          "$0.28/payment"
+        ],
+        [
+          "Remote Deposit",
+          "Imaging",
+          "Non-Bundle Required",
+          "0",
+          "4000",
+          "575",
+          "1000",
+          "N",
+          "RDC solution"
+        ],
+        [
+          "eStatements",
+          "Imaging",
+          "Non-Bundle Required",
+          "0",
+          "2000",
+          "350",
+          "700",
+          "N",
+          "$0.12/statement"
+        ],
+        [
+          "Card Management",
+          "Cards",
+          "Non-Bundle Optional",
+          "8000",
+          "5000",
+          "950",
+          "1800",
+          "Y",
+          "Debit/credit cards"
+        ],
+        [
+          "Loan Origination",
+          "Lending",
+          "Non-Bundle Optional",
+          "15000",
+          "7500",
+          "1400",
+          "2800",
+          "Y",
+          "LOS module"
+        ],
+        [
+          "Collections",
+          "Lending",
+          "Non-Bundle Optional",
+          "6000",
+          "3000",
+          "700",
+          "1200",
+          "Y",
+          "Collections mgmt"
+        ],
+        [
+          "Document Management",
+          "Imaging",
+          "Non-Bundle Optional",
+          "9000",
+          "4500",
+          "850",
+          "1600",
+          "Y",
+          "Doc imaging"
+        ],
+        [
+          "Business Intelligence",
+          "Analytics",
+          "Non-Bundle Optional",
+          "12000",
+          "6000",
+          "1100",
+          "2200",
+          "Y",
+          "BI platform"
+        ],
+        [
+          "Symitar Hosted",
+          "Infrastructure",
+          "Third-Party Required",
+          "0",
+          "15000",
+          "4500",
+          "8000",
+          "N",
+          "Hosting services"
+        ],
+        [
+          "Network Security",
+          "Infrastructure",
+          "Third-Party Required",
+          "0",
+          "8000",
+          "1800",
+          "3500",
+          "N",
+          "Security suite"
+        ],
+        [
+          "DR/Business Continuity",
+          "Infrastructure",
+          "Third-Party Optional",
+          "0",
+          "12000",
+          "2200",
+          "4000",
+          "Y",
+          "DR services"
+        ],
+        [
+          "TOTALS",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 3,
+      "table_index": 1,
+      "rows": 19,
+      "columns": 9,
+      "data": [
+        [
+          "Product Name",
+          "Product Family",
+          "Category",
+          "License Fee",
+          "Installation",
+          "Monthly Fee",
+          "Annual Maintenance",
+          "Optional",
+          "Notes"
+        ],
+        [
+          "Symitar Episys Core",
+          "SilverLake",
+          "Bundle",
+          "97749",
+          "25000",
+          "9775",
+          "15000",
+          "N",
+          "Core processing platform"
+        ],
+        [
+          "PowerOn Programming",
+          "SilverLake",
+          "Bundle",
+          "13799",
+          "5000",
+          "1380",
+          "2500",
+          "N",
+          "Custom programming"
+        ],
+        [
+          "Member Connect",
+          "Xperience",
+          "Bundle",
+          "20700",
+          "8000",
+          "2415",
+          "3500",
+          "N",
+          "Member portal"
+        ],
+        [
+          "Banno Digital",
+          "Banno",
+          "Bundle",
+          "25299",
+          "10000",
+          "3679",
+          "4200",
+          "N",
+          "Digital banking"
+        ],
+        [
+          "Banno Mobile",
+          "Banno",
+          "Bundle",
+          "17250",
+          "6000",
+          "2760",
+          "2800",
+          "N",
+          "Mobile app"
+        ],
+        [
+          "ACH Services",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "2500",
+          "747",
+          "1200",
+          "N",
+          "$0.06/item"
+        ],
+        [
+          "Wire Transfer",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "1500",
+          "459",
+          "800",
+          "N",
+          "$12/wire"
+        ],
+        [
+          "Bill Pay",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "3000",
+          "603",
+          "1100",
+          "N",
+          "$0.28/payment"
+        ],
+        [
+          "Remote Deposit",
+          "Imaging",
+          "Non-Bundle Required",
+          "0",
+          "4000",
+          "661",
+          "1000",
+          "N",
+          "RDC solution"
+        ],
+        [
+          "eStatements",
+          "Imaging",
+          "Non-Bundle Required",
+          "0",
+          "2000",
+          "402",
+          "700",
+          "N",
+          "$0.12/statement"
+        ],
+        [
+          "Card Management",
+          "Cards",
+          "Non-Bundle Optional",
+          "9200",
+          "5000",
+          "1092",
+          "1800",
+          "Y",
+          "Debit/credit cards"
+        ],
+        [
+          "Loan Origination",
+          "Lending",
+          "Non-Bundle Optional",
+          "17250",
+          "7500",
+          "1609",
+          "2800",
+          "Y",
+          "LOS module"
+        ],
+        [
+          "Collections",
+          "Lending",
+          "Non-Bundle Optional",
+          "6899",
+          "3000",
+          "804",
+          "1200",
+          "Y",
+          "Collections mgmt"
+        ],
+        [
+          "Document Management",
+          "Imaging",
+          "Non-Bundle Optional",
+          "10350",
+          "4500",
+          "977",
+          "1600",
+          "Y",
+          "Doc imaging"
+        ],
+        [
+          "Business Intelligence",
+          "Analytics",
+          "Non-Bundle Optional",
+          "13799",
+          "6000",
+          "1265",
+          "2200",
+          "Y",
+          "BI platform"
+        ],
+        [
+          "Symitar Hosted",
+          "Infrastructure",
+          "Third-Party Required",
+          "0",
+          "15000",
+          "5175",
+          "8000",
+          "N",
+          "Hosting services"
+        ],
+        [
+          "Network Security",
+          "Infrastructure",
+          "Third-Party Required",
+          "0",
+          "8000",
+          "2070",
+          "3500",
+          "N",
+          "Security suite"
+        ],
+        [
+          "DR/Business Continuity",
+          "Infrastructure",
+          "Third-Party Optional",
+          "0",
+          "12000",
+          "2530",
+          "4000",
+          "Y",
+          "DR services"
+        ]
+      ]
+    },
+    {
+      "page_number": 4,
+      "table_index": 1,
+      "rows": 19,
+      "columns": 9,
+      "data": [
+        [
+          "Product Name",
+          "Product Family",
+          "Category",
+          "License Fee",
+          "Installation",
+          "Monthly Fee",
+          "Annual Maintenance",
+          "Optional",
+          "Notes"
+        ],
+        [
+          "Symitar Episys Core",
+          "SilverLake",
+          "Bundle",
+          "106250",
+          "25000",
+          "10625",
+          "15000",
+          "N",
+          "Core processing platform"
+        ],
+        [
+          "PowerOn Programming",
+          "SilverLake",
+          "Bundle",
+          "15000",
+          "5000",
+          "1500",
+          "2500",
+          "N",
+          "Custom programming"
+        ],
+        [
+          "Member Connect",
+          "Xperience",
+          "Bundle",
+          "22500",
+          "8000",
+          "2625",
+          "3500",
+          "N",
+          "Member portal"
+        ],
+        [
+          "Banno Digital",
+          "Banno",
+          "Bundle",
+          "27500",
+          "10000",
+          "4000",
+          "4200",
+          "N",
+          "Digital banking"
+        ],
+        [
+          "Banno Mobile",
+          "Banno",
+          "Bundle",
+          "18750",
+          "6000",
+          "3000",
+          "2800",
+          "N",
+          "Mobile app"
+        ],
+        [
+          "ACH Services",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "2500",
+          "812",
+          "1200",
+          "N",
+          "$0.06/item"
+        ],
+        [
+          "Wire Transfer",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "1500",
+          "500",
+          "800",
+          "N",
+          "$12/wire"
+        ],
+        [
+          "Bill Pay",
+          "Payments",
+          "Non-Bundle Required",
+          "0",
+          "3000",
+          "656",
+          "1100",
+          "N",
+          "$0.28/payment"
+        ],
+        [
+          "Remote Deposit",
+          "Imaging",
+          "Non-Bundle Required",
+          "0",
+          "4000",
+          "718",
+          "1000",
+          "N",
+          "RDC solution"
+        ],
+        [
+          "eStatements",
+          "Imaging",
+          "Non-Bundle Required",
+          "0",
+          "2000",
+          "437",
+          "700",
+          "N",
+          "$0.12/statement"
+        ],
+        [
+          "Card Management",
+          "Cards",
+          "Non-Bundle Optional",
+          "10000",
+          "5000",
+          "1187",
+          "1800",
+          "N",
+          "Debit/credit cards"
+        ],
+        [
+          "Loan Origination",
+          "Lending",
+          "Non-Bundle Optional",
+          "18750",
+          "7500",
+          "1750",
+          "2800",
+          "N",
+          "LOS module"
+        ],
+        [
+          "Collections",
+          "Lending",
+          "Non-Bundle Optional",
+          "7500",
+          "3000",
+          "875",
+          "1200",
+          "N",
+          "Collections mgmt"
+        ],
+        [
+          "Document Management",
+          "Imaging",
+          "Non-Bundle Optional",
+          "11250",
+          "4500",
+          "1062",
+          "1600",
+          "N",
+          "Doc imaging"
+        ],
+        [
+          "Business Intelligence",
+          "Analytics",
+          "Non-Bundle Optional",
+          "15000",
+          "6000",
+          "1375",
+          "2200",
+          "N",
+          "BI platform"
+        ],
+        [
+          "Symitar Hosted",
+          "Infrastructure",
+          "Third-Party Required",
+          "0",
+          "15000",
+          "5625",
+          "8000",
+          "N",
+          "Hosting services"
+        ],
+        [
+          "Network Security",
+          "Infrastructure",
+          "Third-Party Required",
+          "0",
+          "8000",
+          "2250",
+          "3500",
+          "N",
+          "Security suite"
+        ],
+        [
+          "DR/Business Continuity",
+          "Infrastructure",
+          "Third-Party Optional",
+          "0",
+          "12000",
+          "2750",
+          "4000",
+          "N",
+          "DR services"
+        ]
+      ]
+    }
+  ]
+}

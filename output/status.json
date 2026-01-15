@@ -1,0 +1,252 @@
+{
+  "status": {
+    "last_run": "2026-01-15T14:26:00.023897",
+    "total_processed": 11,
+    "success_count": 7,
+    "review_needed_count": 3,
+    "failed_count": 1,
+    "success_rate": 90.9090909090909,
+    "average_confidence": 0.9336442687747033,
+    "recent_extractions": [
+      {
+        "file": "proposal1.docx",
+        "vendor": "FIS",
+        "status": "review_needed",
+        "confidence": 0.8990909090909089,
+        "completed_at": "2026-01-15T14:26:36.201369"
+      },
+      {
+        "file": "proposal1.docx",
+        "vendor": "FIS",
+        "status": "review_needed",
+        "confidence": 0.9022727272727272,
+        "completed_at": "2026-01-15T14:21:24.380043"
+      },
+      {
+        "file": "proposal1.docx",
+        "vendor": "FIS",
+        "status": "review_needed",
+        "confidence": 0.9068181818181816,
+        "completed_at": "2026-01-15T14:17:55.411001"
+      },
+      {
+        "file": "First_National_TX_FIS_Investment_Summary_2025.docx",
+        "vendor": "FIS",
+        "status": "success",
+        "confidence": 0.9499999999999996,
+        "completed_at": "2026-01-15T12:58:18.022529"
+      },
+      {
+        "file": "First_National_TX_FIS_Investment_Summary_2025.docx",
+        "vendor": "FIS",
+        "status": "success",
+        "confidence": 0.9499999999999996,
+        "completed_at": "2026-01-15T12:38:50.771692"
+      },
+      {
+        "file": "Heritage_CSI_NuPoint_2025.docx",
+        "vendor": "CSI",
+        "status": "success",
+        "confidence": 0.9391304347826086,
+        "completed_at": "2026-01-15T12:37:29.439266"
+      },
+      {
+        "file": "Gateway_Finastra_2025.docx",
+        "vendor": "Unknown",
+        "status": "success",
+        "confidence": 0.95,
+        "completed_at": "2026-01-14T19:43:19.079962"
+      },
+      {
+        "file": "Heritage_CSI_NuPoint_2025.docx",
+        "vendor": "CSI",
+        "status": "success",
+        "confidence": 0.9391304347826086,
+        "completed_at": "2026-01-14T19:42:54.244160"
+      },
+      {
+        "file": "First_National_TX_FIS_Investment_Summary_2025.docx",
+        "vendor": "FIS",
+        "status": "success",
+        "confidence": 0.9499999999999996,
+        "completed_at": "2026-01-14T19:41:39.324004"
+      },
+      {
+        "file": "Community_State_Bank_FIS_Investment_Summary_2025.docx",
+        "vendor": "FIS",
+        "status": "success",
+        "confidence": 0.9499999999999996,
+        "completed_at": "2026-01-14T19:33:41.307039"
+      }
+    ],
+    "pending_count": 0
+  },
+  "extractions": [
+    {
+      "id": "20260114_193021_FIS_First_National_TX",
+      "file_name": "First_National_TX_FIS_Investment_Summary_2025.docx",
+      "vendor": "FIS",
+      "client": "First National TX",
+      "status": "failed",
+      "confidence": 0,
+      "items_extracted": 0,
+      "items_need_review": 0,
+      "started_at": "2026-01-14T19:30:21.478662",
+      "completed_at": "2026-01-14T19:30:51.646919",
+      "error_message": "'charmap' codec can't encode character '\\u2713' in position 0: character maps to <undefined>",
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_first_national_tx",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_first_national_tx\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260114_193312_FIS_Community_State_Bank",
+      "file_name": "Community_State_Bank_FIS_Investment_Summary_2025.docx",
+      "vendor": "FIS",
+      "client": "Community State Bank",
+      "status": "success",
+      "confidence": 0.9499999999999996,
+      "items_extracted": 22,
+      "items_need_review": 0,
+      "started_at": "2026-01-14T19:33:12.878304",
+      "completed_at": "2026-01-14T19:33:41.307039",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_community_state_bank",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_community_state_bank\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260114_194108_FIS_First_National_Tx",
+      "file_name": "First_National_TX_FIS_Investment_Summary_2025.docx",
+      "vendor": "FIS",
+      "client": "First National Tx",
+      "status": "success",
+      "confidence": 0.9499999999999996,
+      "items_extracted": 22,
+      "items_need_review": 0,
+      "started_at": "2026-01-14T19:41:08.791784",
+      "completed_at": "2026-01-14T19:41:39.324004",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_first_national_tx",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\fis_first_national_tx\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260114_194226_CSI_Heritage_Nupoint",
+      "file_name": "Heritage_CSI_NuPoint_2025.docx",
+      "vendor": "CSI",
+      "client": "Heritage Nupoint",
+      "status": "success",
+      "confidence": 0.9391304347826086,
+      "items_extracted": 23,
+      "items_need_review": 0,
+      "started_at": "2026-01-14T19:42:26.127634",
+      "completed_at": "2026-01-14T19:42:54.244160",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\csi_heritage_nupoint",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\csi_heritage_nupoint\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260114_194302_Unknown_Gateway_Finastra",
+      "file_name": "Gateway_Finastra_2025.docx",
+      "vendor": "Unknown",
+      "client": "Gateway Finastra",
+      "status": "success",
+      "confidence": 0.95,
+      "items_extracted": 11,
+      "items_need_review": 0,
+      "started_at": "2026-01-14T19:43:02.313231",
+      "completed_at": "2026-01-14T19:43:19.079962",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\unknown_gateway_finastra",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\unknown_gateway_finastra\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260115_123701_CSI_Heritage_Nupoint",
+      "file_name": "Heritage_CSI_NuPoint_2025.docx",
+      "vendor": "CSI",
+      "client": "Heritage Nupoint",
+      "status": "success",
+      "confidence": 0.9391304347826086,
+      "items_extracted": 23,
+      "items_need_review": 0,
+      "started_at": "2026-01-15T12:37:01.002211",
+      "completed_at": "2026-01-15T12:37:29.439266",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\csi_heritage_nupoint",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\csi_heritage_nupoint\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260115_123820_FIS_First_National_Tx",
+      "file_name": "First_National_TX_FIS_Investment_Summary_2025.docx",
+      "vendor": "FIS",
+      "client": "First National Tx",
+      "status": "success",
+      "confidence": 0.9499999999999996,
+      "items_extracted": 22,
+      "items_need_review": 0,
+      "started_at": "2026-01-15T12:38:20.398855",
+      "completed_at": "2026-01-15T12:38:50.771692",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260115_125747_FIS_First_National_TX",
+      "file_name": "First_National_TX_FIS_Investment_Summary_2025.docx",
+      "vendor": "FIS",
+      "client": "First National TX",
+      "status": "success",
+      "confidence": 0.9499999999999996,
+      "items_extracted": 22,
+      "items_need_review": 0,
+      "started_at": "2026-01-15T12:57:47.201399",
+      "completed_at": "2026-01-15T12:58:18.022529",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260115_141720_FIS_Echelon_Bank",
+      "file_name": "proposal1.docx",
+      "vendor": "FIS",
+      "client": "Echelon Bank",
+      "status": "review_needed",
+      "confidence": 0.9068181818181816,
+      "items_extracted": 22,
+      "items_need_review": 6,
+      "started_at": "2026-01-15T14:17:20.097170",
+      "completed_at": "2026-01-15T14:17:55.411001",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260115_142049_FIS_Echelon_Bank_Fresh",
+      "file_name": "proposal1.docx",
+      "vendor": "FIS",
+      "client": "Echelon Bank Fresh",
+      "status": "review_needed",
+      "confidence": 0.9022727272727272,
+      "items_extracted": 22,
+      "items_need_review": 7,
+      "started_at": "2026-01-15T14:20:49.330932",
+      "completed_at": "2026-01-15T14:21:24.380043",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank_fresh\\validation\\qa_report.docx"
+    },
+    {
+      "id": "20260115_142600_FIS_Echelon_Bank",
+      "file_name": "proposal1.docx",
+      "vendor": "FIS",
+      "client": "Echelon Bank",
+      "status": "review_needed",
+      "confidence": 0.8990909090909089,
+      "items_extracted": 22,
+      "items_need_review": 8,
+      "started_at": "2026-01-15T14:26:00.023897",
+      "completed_at": "2026-01-15T14:26:36.201369",
+      "error_message": null,
+      "output_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank",
+      "qa_report_path": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_echelon_bank\\validation\\qa_report.docx"
+    }
+  ],
+  "updated_at": "2026-01-15T14:26:36.202383"
+}

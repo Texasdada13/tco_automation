@@ -240,7 +240,7 @@ def print_result(result, quiet: bool = False):
     if not quiet:
         print(f"\nStage Summary:")
         for stage in result.stages:
-            status_icon = "✓" if stage.status.value == "completed" else "✗" if stage.status.value == "failed" else "○"
+            status_icon = "[OK]" if stage.status.value == "completed" else "[X]" if stage.status.value == "failed" else "[ ]"
             duration = f"{stage.duration:.2f}s" if stage.duration else "N/A"
             print(f"  {status_icon} {stage.name}: {stage.status.value} ({duration})")
 
