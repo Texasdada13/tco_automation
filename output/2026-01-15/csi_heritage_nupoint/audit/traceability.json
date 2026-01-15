@@ -1,0 +1,70 @@
+{
+  "extraction_id": "20260115_123701_CSI_Heritage_Nupoint",
+  "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+  "vendor": "CSI",
+  "client": "Heritage Nupoint",
+  "timestamp": "2026-01-15T12:37:29.435142",
+  "pipeline_version": "2.1",
+  "stages": {
+    "raw_extraction": {
+      "tables_found": 4,
+      "pages": 1
+    },
+    "ai_enhancement": {
+      "model": "claude-sonnet-4-20250514",
+      "items_extracted": 23
+    },
+    "qa_validation": {
+      "average_confidence": 0.9391304347826086,
+      "items_auto_approved": 23,
+      "items_need_review": 0,
+      "validation_errors": 1,
+      "warnings": 0
+    },
+    "cost_normalization": {
+      "taxonomy_version": "1.0",
+      "buckets_used": 3,
+      "total_items_normalized": 23,
+      "bucket_summary": {
+        "Setup/Implementation": {
+          "item_count": 6,
+          "total_7_year": 176000.0
+        },
+        "Licensing/Subscription": {
+          "item_count": 9,
+          "total_7_year": 3174098.333786605
+        },
+        "Transaction/Usage": {
+          "item_count": 8,
+          "total_7_year": 405957.24634032045
+        },
+        "Training/Enablement": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Support/Maintenance": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Professional Services": {
+          "item_count": 0,
+          "total_7_year": 0
+        }
+      },
+      "normalized_metrics": {
+        "Cost per Account": 75.1211116025385,
+        "Cost per User": 7512.11116025385,
+        "Cost per Transaction": 3.7560555801269255,
+        "Cost per Month": 44714.9473824634,
+        "Cost per Asset": 7512.11116025385
+      }
+    }
+  },
+  "outputs": {
+    "raw_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\csi_heritage_nupoint\\extraction\\raw_extraction.json",
+    "ai_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\csi_heritage_nupoint\\extraction\\ai_extraction.json",
+    "normalized_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\csi_heritage_nupoint\\extraction\\normalized_extraction.json",
+    "qa_report_json": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\csi_heritage_nupoint\\validation\\qa_report.json",
+    "qa_report_docx": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\csi_heritage_nupoint\\validation\\qa_report.docx"
+  }
+}

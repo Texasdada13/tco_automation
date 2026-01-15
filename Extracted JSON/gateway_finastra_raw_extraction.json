@@ -1,0 +1,114 @@
+{
+  "vendor": "GATEWAY_FINASTRA",
+  "source_file": "testing-data/dummy-proposals/other-vendors/Gateway_Finastra_2025.docx",
+  "document_type": "docx",
+  "total_pages": 1,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 8,
+      "columns": 4,
+      "data": [
+        [
+          "Solution",
+          "Category",
+          "Monthly",
+          "Type"
+        ],
+        [
+          "Fusion Core Banking",
+          "Bundle",
+          "$22,400.00",
+          "Monthly F"
+        ],
+        [
+          "Fusion Digital Banking",
+          "Bundle",
+          "$9,800.00",
+          "Monthly F"
+        ],
+        [
+          "Fusion Mobile",
+          "Bundle",
+          "$5,600.00",
+          "Monthly F"
+        ],
+        [
+          "Fusion Payments Hub",
+          "Bundle",
+          "$7,200.00",
+          "Monthly F"
+        ],
+        [
+          "Fusion Document Mgmt",
+          "Bundle",
+          "$4,100.00",
+          "Monthly F"
+        ],
+        [
+          "Fusion Analytics",
+          "Bundle",
+          "$3,400.00",
+          "Monthly F"
+        ],
+        [
+          "BUNDLE TOTAL",
+          "",
+          "$52,500.00",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 2,
+      "rows": 7,
+      "columns": 4,
+      "data": [
+        [
+          "Service",
+          "Base",
+          "Per-Item",
+          "Category"
+        ],
+        [
+          "ACH Processing",
+          "$980.00",
+          "$0.072/item",
+          "Non-Bundle Required"
+        ],
+        [
+          "Wire Services",
+          "$580.00",
+          "$14.50/wire",
+          "Non-Bundle Required"
+        ],
+        [
+          "Remote Deposit",
+          "$720.00",
+          "-",
+          "Non-Bundle Required"
+        ],
+        [
+          "Positive Pay",
+          "$425.00",
+          "-",
+          "Non-Bundle Required"
+        ],
+        [
+          "Bill Pay",
+          "$380.00",
+          "$0.32/pmt",
+          "Non-Bundle Required"
+        ],
+        [
+          "SERVICES TOTAL",
+          "$3,085.00",
+          "",
+          ""
+        ]
+      ]
+    }
+  ]
+}

@@ -50,4 +50,8 @@ data/
 
 # Environment files (contains API keys)
 .env
+.env.local
 config/.env
+
+# Claude Code temporary files
+tmpclaude-*

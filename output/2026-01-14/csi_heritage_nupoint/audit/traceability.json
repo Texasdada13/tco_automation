@@ -1,0 +1,31 @@
+{
+  "extraction_id": "20260114_194226_CSI_Heritage_Nupoint",
+  "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+  "vendor": "CSI",
+  "client": "Heritage Nupoint",
+  "timestamp": "2026-01-14T19:42:54.242144",
+  "pipeline_version": "2.0",
+  "stages": {
+    "raw_extraction": {
+      "tables_found": 4,
+      "pages": 1
+    },
+    "ai_enhancement": {
+      "model": "claude-sonnet-4-20250514",
+      "items_extracted": 23
+    },
+    "qa_validation": {
+      "average_confidence": 0.9391304347826086,
+      "items_auto_approved": 23,
+      "items_need_review": 0,
+      "validation_errors": 1,
+      "warnings": 0
+    }
+  },
+  "outputs": {
+    "raw_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\csi_heritage_nupoint\\extraction\\raw_extraction.json",
+    "ai_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\csi_heritage_nupoint\\extraction\\ai_extraction.json",
+    "qa_report_json": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\csi_heritage_nupoint\\validation\\qa_report.json",
+    "qa_report_docx": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\csi_heritage_nupoint\\validation\\qa_report.docx"
+  }
+}

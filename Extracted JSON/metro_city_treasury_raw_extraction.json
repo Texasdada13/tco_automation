@@ -1,0 +1,137 @@
+{
+  "vendor": "METRO_CITY_TREASURY",
+  "source_file": "testing-data/dummy-proposals/other-vendors/Metro_City_Treasury_Proposal_2025.docx",
+  "document_type": "docx",
+  "total_pages": 1,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 8,
+      "columns": 3,
+      "data": [
+        [
+          "Service",
+          "Monthly Fee",
+          "Per-Item Fee"
+        ],
+        [
+          "Primary Operating Account",
+          "$75.00",
+          "-"
+        ],
+        [
+          "Payroll Account",
+          "$50.00",
+          "-"
+        ],
+        [
+          "Accounts Payable Account",
+          "$50.00",
+          "-"
+        ],
+        [
+          "Investment Sweep Account",
+          "$100.00",
+          "-"
+        ],
+        [
+          "Deposit Processing",
+          "-",
+          "$0.15/deposit"
+        ],
+        [
+          "Check Processing",
+          "-",
+          "$0.12/check"
+        ],
+        [
+          "Statement Rendering",
+          "$15.00",
+          "-"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 2,
+      "rows": 9,
+      "columns": 3,
+      "data": [
+        [
+          "Service",
+          "Monthly Base",
+          "Transaction Fee"
+        ],
+        [
+          "Online Banking Platform",
+          "$125.00",
+          "-"
+        ],
+        [
+          "ACH Origination",
+          "$85.00",
+          "$0.08/item"
+        ],
+        [
+          "ACH Receipt",
+          "-",
+          "$0.06/item"
+        ],
+        [
+          "Wire Transfer - Domestic",
+          "$35.00",
+          "$15.00/wire"
+        ],
+        [
+          "Wire Transfer - International",
+          "$35.00",
+          "$35.00/wire"
+        ],
+        [
+          "Positive Pay",
+          "$75.00",
+          "$0.05/item"
+        ],
+        [
+          "Remote Deposit Capture",
+          "$95.00",
+          "$0.10/deposit"
+        ],
+        [
+          "Zero Balance Accounting",
+          "$50.00",
+          "-"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 3,
+      "rows": 5,
+      "columns": 2,
+      "data": [
+        [
+          "Service",
+          "Monthly Fee"
+        ],
+        [
+          "Daily Balance Reporting",
+          "$45.00"
+        ],
+        [
+          "Account Analysis Statement",
+          "$25.00"
+        ],
+        [
+          "Custom Report Package",
+          "$75.00"
+        ],
+        [
+          "API Data Access",
+          "$150.00"
+        ]
+      ]
+    }
+  ]
+}

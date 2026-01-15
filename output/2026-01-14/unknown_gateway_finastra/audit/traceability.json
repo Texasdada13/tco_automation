@@ -1,0 +1,31 @@
+{
+  "extraction_id": "20260114_194302_Unknown_Gateway_Finastra",
+  "source_file": "testing-data\\dummy-proposals\\other-vendors\\Gateway_Finastra_2025.docx",
+  "vendor": "Unknown",
+  "client": "Gateway Finastra",
+  "timestamp": "2026-01-14T19:43:19.077947",
+  "pipeline_version": "2.0",
+  "stages": {
+    "raw_extraction": {
+      "tables_found": 2,
+      "pages": 1
+    },
+    "ai_enhancement": {
+      "model": "claude-sonnet-4-20250514",
+      "items_extracted": 11
+    },
+    "qa_validation": {
+      "average_confidence": 0.95,
+      "items_auto_approved": 11,
+      "items_need_review": 0,
+      "validation_errors": 0,
+      "warnings": 0
+    }
+  },
+  "outputs": {
+    "raw_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\unknown_gateway_finastra\\extraction\\raw_extraction.json",
+    "ai_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\unknown_gateway_finastra\\extraction\\ai_extraction.json",
+    "qa_report_json": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\unknown_gateway_finastra\\validation\\qa_report.json",
+    "qa_report_docx": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-14\\unknown_gateway_finastra\\validation\\qa_report.docx"
+  }
+}

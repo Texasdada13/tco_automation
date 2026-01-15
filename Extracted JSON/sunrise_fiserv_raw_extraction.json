@@ -1,0 +1,200 @@
+{
+  "vendor": "SUNRISE_FISERV",
+  "source_file": "testing-data/dummy-proposals/other-vendors/Sunrise_Fiserv_DNA_2025.xlsx",
+  "document_type": "xlsx",
+  "total_pages": 1,
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 23,
+      "columns": 6,
+      "data": [
+        [
+          "Fiserv DNA Core Banking Platform",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Pricing Proposal for Sunrise Community Bank",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Prepared: January 2025",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Component",
+          "Category",
+          "License",
+          "Monthly",
+          "Annual Support",
+          "Implementation"
+        ],
+        [
+          "DNA Core Platform",
+          "Bundle",
+          "75000",
+          "7500",
+          "12000",
+          "45000"
+        ],
+        [
+          "DNA Teller",
+          "Bundle",
+          "18000",
+          "2200",
+          "3500",
+          "12000"
+        ],
+        [
+          "DNA New Accounts",
+          "Bundle",
+          "15000",
+          "1800",
+          "2800",
+          "10000"
+        ],
+        [
+          "DNA Lending",
+          "Bundle",
+          "22000",
+          "2800",
+          "4200",
+          "15000"
+        ],
+        [
+          "DNA Digital Banking",
+          "Bundle",
+          "28000",
+          "3500",
+          "5500",
+          "18000"
+        ],
+        [
+          "DNA Mobile",
+          "Bundle",
+          "16000",
+          "2400",
+          "3800",
+          "11000"
+        ],
+        [
+          "DNA IVR",
+          "Non-Bundle Optional",
+          "8000",
+          "1200",
+          "1800",
+          "6000"
+        ],
+        [
+          "DNA Business Intelligence",
+          "Non-Bundle Optional",
+          "12000",
+          "1600",
+          "2500",
+          "8000"
+        ],
+        [
+          "ACH Processing",
+          "Non-Bundle Required",
+          "0",
+          "580",
+          "0",
+          "3500"
+        ],
+        [
+          "Wire Services",
+          "Non-Bundle Required",
+          "0",
+          "320",
+          "0",
+          "2000"
+        ],
+        [
+          "Remote Deposit",
+          "Non-Bundle Required",
+          "0",
+          "480",
+          "0",
+          "4000"
+        ],
+        [
+          "Positive Pay",
+          "Non-Bundle Required",
+          "0",
+          "280",
+          "0",
+          "2500"
+        ],
+        [
+          "Fiserv Hosting",
+          "Third-Party Required",
+          "0",
+          "4200",
+          "7500",
+          "20000"
+        ],
+        [
+          "Network Security",
+          "Third-Party Required",
+          "0",
+          "1650",
+          "3000",
+          "8000"
+        ],
+        [
+          "TOTALS",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Notes:",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "- 7-year term recommended for best pricing",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "- Annual increase: 4% on platform, 3% on services",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "- Implementation credit of $25,000 available for Q1 signing",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ]
+}

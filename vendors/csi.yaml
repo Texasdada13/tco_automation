@@ -1,0 +1,25 @@
+vendor:
+  name: CSI
+  aliases:
+  - csi
+  - computer services
+  - nupoint
+detection:
+  filename_patterns:
+  - csi
+  - nupoint
+  - computer_services
+  content_keywords:
+  - CSI
+  - NuPoint
+  - Computer Services Inc
+mapping:
+  category_rules:
+  - pattern: NuPoint
+    category: Core
+  - pattern: Core
+    category: Core
+  - pattern: Digital
+    category: Digital
+  - pattern: Mobile
+    category: Digital

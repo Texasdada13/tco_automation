@@ -1,0 +1,49 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-01-14T19:41:39.215795",
+    "vendor": "FIS",
+    "client": "First National Tx",
+    "report_type": "qa_validation"
+  },
+  "summary": {
+    "total_items": 22,
+    "average_confidence": 0.9499999999999996,
+    "items_auto_approved": 22,
+    "items_need_review": 0,
+    "validation_passed": true
+  },
+  "confidence_distribution": {
+    "high": 22,
+    "medium": 0,
+    "low": 0
+  },
+  "financial_summary": {
+    "total_monthly": 117315.52999999997,
+    "total_annual": 0.0,
+    "total_one_time": 0.0,
+    "estimated_year_1": 1407786.3599999996
+  },
+  "category_distribution": {
+    "Core": 2,
+    "Digital": 3,
+    "EFT": 1,
+    "Risk, Fraud & Compliance": 4,
+    "Treasury": 3,
+    "Image Solutions": 3,
+    "Item Processing": 3,
+    "Other": 1,
+    "Lending": 2
+  },
+  "fee_type_distribution": {
+    "Monthly F": 22
+  },
+  "issues": {
+    "validation_errors": [],
+    "warnings": [],
+    "missing_fields": [],
+    "low_confidence_items": []
+  },
+  "recommendations": [
+    "Extraction quality is good. Spot-check flagged items before finalizing."
+  ]
+}

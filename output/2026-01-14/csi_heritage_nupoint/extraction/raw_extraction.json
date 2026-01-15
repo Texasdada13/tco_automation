@@ -1,0 +1,189 @@
+{
+  "vendor": "CSI",
+  "source_file": "testing-data\\dummy-proposals\\csi-like\\Heritage_CSI_NuPoint_2025.docx",
+  "document_type": "docx",
+  "total_pages": 1,
+  "extracted_at": "2026-01-14T19:42:26.177541",
+  "tables": [
+    {
+      "page_number": 1,
+      "table_index": 1,
+      "rows": 8,
+      "columns": 4,
+      "data": [
+        [
+          "Service",
+          "Category",
+          "Monthly Fee",
+          "Fee Type"
+        ],
+        [
+          "NuPoint Core Processing",
+          "Bundle",
+          "$14,200.00",
+          "Monthly F"
+        ],
+        [
+          "Digital Banking Suite",
+          "Bundle",
+          "$6,800.00",
+          "Monthly F"
+        ],
+        [
+          "NuPoint Mobile",
+          "Bundle",
+          "$4,100.00",
+          "Monthly F"
+        ],
+        [
+          "Document Imaging",
+          "Bundle",
+          "$3,200.00",
+          "Monthly F"
+        ],
+        [
+          "Analytics & Reporting",
+          "Bundle",
+          "$2,400.00",
+          "Monthly F"
+        ],
+        [
+          "Security Center",
+          "Bundle",
+          "$1,800.00",
+          "Monthly F"
+        ],
+        [
+          "CORE BUNDLE TOTAL",
+          "",
+          "$32,500.00",
+          ""
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 2,
+      "rows": 7,
+      "columns": 4,
+      "data": [
+        [
+          "Service",
+          "Base Monthly",
+          "Per Transaction",
+          "Category"
+        ],
+        [
+          "ACH Origination",
+          "$680.00",
+          "$0.065/item",
+          "Non-Bundle Required"
+        ],
+        [
+          "Wire Services",
+          "$380.00",
+          "$14.00/domestic",
+          "Non-Bundle Required"
+        ],
+        [
+          "Remote Deposit Capture",
+          "$520.00",
+          "$0.08/deposit",
+          "Non-Bundle Required"
+        ],
+        [
+          "Bill Pay Platform",
+          "$290.00",
+          "$0.30/payment",
+          "Non-Bundle Required"
+        ],
+        [
+          "Positive Pay",
+          "$340.00",
+          "$0.05/check",
+          "Non-Bundle Required"
+        ],
+        [
+          "eStatements",
+          "$245.00",
+          "$0.10/statement",
+          "Non-Bundle Required"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 3,
+      "rows": 6,
+      "columns": 3,
+      "data": [
+        [
+          "Service",
+          "Monthly Fee",
+          "Description"
+        ],
+        [
+          "Commercial Cash Management",
+          "$1,250.00",
+          "Full TM suite"
+        ],
+        [
+          "Lockbox Processing",
+          "$1,100.00",
+          "Plus $0.38/item"
+        ],
+        [
+          "International Services",
+          "$425.00",
+          "Plus $32/wire"
+        ],
+        [
+          "API Developer Portal",
+          "$725.00",
+          "Open banking APIs"
+        ],
+        [
+          "Advanced Fraud Detection",
+          "$480.00",
+          "AI-powered monitoring"
+        ]
+      ]
+    },
+    {
+      "page_number": 1,
+      "table_index": 4,
+      "rows": 7,
+      "columns": 2,
+      "data": [
+        [
+          "Component",
+          "One-Time Fee"
+        ],
+        [
+          "NuPoint Implementation",
+          "$110,000.00"
+        ],
+        [
+          "Data Migration",
+          "$38,000.00"
+        ],
+        [
+          "Training & Certification",
+          "$16,500.00"
+        ],
+        [
+          "Project Management",
+          "$19,500.00"
+        ],
+        [
+          "Custom Integrations",
+          "$22,000.00"
+        ],
+        [
+          "New Customer Credit",
+          "($30,000.00)"
+        ]
+      ]
+    }
+  ]
+}

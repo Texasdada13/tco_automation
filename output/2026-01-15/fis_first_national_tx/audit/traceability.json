@@ -1,0 +1,71 @@
+{
+  "extraction_id": "20260115_125747_FIS_First_National_TX",
+  "source_file": "testing-data\\dummy-proposals\\fis-like\\First_National_TX_FIS_Investment_Summary_2025.docx",
+  "vendor": "FIS",
+  "client": "First National TX",
+  "timestamp": "2026-01-15T12:58:18.022529",
+  "pipeline_version": "2.1",
+  "stages": {
+    "raw_extraction": {
+      "tables_found": 2,
+      "pages": 1
+    },
+    "ai_enhancement": {
+      "model": "claude-sonnet-4-20250514",
+      "items_extracted": 22
+    },
+    "qa_validation": {
+      "average_confidence": 0.9499999999999996,
+      "items_auto_approved": 22,
+      "items_need_review": 0,
+      "validation_errors": 0,
+      "warnings": 0
+    },
+    "cost_normalization": {
+      "taxonomy_version": "1.0",
+      "buckets_used": 2,
+      "total_items_normalized": 22,
+      "bucket_summary": {
+        "Setup/Implementation": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Licensing/Subscription": {
+          "item_count": 18,
+          "total_7_year": 6741711.301325815
+        },
+        "Transaction/Usage": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Training/Enablement": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Support/Maintenance": {
+          "item_count": 0,
+          "total_7_year": 0
+        },
+        "Professional Services": {
+          "item_count": 4,
+          "total_7_year": 4045398.440861107
+        }
+      },
+      "normalized_metrics": {
+        "Cost per Account": 215.74219484373845,
+        "Cost per User": 21574.219484373843,
+        "Cost per Transaction": 10.787109742186923,
+        "Cost per Month": 128417.9731212729,
+        "Cost per Asset": 21574.219484373843
+      }
+    }
+  },
+  "outputs": {
+    "raw_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\extraction\\raw_extraction.json",
+    "ai_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\extraction\\ai_extraction.json",
+    "normalized_extraction": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\extraction\\normalized_extraction.json",
+    "tco_excel_workbook": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\output\\TCO_FIS_First_National_TX.xlsx",
+    "qa_report_json": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\validation\\qa_report.json",
+    "qa_report_docx": "D:\\Yikes\\TCO_Final_Merged\\tco_automation\\output\\2026-01-15\\fis_first_national_tx\\validation\\qa_report.docx"
+  }
+}
