@@ -99,6 +99,74 @@
         </div>
     </div>
 
+    <!-- Needs Attention Section -->
+    {% if data_issues %}
+    <div class="bg-white rounded-xl shadow-sm border border-amber-200">
+        <div class="p-4 border-b border-amber-100 bg-amber-50 rounded-t-xl">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Needs Attention</h3>
+                        <p class="text-sm text-gray-500">{{ data_issues|length }} item{% if data_issues|length != 1 %}s{% endif %} requiring review</p>
+                    </div>
+                </div>
+                <a href="{{ url_for('extractions') }}" class="text-sm text-arriba-accent hover:text-arriba-primary font-medium">
+                    View All Extractions &rarr;
+                </a>
+            </div>
+        </div>
+        <div class="p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for issue in data_issues %}
+                <div class="flex items-start space-x-3 p-3 rounded-lg
+                    {% if issue.severity == 'high' %}bg-red-50 border border-red-100
+                    {% elif issue.severity == 'medium' %}bg-amber-50 border border-amber-100
+                    {% else %}bg-blue-50 border border-blue-100{% endif %}">
+                    <div class="flex-shrink-0 mt-0.5">
+                        {% if issue.type == 'warning' %}
+                        <svg class="w-5 h-5 {% if issue.severity == 'high' %}text-red-500{% else %}text-amber-500{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        {% else %}
+                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        {% endif %}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium
+                            {% if issue.severity == 'high' %}text-red-800
+                            {% elif issue.severity == 'medium' %}text-amber-800
+                            {% else %}text-blue-800{% endif %}">
+                            {{ issue.title }}
+                        </p>
+                        <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ issue.message }}</p>
+                        <a href="{{ issue.action_url }}"
+                           class="inline-flex items-center mt-2 text-sm font-medium
+                               {% if issue.severity == 'high' %}text-red-600 hover:text-red-800
+                               {% elif issue.severity == 'medium' %}text-amber-600 hover:text-amber-800
+                               {% else %}text-blue-600 hover:text-blue-800{% endif %}">
+                            {{ issue.action }}
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- AI Insights Section -->
     {% if ai_insights %}
     <div class="bg-gradient-to-r from-arriba-primary to-arriba-secondary rounded-xl p-6 text-white">

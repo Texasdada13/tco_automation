@@ -326,6 +326,162 @@ def get_clients_data(force_refresh: bool = False):
     return clients
 
 
+def get_data_quality_issues(clients_data):
+    """
+    Identify data quality issues that need attention.
+
+    Returns list of issues with type, severity, message, and action.
+    """
+    issues = []
+
+    # Track which clients have single vendor (can't compare)
+    single_vendor_clients = []
+
+    # Track low confidence extractions
+    low_confidence_items = []
+
+    # Track missing or placeholder data
+    missing_data_files = []
+
+    # Track clients with high TCO variance
+    high_variance_clients = []
+
+    for client_name, client in clients_data.items():
+        vendors = client.get('vendors', {})
+
+        # Check for single vendor (no comparison possible)
+        if len(vendors) == 1:
+            vendor_name = list(vendors.keys())[0]
+            single_vendor_clients.append({
+                'client': client_name,
+                'vendor': vendor_name
+            })
+
+        # Check for high TCO variance between vendors (>50% difference)
+        if len(vendors) >= 2:
+            tco_values = []
+            for vendor, proposals in vendors.items():
+                if proposals:
+                    tco_values.append((vendor, proposals[0]['tco_7yr']))
+
+            if len(tco_values) >= 2:
+                tco_values.sort(key=lambda x: x[1])
+                lowest = tco_values[0][1]
+                highest = tco_values[-1][1]
+                if lowest > 0 and ((highest - lowest) / lowest) > 0.5:
+                    high_variance_clients.append({
+                        'client': client_name,
+                        'lowest_vendor': tco_values[0][0],
+                        'lowest_tco': lowest,
+                        'highest_vendor': tco_values[-1][0],
+                        'highest_tco': highest,
+                        'variance_pct': ((highest - lowest) / lowest) * 100
+                    })
+
+        # Check line items for quality issues
+        for vendor, proposals in vendors.items():
+            for p in proposals:
+                data = p.get('data', {})
+                line_items = data.get('line_items', [])
+
+                # Check for low confidence scores
+                for item in line_items:
+                    confidence = item.get('overall_confidence', 1.0)
+                    if confidence and confidence < 0.6:
+                        low_confidence_items.append({
+                            'client': client_name,
+                            'vendor': vendor,
+                            'item': item.get('solution_name', 'Unknown'),
+                            'confidence': confidence,
+                            'filename': p.get('filename', '')
+                        })
+
+                # Check for placeholder/missing data
+                if data.get('client') in ['Unknown', 'Not specified', None]:
+                    missing_data_files.append({
+                        'filename': p.get('filename', ''),
+                        'issue': 'Missing client name',
+                        'client': client_name,
+                        'vendor': vendor
+                    })
+
+                if data.get('document_date') in ['N/A', None, '']:
+                    missing_data_files.append({
+                        'filename': p.get('filename', ''),
+                        'issue': 'Missing document date',
+                        'client': client_name,
+                        'vendor': vendor
+                    })
+
+    # Build issues list with priorities
+    # High priority: Clients that can't be compared
+    if single_vendor_clients:
+        for item in single_vendor_clients[:3]:  # Top 3
+            issues.append({
+                'type': 'warning',
+                'severity': 'high',
+                'title': 'Single Vendor',
+                'message': f"{item['client']} only has {item['vendor']} proposal. Add more vendors for comparison.",
+                'action': 'Upload',
+                'action_url': '/upload',
+                'client': item['client']
+            })
+
+    # High priority: High variance (potential data issue or big savings)
+    if high_variance_clients:
+        for item in high_variance_clients[:2]:  # Top 2
+            issues.append({
+                'type': 'info',
+                'severity': 'high',
+                'title': 'High TCO Variance',
+                'message': f"{item['client']}: {item['variance_pct']:.0f}% difference between {item['lowest_vendor']} and {item['highest_vendor']}. Review data accuracy.",
+                'action': 'Review',
+                'action_url': f"/extraction-compare/{item['client']}",
+                'client': item['client']
+            })
+
+    # Medium priority: Low confidence extractions
+    if low_confidence_items:
+        # Group by client
+        clients_with_low_confidence = {}
+        for item in low_confidence_items:
+            if item['client'] not in clients_with_low_confidence:
+                clients_with_low_confidence[item['client']] = []
+            clients_with_low_confidence[item['client']].append(item)
+
+        for client, items in list(clients_with_low_confidence.items())[:2]:  # Top 2 clients
+            issues.append({
+                'type': 'warning',
+                'severity': 'medium',
+                'title': 'Low Confidence',
+                'message': f"{client} has {len(items)} line items with low extraction confidence. Review for accuracy.",
+                'action': 'Review',
+                'action_url': f"/clients/{client}",
+                'client': client
+            })
+
+    # Low priority: Missing metadata
+    if missing_data_files:
+        unique_issues = {}
+        for item in missing_data_files:
+            key = f"{item['client']}:{item['issue']}"
+            if key not in unique_issues:
+                unique_issues[key] = item
+
+        if len(unique_issues) > 0:
+            issues.append({
+                'type': 'info',
+                'severity': 'low',
+                'title': 'Missing Metadata',
+                'message': f"{len(unique_issues)} extractions have missing metadata (dates, names). Run repair script.",
+                'action': 'View All',
+                'action_url': '/extractions',
+                'count': len(unique_issues)
+            })
+
+    return issues[:6]  # Limit to 6 issues
+
+
 def get_dashboard_stats(clients_data):
     """Calculate dashboard statistics."""
     total_clients = len(clients_data)
@@ -405,9 +561,13 @@ def dashboard():
     except Exception as e:
         app.logger.warning(f"Could not get AI insights: {e}")
 
+    # Get data quality issues for "Needs Attention" section
+    data_issues = get_data_quality_issues(clients_data)
+
     return render_template('dashboard.html',
                          stats=stats,
                          recent_files=recent_files,
+                         data_issues=data_issues,
                          vendor_counts=vendor_counts,
                          clients_data=clients_data,
                          ai_insights=ai_insights)
@@ -731,6 +891,14 @@ def switch_role():
         return jsonify({'success': True, 'role': role})
 
     return jsonify({'error': 'Invalid role'}), 400
+
+
+@app.route('/api/data-quality/issues')
+def api_data_quality_issues():
+    """Get data quality issues that need attention."""
+    clients_data = get_clients_data()
+    issues = get_data_quality_issues(clients_data)
+    return jsonify({'issues': issues, 'count': len(issues)})
 
 
 @app.route('/api/cache/stats')
