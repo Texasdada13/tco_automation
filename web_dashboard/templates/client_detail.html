@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}{{ client.name }}{% endblock %}
+{% block page_title %}{{ client.name }}{% endblock %}
+{% block page_subtitle %}Client profile and proposal details{% endblock %}
+
+{% block content %}
+<div class="space-y-6" x-data="{ activeTab: 'overview' }">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm">
+        <ol class="flex items-center space-x-2">
+            <li><a href="{{ url_for('clients') }}" class="text-gray-500 hover:text-arriba-accent">Clients</a></li>
+            <li><span class="text-gray-400">/</span></li>
+            <li class="text-gray-900 font-medium">{{ client.name }}</li>
+        </ol>
+    </nav>
+
+    <!-- Client Header Card -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-arriba-primary/10 rounded-xl flex items-center justify-center">
+                    <svg class="w-8 h-8 text-arriba-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">{{ client.name }}</h2>
+                    <div class="flex items-center space-x-2 mt-1">
+                        {% for vendor in client.vendors.keys() %}
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+                               {% if vendor == 'FIS' %}bg-blue-100 text-blue-800
+                               {% elif vendor == 'JACK_HENRY' %}bg-green-100 text-green-800
+                               {% elif vendor == 'CSI' %}bg-purple-100 text-purple-800
+                               {% elif vendor == 'FISERV' %}bg-orange-100 text-orange-800
+                               {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ vendor }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                {% if client.vendors|length >= 2 %}
+                <a href="{{ url_for('compare_client', client_name=client.name) }}"
+                   class="inline-flex items-center px-4 py-2 bg-arriba-accent text-white font-medium rounded-lg hover:bg-arriba-primary transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    Run Comparison
+                </a>
+                {% endif %}
+                <a href="{{ url_for('export_client', client_name=client.name) }}"
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Export
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="bg-white rounded-xl shadow-sm">
+        <div class="border-b border-gray-200">
+            <nav class="flex space-x-8 px-6" aria-label="Tabs">
+                <button @click="activeTab = 'overview'"
+                        :class="activeTab === 'overview' ? 'border-arriba-accent text-arriba-accent' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                        class="py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                    Overview
+                </button>
+                <button @click="activeTab = 'proposals'"
+                        :class="activeTab === 'proposals' ? 'border-arriba-accent text-arriba-accent' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                        class="py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                    Proposals ({{ client.total_proposals }})
+                </button>
+                {% if has_permission('view_all') %}
+                <button @click="activeTab = 'line_items'"
+                        :class="activeTab === 'line_items' ? 'border-arriba-accent text-arriba-accent' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                        class="py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                    Line Items
+                </button>
+                {% endif %}
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="p-6">
+
+            <!-- Overview Tab -->
+            <div x-show="activeTab === 'overview'" x-transition>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {% for vendor, proposals in client.vendors.items() %}
+                    {% set proposal = proposals[0] %}
+                    <div class="border rounded-xl p-6
+                           {% if vendor == 'FIS' %}border-blue-200 bg-blue-50/50
+                           {% elif vendor == 'JACK_HENRY' %}border-green-200 bg-green-50/50
+                           {% elif vendor == 'CSI' %}border-purple-200 bg-purple-50/50
+                           {% elif vendor == 'FISERV' %}border-orange-200 bg-orange-50/50
+                           {% else %}border-gray-200 bg-gray-50/50{% endif %}">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-semibold text-gray-900">{{ vendor }}</h4>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium
+                                   {% if vendor == 'FIS' %}bg-blue-100 text-blue-800
+                                   {% elif vendor == 'JACK_HENRY' %}bg-green-100 text-green-800
+                                   {% elif vendor == 'CSI' %}bg-purple-100 text-purple-800
+                                   {% elif vendor == 'FISERV' %}bg-orange-100 text-orange-800
+                                   {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                {{ proposal.contract_term }}-Year
+                            </span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-sm text-gray-500">7-Year TCO</span>
+                                <p class="text-2xl font-bold text-gray-900">
+                                    {% if proposal.tco_7yr >= 1000000 %}
+                                        ${{ "%.2f"|format(proposal.tco_7yr / 1000000) }}M
+                                    {% else %}
+                                        ${{ "%.0f"|format(proposal.tco_7yr / 1000) }}K
+                                    {% endif %}
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-gray-500">Monthly</span>
+                                    <p class="font-semibold">${{ "%.0f"|format(proposal.total_monthly) }}</p>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500">One-Time</span>
+                                    <p class="font-semibold">${{ "%.0f"|format(proposal.total_onetime) }}</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-gray-200">
+                                <span class="text-sm text-gray-500">{{ proposal.line_items_count }} line items</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Proposals Tab -->
+            <div x-show="activeTab === 'proposals'" x-transition>
+                <div class="space-y-4">
+                    {% for vendor, proposals in client.vendors.items() %}
+                    {% for proposal in proposals %}
+                    <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                       {% if vendor == 'FIS' %}bg-blue-100 text-blue-800
+                                       {% elif vendor == 'JACK_HENRY' %}bg-green-100 text-green-800
+                                       {% elif vendor == 'CSI' %}bg-purple-100 text-purple-800
+                                       {% elif vendor == 'FISERV' %}bg-orange-100 text-orange-800
+                                       {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                    {{ vendor }}
+                                </span>
+                                <div>
+                                    <p class="font-medium text-gray-900">{{ proposal.filename }}</p>
+                                    <p class="text-sm text-gray-500">{{ proposal.document_date }}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold text-gray-900">
+                                    {% if proposal.tco_7yr >= 1000000 %}
+                                        ${{ "%.2f"|format(proposal.tco_7yr / 1000000) }}M
+                                    {% else %}
+                                        ${{ "%.0f"|format(proposal.tco_7yr / 1000) }}K
+                                    {% endif %}
+                                </p>
+                                <p class="text-sm text-gray-500">7-Year TCO</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 grid grid-cols-4 gap-4 text-sm">
+                            <div>
+                                <span class="text-gray-500">Monthly Fees</span>
+                                <p class="font-semibold">${{ "%.2f"|format(proposal.total_monthly) }}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">One-Time Fees</span>
+                                <p class="font-semibold">${{ "%.2f"|format(proposal.total_onetime) }}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">Line Items</span>
+                                <p class="font-semibold">{{ proposal.line_items_count }}</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">Contract Term</span>
+                                <p class="font-semibold">{{ proposal.contract_term }} years</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Line Items Tab -->
+            {% if has_permission('view_all') %}
+            <div x-show="activeTab === 'line_items'" x-transition>
+                {% for vendor, proposals in client.vendors.items() %}
+                {% set proposal = proposals[0] %}
+                <div class="mb-8">
+                    <h4 class="font-semibold text-gray-900 mb-4 flex items-center">
+                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium mr-2
+                               {% if vendor == 'FIS' %}bg-blue-100 text-blue-800
+                               {% elif vendor == 'JACK_HENRY' %}bg-green-100 text-green-800
+                               {% elif vendor == 'CSI' %}bg-purple-100 text-purple-800
+                               {% elif vendor == 'FISERV' %}bg-orange-100 text-orange-800
+                               {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ vendor }}
+                        </span>
+                        Line Items
+                    </h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Solution</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Category</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-gray-600">Monthly Fee</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-gray-600">One-Time Fee</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-600">Fee Type</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                {% for item in proposal.data.line_items[:20] %}
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-gray-900">{{ item.solution_name }}</td>
+                                    <td class="px-4 py-3 text-gray-500">{{ item.category or '-' }}</td>
+                                    <td class="px-4 py-3 text-right font-medium">${{ "%.2f"|format(item.monthly_fee or 0) }}</td>
+                                    <td class="px-4 py-3 text-right font-medium">${{ "%.2f"|format(item.one_time_fee or 0) }}</td>
+                                    <td class="px-4 py-3 text-gray-500">{{ item.fee_type or '-' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if proposal.data.line_items|length > 20 %}
+                        <p class="text-center text-sm text-gray-500 py-4">
+                            Showing 20 of {{ proposal.data.line_items|length }} line items
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

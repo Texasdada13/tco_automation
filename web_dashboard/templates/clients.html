@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Clients{% endblock %}
+{% block page_title %}Clients{% endblock %}
+{% block page_subtitle %}Manage and view all client proposals{% endblock %}
+
+{% block content %}
+<div class="space-y-6" x-data="{ search: '', filterVendor: '' }">
+
+    <!-- Search and Filter Bar -->
+    <div class="bg-white rounded-xl shadow-sm p-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex-1 max-w-md">
+                <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input type="text"
+                       x-model="search"
+                       placeholder="Search clients..."
+                       class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-arriba-accent focus:border-transparent">
+            </div>
+            <div class="flex items-center space-x-4">
+                <select x-model="filterVendor"
+                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-arriba-accent focus:border-transparent">
+                    <option value="">All Vendors</option>
+                    <option value="FIS">FIS</option>
+                    <option value="JACK_HENRY">Jack Henry</option>
+                    <option value="CSI">CSI</option>
+                    <option value="FISERV">Fiserv</option>
+                    <option value="FINASTRA">Finastra</option>
+                </select>
+                <span class="text-sm text-gray-500">{{ clients|length }} clients</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clients Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for client in clients %}
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover"
+             x-show="(search === '' || '{{ client.name }}'.toLowerCase().includes(search.toLowerCase())) &&
+                     (filterVendor === '' || Object.keys({{ client.vendors.keys()|list|tojson }}).includes(filterVendor))">
+            <div class="p-6">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">{{ client.name }}</h3>
+                        <p class="text-sm text-gray-500 mt-1">{{ client.total_proposals }} proposal(s)</p>
+                    </div>
+                    <div class="w-10 h-10 bg-arriba-primary/10 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-arriba-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Vendor Tags -->
+                <div class="mt-4 flex flex-wrap gap-2">
+                    {% for vendor in client.vendors.keys() %}
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+                           {% if vendor == 'FIS' %}bg-blue-100 text-blue-800
+                           {% elif vendor == 'JACK_HENRY' %}bg-green-100 text-green-800
+                           {% elif vendor == 'CSI' %}bg-purple-100 text-purple-800
+                           {% elif vendor == 'FISERV' %}bg-orange-100 text-orange-800
+                           {% else %}bg-gray-100 text-gray-800{% endif %}">
+                        {{ vendor }}
+                    </span>
+                    {% endfor %}
+                </div>
+
+                <!-- Quick Stats -->
+                {% set vendors_list = client.vendors.values()|list %}
+                {% if vendors_list and vendors_list[0] %}
+                {% set first_proposal = vendors_list[0][0] %}
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="text-gray-500">Lowest TCO</span>
+                            <p class="font-semibold text-gray-900">
+                                {% set min_tco = namespace(value=999999999) %}
+                                {% for vendor, proposals in client.vendors.items() %}
+                                    {% for p in proposals %}
+                                        {% if p.tco_7yr < min_tco.value %}
+                                            {% set min_tco.value = p.tco_7yr %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                                {% if min_tco.value >= 1000000 %}
+                                    ${{ "%.1f"|format(min_tco.value / 1000000) }}M
+                                {% else %}
+                                    ${{ "%.0f"|format(min_tco.value / 1000) }}K
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">Vendors</span>
+                            <p class="font-semibold text-gray-900">{{ client.vendors|length }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Action Footer -->
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                <div class="flex items-center justify-between">
+                    <a href="{{ url_for('client_detail', client_name=client.name) }}"
+                       class="text-arriba-accent hover:text-arriba-primary font-medium text-sm">
+                        View Details &rarr;
+                    </a>
+                    {% if client.vendors|length >= 2 %}
+                    <a href="{{ url_for('compare_client', client_name=client.name) }}"
+                       class="inline-flex items-center px-3 py-1.5 bg-arriba-accent text-white text-sm font-medium rounded-lg hover:bg-arriba-primary transition-colors">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        Compare
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Empty State -->
+    {% if not clients %}
+    <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">No Clients Found</h3>
+        <p class="text-gray-500">Upload vendor proposals to get started with TCO analysis.</p>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

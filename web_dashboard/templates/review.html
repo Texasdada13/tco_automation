@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Review Queue{% endblock %}
+{% block page_title %}Product Match Review{% endblock %}
+{% block page_subtitle %}Review and approve product categorizations{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Pending Review</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ queue_items|length }}</p>
+                </div>
+                <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">AI Suggestions</p>
+                    <p class="text-2xl font-bold text-gray-900">
+                        {{ queue_items|selectattr('ai_suggestion')|list|length if queue_items else 0 }}
+                    </p>
+                </div>
+                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Fuzzy Matches</p>
+                    <p class="text-2xl font-bold text-gray-900">
+                        {{ queue_items|selectattr('match_method', 'equalto', 'fuzzy')|list|length if queue_items else 0 }}
+                    </p>
+                </div>
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Unmatched</p>
+                    <p class="text-2xl font-bold text-gray-900">
+                        {{ queue_items|selectattr('match_method', 'equalto', 'unmatched')|list|length if queue_items else 0 }}
+                    </p>
+                </div>
+                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Queue -->
+    <div class="bg-white rounded-xl shadow-sm">
+        <div class="p-6 border-b">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900">Review Queue</h3>
+                <span class="text-sm text-gray-500">{{ queue_items|length }} items pending</span>
+            </div>
+        </div>
+
+        {% if queue_items %}
+        <div class="divide-y divide-gray-100">
+            {% for item in queue_items[:20] %}
+            <div class="p-4 hover:bg-gray-50 transition-colors">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2">
+                            <p class="font-medium text-gray-900">{{ item.get('product_name', 'Unknown') }}</p>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                                   {% if item.get('vendor') == 'FIS' %}bg-blue-100 text-blue-800
+                                   {% elif item.get('vendor') == 'JACK_HENRY' %}bg-green-100 text-green-800
+                                   {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                {{ item.get('vendor', 'Unknown') }}
+                            </span>
+                        </div>
+
+                        {% if item.get('ai_suggestion') %}
+                        <div class="mt-2 flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">AI Suggestion:</span>
+                            <span class="text-sm font-medium text-purple-600">{{ item.get('ai_suggestion') }}</span>
+                            <span class="text-xs text-gray-400">({{ item.get('confidence', 0) }}% confidence)</span>
+                        </div>
+                        {% endif %}
+
+                        {% if item.get('reasoning') %}
+                        <p class="mt-1 text-sm text-gray-500">{{ item.get('reasoning') }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        {% if item.get('ai_suggestion') %}
+                        <button onclick="alert('Accept functionality coming soon')"
+                                class="px-3 py-1.5 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors">
+                            Accept
+                        </button>
+                        {% endif %}
+                        <button onclick="alert('Categorize functionality coming soon')"
+                                class="px-3 py-1.5 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 transition-colors">
+                            Categorize
+                        </button>
+                        <button onclick="alert('Skip functionality coming soon')"
+                                class="px-3 py-1.5 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                            Skip
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if queue_items|length > 20 %}
+        <div class="p-4 border-t bg-gray-50 text-center">
+            <p class="text-sm text-gray-500">Showing 20 of {{ queue_items|length }} items</p>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="p-12 text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-2">All Caught Up!</h4>
+            <p class="text-gray-500">No items pending review. All products have been categorized.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Instructions -->
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+        <h4 class="font-semibold text-blue-900 mb-2">How Review Works</h4>
+        <ul class="text-sm text-blue-800 space-y-1">
+            <li><strong>Accept:</strong> Approve the AI suggestion and add the term to the ontology</li>
+            <li><strong>Categorize:</strong> Choose a different category from the full list</li>
+            <li><strong>Skip:</strong> Move to the next item (skipped items return later)</li>
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

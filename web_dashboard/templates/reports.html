@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Reports{% endblock %}
+{% block page_title %}Reports & Exports{% endblock %}
+{% block page_subtitle %}Download TCO analysis reports{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- Export Options -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Excel Export -->
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+            <div class="flex items-center space-x-4 mb-4">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900">Excel Reports</h4>
+                    <p class="text-sm text-gray-500">TCO comparison spreadsheets</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">
+                Download detailed Excel workbooks with full TCO breakdown, line items, and vendor comparisons.
+            </p>
+        </div>
+
+        <!-- CSV Export -->
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+            <div class="flex items-center space-x-4 mb-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900">CSV Data</h4>
+                    <p class="text-sm text-gray-500">Raw data for analysis</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">
+                Export raw TCO data in CSV format for import into other tools or custom analysis.
+            </p>
+        </div>
+
+        <!-- JSON Export -->
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+            <div class="flex items-center space-x-4 mb-4">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900">JSON Export</h4>
+                    <p class="text-sm text-gray-500">API-ready format</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">
+                Export structured JSON data for integration with other systems or Power BI.
+            </p>
+        </div>
+    </div>
+
+    <!-- Existing TCO Files -->
+    <div class="bg-white rounded-xl shadow-sm">
+        <div class="p-6 border-b">
+            <h3 class="text-lg font-semibold text-gray-900">Generated TCO Reports</h3>
+            <p class="text-sm text-gray-500 mt-1">Previously generated comparison reports available for download</p>
+        </div>
+
+        {% if tco_files %}
+        <div class="divide-y divide-gray-100">
+            {% for file in tco_files %}
+            <div class="p-4 hover:bg-gray-50 transition-colors">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">{{ file.name }}</p>
+                            <p class="text-sm text-gray-500">
+                                {{ file.date }} &middot;
+                                {% if file.size >= 1048576 %}
+                                    {{ "%.1f"|format(file.size / 1048576) }} MB
+                                {% else %}
+                                    {{ "%.0f"|format(file.size / 1024) }} KB
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <a href="#" onclick="alert('Download functionality coming soon')"
+                       class="inline-flex items-center px-4 py-2 bg-arriba-accent text-white font-medium rounded-lg hover:bg-arriba-primary transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="p-12 text-center">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-2">No Reports Yet</h4>
+            <p class="text-gray-500 mb-4">Run a comparison to generate your first TCO report.</p>
+            <a href="{{ url_for('compare') }}"
+               class="inline-flex items-center px-4 py-2 bg-arriba-accent text-white font-medium rounded-lg hover:bg-arriba-primary transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                Run Comparison
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

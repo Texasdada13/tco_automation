@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TCO Dashboard{% endblock %} | Arriba Advisors</title>
+
+    <!-- TailwindCSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Plotly for charts -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Arriba Advisors brand colors
+                        'arriba': {
+                            'primary': '#1e3a5f',      // Deep blue
+                            'secondary': '#2c5282',    // Medium blue
+                            'accent': '#3182ce',       // Bright blue
+                            'dark': '#0f172a',         // Sidebar dark
+                            'light': '#f8fafc',        // Light background
+                            'gold': '#d69e2e',         // Accent gold
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Smooth transitions */
+        .sidebar-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+
+        /* Card hover effect */
+        .card-hover {
+            transition: all 0.2s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gradient header */
+        .header-gradient {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-100 min-h-screen" x-data="{ sidebarOpen: true }">
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="bg-arriba-dark text-white flex-shrink-0 transition-all duration-300"
+               :class="sidebarOpen ? 'w-64' : 'w-20'">
+            <div class="flex flex-col h-full">
+
+                <!-- Logo -->
+                <div class="p-4 border-b border-gray-700">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-arriba-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span class="text-white font-bold text-xl">A</span>
+                        </div>
+                        <div x-show="sidebarOpen" x-transition class="overflow-hidden">
+                            <div class="font-bold text-lg">Arriba Advisors</div>
+                            <div class="text-xs text-gray-400">TCO Dashboard</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="flex-1 py-4 overflow-y-auto">
+                    <div class="px-4 mb-2" x-show="sidebarOpen">
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Main</span>
+                    </div>
+
+                    <a href="{{ url_for('dashboard') }}"
+                       class="sidebar-link flex items-center px-4 py-3 text-gray-300 hover:bg-arriba-secondary hover:text-white
+                              {% if request.endpoint == 'dashboard' %}bg-arriba-secondary text-white{% endif %}">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        <span class="ml-3" x-show="sidebarOpen">Dashboard</span>
+                    </a>
+
+                    <a href="{{ url_for('clients') }}"
+                       class="sidebar-link flex items-center px-4 py-3 text-gray-300 hover:bg-arriba-secondary hover:text-white
+                              {% if request.endpoint in ['clients', 'client_detail'] %}bg-arriba-secondary text-white{% endif %}">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                        <span class="ml-3" x-show="sidebarOpen">Clients</span>
+                    </a>
+
+                    <a href="{{ url_for('compare') }}"
+                       class="sidebar-link flex items-center px-4 py-3 text-gray-300 hover:bg-arriba-secondary hover:text-white
+                              {% if request.endpoint in ['compare', 'compare_client'] %}bg-arriba-secondary text-white{% endif %}">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <span class="ml-3" x-show="sidebarOpen">Compare</span>
+                    </a>
+
+                    {% if has_permission('review') %}
+                    <div class="px-4 mb-2 mt-6" x-show="sidebarOpen">
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tools</span>
+                    </div>
+
+                    <a href="{{ url_for('review') }}"
+                       class="sidebar-link flex items-center px-4 py-3 text-gray-300 hover:bg-arriba-secondary hover:text-white
+                              {% if request.endpoint == 'review' %}bg-arriba-secondary text-white{% endif %}">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                        </svg>
+                        <span class="ml-3" x-show="sidebarOpen">Review Queue</span>
+                    </a>
+                    {% endif %}
+
+                    <a href="{{ url_for('ai_assistant') }}"
+                       class="sidebar-link flex items-center px-4 py-3 text-gray-300 hover:bg-arriba-secondary hover:text-white
+                              {% if request.endpoint == 'ai_assistant' %}bg-arriba-secondary text-white{% endif %}">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                        <span class="ml-3" x-show="sidebarOpen">AI Assistant</span>
+                    </a>
+
+                    <a href="{{ url_for('reports') }}"
+                       class="sidebar-link flex items-center px-4 py-3 text-gray-300 hover:bg-arriba-secondary hover:text-white
+                              {% if request.endpoint == 'reports' %}bg-arriba-secondary text-white{% endif %}">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <span class="ml-3" x-show="sidebarOpen">Reports</span>
+                    </a>
+                </nav>
+
+                <!-- Toggle Button -->
+                <div class="p-4 border-t border-gray-700">
+                    <button @click="sidebarOpen = !sidebarOpen"
+                            class="w-full flex items-center justify-center p-2 text-gray-400 hover:text-white rounded-lg hover:bg-arriba-secondary transition-colors">
+                        <svg class="w-5 h-5 transition-transform" :class="sidebarOpen ? '' : 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+
+            <!-- Header -->
+            <header class="header-gradient text-white shadow-lg z-10">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div>
+                        <h1 class="text-xl font-semibold">{% block page_title %}Dashboard{% endblock %}</h1>
+                        <p class="text-sm text-blue-200">{% block page_subtitle %}TCO Automation System{% endblock %}</p>
+                    </div>
+
+                    <!-- Role Switcher -->
+                    <div class="flex items-center space-x-4" x-data="{ roleDropdownOpen: false }">
+                        <div class="relative">
+                            <button @click="roleDropdownOpen = !roleDropdownOpen"
+                                    class="flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                                <span class="text-sm">{{ role_info.name }}</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+
+                            <div x-show="roleDropdownOpen"
+                                 @click.away="roleDropdownOpen = false"
+                                 x-transition
+                                 class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-2 z-50">
+                                <div class="px-4 py-2 border-b">
+                                    <span class="text-xs font-semibold text-gray-500 uppercase">Switch Role</span>
+                                </div>
+                                {% for role_key, role_data in roles.items() %}
+                                <button onclick="switchRole('{{ role_key }}')"
+                                        class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors
+                                               {% if current_role == role_key %}bg-blue-50{% endif %}">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="font-medium text-gray-900">{{ role_data.name }}</div>
+                                            <div class="text-xs text-gray-500">{{ role_data.description }}</div>
+                                        </div>
+                                        {% if current_role == role_key %}
+                                        <svg class="w-5 h-5 text-arriba-accent" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        {% endif %}
+                                    </div>
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- User Info -->
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                {% block content %}{% endblock %}
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-white border-t px-6 py-3">
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <div>Arriba Advisors - "Our Mission is Your Success"</div>
+                    <div>TCO Automation v1.0</div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function switchRole(role) {
+            fetch('/api/switch-role', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role: role })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                }
+            });
+        }
+
+        // Format currency
+        function formatCurrency(value) {
+            if (value >= 1000000) {
+                return '$' + (value / 1000000).toFixed(1) + 'M';
+            } else if (value >= 1000) {
+                return '$' + (value / 1000).toFixed(0) + 'K';
+            }
+            return '$' + value.toFixed(0);
+        }
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

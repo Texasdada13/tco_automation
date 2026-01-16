@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Compare Vendors{% endblock %}
+{% block page_title %}Compare Vendors{% endblock %}
+{% block page_subtitle %}Run side-by-side TCO comparisons{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- Instructions -->
+    <div class="bg-gradient-to-r from-arriba-primary to-arriba-secondary rounded-xl p-6 text-white">
+        <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Vendor Comparison Tool</h3>
+                <p class="text-blue-100 mt-1">
+                    Select a client below to compare their vendor proposals side-by-side.
+                    Our analysis calculates 7-year Total Cost of Ownership and identifies potential savings.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clients Available for Comparison -->
+    <div class="bg-white rounded-xl shadow-sm">
+        <div class="p-6 border-b">
+            <h3 class="text-lg font-semibold text-gray-900">Select Client to Compare</h3>
+            <p class="text-sm text-gray-500 mt-1">Clients with 2+ vendor proposals are eligible for comparison</p>
+        </div>
+
+        <div class="divide-y divide-gray-100">
+            {% for client_name, client in clients.items() %}
+            {% if client.vendors|length >= 2 %}
+            <div class="p-4 hover:bg-gray-50 transition-colors">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-arriba-accent/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-arriba-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">{{ client.name }}</h4>
+                            <div class="flex items-center space-x-2 mt-1">
+                                {% for vendor in client.vendors.keys() %}
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                                       {% if vendor == 'FIS' %}bg-blue-100 text-blue-800
+                                       {% elif vendor == 'JACK_HENRY' %}bg-green-100 text-green-800
+                                       {% elif vendor == 'CSI' %}bg-purple-100 text-purple-800
+                                       {% elif vendor == 'FISERV' %}bg-orange-100 text-orange-800
+                                       {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                    {{ vendor }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('compare_client', client_name=client.name) }}"
+                       class="inline-flex items-center px-4 py-2 bg-arriba-accent text-white font-medium rounded-lg hover:bg-arriba-primary transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        Compare
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Clients Not Eligible -->
+    {% set ineligible = [] %}
+    {% for client_name, client in clients.items() %}
+        {% if client.vendors|length < 2 %}
+            {% set _ = ineligible.append(client) %}
+        {% endif %}
+    {% endfor %}
+
+    {% if ineligible %}
+    <div class="bg-white rounded-xl shadow-sm">
+        <div class="p-6 border-b">
+            <h3 class="text-lg font-semibold text-gray-900">Single Vendor Clients</h3>
+            <p class="text-sm text-gray-500 mt-1">These clients need additional vendor proposals for comparison</p>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for client in ineligible %}
+                <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900 text-sm">{{ client.name }}</p>
+                        <p class="text-xs text-gray-500">
+                            {% for vendor in client.vendors.keys() %}{{ vendor }}{% endfor %} only
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
