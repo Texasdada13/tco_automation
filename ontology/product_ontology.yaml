@@ -1,0 +1,1036 @@
+# Product Ontology for Banking Core System Vendors
+# Version: 1.0
+# Last Updated: 2026-01-15
+#
+# This file maps vendor-specific product names to canonical categories
+# enabling apples-to-apples comparison across proposals.
+#
+# Structure:
+#   categories.<category_key>.vendor_terms.<VENDOR>[] = list of product names
+#
+# To add a new mapping:
+#   1. Find the appropriate category (or create one)
+#   2. Add the vendor term under the correct vendor key
+#   3. Commit to git for version control
+
+metadata:
+  version: "1.0"
+  last_updated: "2026-01-15"
+  supported_vendors:
+    - FIS
+    - JACK_HENRY
+    - CSI
+    - FISERV
+    - FINASTRA
+
+# =============================================================================
+# CANONICAL PRODUCT CATEGORIES
+# =============================================================================
+
+categories:
+
+  # ===========================================================================
+  # CORE BANKING
+  # ===========================================================================
+
+  core_banking_platform:
+    canonical_name: "Core Banking Platform"
+    description: "Primary core banking/accounting system"
+    vendor_terms:
+      FIS:
+        - "HORIZON"
+        - "Core: HORIZON"
+        - "HORIZON Core"
+        - "HORIZON Core Platform"
+        - "HORIZON Enterprise Core"
+        - "IBS"
+      JACK_HENRY:
+        - "SilverLake"
+        - "Core: SilverLake"
+        - "SilverLake System"
+        - "20/20"
+        - "Core Director"
+        - "jhaEnterprise"
+      CSI:
+        - "NuPoint"
+        - "NuPoint Core"
+        - "NuPoint Core Engine"
+      FISERV:
+        - "DNA"
+        - "DNA Core Platform"
+        - "DNA Teller"
+        - "DNA New Accounts"
+        - "Premier"
+        - "Signature"
+        - "Cleartouch"
+      FINASTRA:
+        - "Fusion Phoenix"
+        - "Phoenix"
+        - "Phoenix Core"
+
+  conditional_processing:
+    canonical_name: "Conditional Processing"
+    description: "Conditional/exception processing for core system"
+    vendor_terms:
+      FIS:
+        - "HORIZON: Conditional Processing"
+        - "Conditional Processing"
+
+  # ===========================================================================
+  # DIGITAL BANKING
+  # ===========================================================================
+
+  digital_banking_platform:
+    canonical_name: "Digital Banking Platform"
+    description: "Online and mobile banking suite"
+    vendor_terms:
+      FIS:
+        - "D1 Flex"
+        - "D1 Business"
+        - "Digital: D1 Flex"
+        - "Digital: D1 Flex, D1 Business, Mobile, Bill Pay"
+        - "Digital One Online Banking"
+        - "Digital One Enterprise"
+      JACK_HENRY:
+        - "Banno"
+        - "Banno Digital"
+        - "Banno Mobile"
+        - "Banno Online"
+        - "NetTeller"
+        - "jhaEnterprise Digital"
+      CSI:
+        - "CSI Digital"
+        - "NuPoint Digital"
+        - "Internet Banking"
+        - "Digital Banking Platform"
+      FISERV:
+        - "Architect"
+        - "Corillian"
+        - "Digital One"
+        - "DNA Digital Banking"
+
+  website_services:
+    canonical_name: "Website Services"
+    description: "Bank website hosting and management"
+    vendor_terms:
+      FIS:
+        - "Website Services"
+        - "Digital: Website Services"
+      JACK_HENRY:
+        - "Web Design"
+        - "Banno Website"
+      CSI:
+        - "Web Services"
+
+  zelle_p2p:
+    canonical_name: "Zelle P2P Payments"
+    description: "Zelle person-to-person payment service"
+    vendor_terms:
+      FIS:
+        - "Zelle"
+        - "Digital: Zelle"
+        - "Zelle (Consumer and Small Business)"
+      JACK_HENRY:
+        - "Zelle"
+        - "P2P Zelle"
+      CSI:
+        - "Zelle"
+      FISERV:
+        - "Zelle"
+
+  web_connect_quickbooks:
+    canonical_name: "WebConnect/DirectConnect & Quickbooks"
+    description: "Third-party financial software integration"
+    vendor_terms:
+      FIS:
+        - "WebConnect/DirectConnect & Quickbooks"
+        - "Digital: WebConnect/DirectConnect & Quickbooks"
+
+  # ===========================================================================
+  # PAYMENTS & EFT
+  # ===========================================================================
+
+  eft_debit_processing:
+    canonical_name: "EFT/Debit Processing"
+    description: "Electronic funds transfer and debit card processing"
+    vendor_terms:
+      FIS:
+        - "EFT Norcross"
+        - "EFT: EFT Norcross"
+        - "EFT: EFT Norcross, 3D Secure, Tokenization, SecurLOCK"
+      JACK_HENRY:
+        - "JHA EFT"
+        - "EFT Processing"
+      CSI:
+        - "EFT Services"
+
+  tokenization_security:
+    canonical_name: "Tokenization & Card Security"
+    description: "Card tokenization, 3D Secure, digital wallet support"
+    vendor_terms:
+      FIS:
+        - "Tokenization"
+        - "Tokenization (ApplePay, Additional Pays)"
+        - "3D Secure"
+        - "SecurLOCK"
+      JACK_HENRY:
+        - "CardValet"
+        - "Card Management"
+      CSI:
+        - "Card Security"
+
+  rtp_receive:
+    canonical_name: "Real-Time Payments (Receive)"
+    description: "RTP receive-only capability"
+    vendor_terms:
+      FIS:
+        - "RTP (Receive)"
+        - "Image Solutions: RTP (Receive)"
+        - "Real-Time Payments (RTP) (Receive Only)"
+      JACK_HENRY:
+        - "RTP Receive"
+      CSI:
+        - "RTP"
+
+  rtp_send:
+    canonical_name: "Real-Time Payments (Send)"
+    description: "RTP send capability"
+    vendor_terms:
+      FIS:
+        - "RTP Send"
+        - "Image Solutions: RTP Send for Business"
+        - "Image Solutions: RTP Send for D1B"
+      JACK_HENRY:
+        - "RTP Send"
+
+  fednow:
+    canonical_name: "FedNow Instant Payments"
+    description: "Federal Reserve instant payment service"
+    vendor_terms:
+      FIS:
+        - "FedNOW"
+        - "FedNOW (Receive Only)"
+        - "Image Solutions: FedNOW (both Send/Receive)"
+        - "Image Solutions: FedNOW (Send and Receive) D1B"
+      JACK_HENRY:
+        - "FedNow"
+      CSI:
+        - "FedNow"
+
+  # ===========================================================================
+  # TREASURY MANAGEMENT
+  # ===========================================================================
+
+  wire_transfer_business:
+    canonical_name: "Wire Transfer (Business)"
+    description: "Business wire transfer services"
+    vendor_terms:
+      FIS:
+        - "eWire"
+        - "eWire (Business)"
+        - "Treasury: eWire (Business)"
+      JACK_HENRY:
+        - "JHA Wire"
+        - "Wire Transfer"
+      CSI:
+        - "Wire Services"
+
+  wire_transfer_consumer:
+    canonical_name: "Wire Transfer (Consumer)"
+    description: "Consumer wire transfer services"
+    vendor_terms:
+      FIS:
+        - "eWire (Consumer)"
+        - "Treasury: eWire (Consumer)"
+      JACK_HENRY:
+        - "Consumer Wire"
+
+  account_analysis:
+    canonical_name: "Account Analysis"
+    description: "Treasury account analysis and reporting"
+    vendor_terms:
+      FIS:
+        - "Extended Account Analysis"
+        - "Treasury: Extended Account Analysis (XAA)"
+        - "Treasury: Extended Account Analysis"
+        - "XAA"
+      JACK_HENRY:
+        - "Account Analysis"
+      CSI:
+        - "Account Analysis"
+
+  # ===========================================================================
+  # ITEM PROCESSING
+  # ===========================================================================
+
+  item_processing_suite:
+    canonical_name: "Item Processing Suite"
+    description: "Check processing, image capture, branch capture"
+    vendor_terms:
+      FIS:
+        - "Item Processing"
+        - "Item Processing: FCM, IP, Branch Capture, CCX, FXD, DLRR"
+        - "FCM"
+        - "Branch Capture"
+      JACK_HENRY:
+        - "Synergy"
+        - "Item Processing"
+      CSI:
+        - "Item Processing"
+
+  remote_deposit_merchant:
+    canonical_name: "Remote Deposit (Merchant)"
+    description: "Merchant remote deposit capture"
+    vendor_terms:
+      FIS:
+        - "DirectLink Merchant"
+        - "IP: DirectLink Merchant (via RDC)"
+        - "IP: DirectLink Merchant (via RegO)"
+      JACK_HENRY:
+        - "Remote Deposit Merchant"
+        - "RDC Merchant"
+      CSI:
+        - "Merchant RDC"
+
+  remote_deposit_consumer:
+    canonical_name: "Remote Deposit (Consumer)"
+    description: "Consumer remote deposit capture"
+    vendor_terms:
+      FIS:
+        - "DirectLink Consumer"
+        - "IP: DirectLink Consumer (via FXD)"
+        - "IP: DirectLink Consumer (via FIS)"
+      JACK_HENRY:
+        - "Remote Deposit Consumer"
+        - "RDC Consumer"
+      CSI:
+        - "Consumer RDC"
+
+  chargeback_management:
+    canonical_name: "Chargeback Management"
+    description: "Dispute and chargeback handling"
+    vendor_terms:
+      FIS:
+        - "Chargeback Manager"
+        - "Image Solutions: Chargeback Manager"
+      JACK_HENRY:
+        - "Chargeback"
+      CSI:
+        - "Dispute Management"
+
+  collaboration_hub:
+    canonical_name: "Collaboration Hub"
+    description: "Image collaboration and workflow hub"
+    vendor_terms:
+      FIS:
+        - "Collaboration Hub"
+        - "Image Solutions: Collaboration Hub"
+
+  # ===========================================================================
+  # RISK & FRAUD
+  # ===========================================================================
+
+  fraud_detection:
+    canonical_name: "Fraud Detection & Prevention"
+    description: "Fraud monitoring and prevention tools"
+    vendor_terms:
+      FIS:
+        - "Decision Solutions"
+        - "Risk, Fraud & Compliance: Decision Solutions"
+        - "DirectLink Risk Review"
+        - "DirectLink Risk Review (DLRR)"
+        - "DLRR"
+      JACK_HENRY:
+        - "Fraud Detection"
+        - "Enterprise Fraud"
+      CSI:
+        - "Fraud Prevention"
+
+  debit_card_fraud:
+    canonical_name: "Debit Card Fraud Services"
+    description: "Debit card fraud case investigation and disputes"
+    vendor_terms:
+      FIS:
+        - "Payments One Debit Card Fraud Case Investigation"
+        - "Payments One Full-Service Debit Card Fraud Disputes"
+      JACK_HENRY:
+        - "Card Fraud Services"
+
+  # ===========================================================================
+  # LENDING
+  # ===========================================================================
+
+  loan_origination:
+    canonical_name: "Loan Origination System"
+    description: "Lending origination and processing"
+    vendor_terms:
+      FIS:
+        - "FLO"
+        - "Lending: FLO"
+      JACK_HENRY:
+        - "LOS"
+        - "Loan Origination"
+      CSI:
+        - "Lending"
+
+  cra_compliance:
+    canonical_name: "CRA/Fair Lending Compliance"
+    description: "Community Reinvestment Act compliance"
+    vendor_terms:
+      FIS:
+        - "CRA Wiz"
+        - "CRA Wiz/Fair Lending"
+        - "Lending: CRA Wiz/Fair Lending"
+      JACK_HENRY:
+        - "CRA"
+        - "Fair Lending"
+      CSI:
+        - "CRA Compliance"
+
+  # ===========================================================================
+  # FORMS & OUTPUT
+  # ===========================================================================
+
+  forms_output_services:
+    canonical_name: "Forms & Output Services"
+    description: "Statement printing, forms, eDelivery"
+    vendor_terms:
+      FIS:
+        - "FOS"
+        - "FOS: eDelivery, Print/Render, Forms & Envelopes"
+        - "eDelivery"
+        - "Print/Render"
+        - "Paper and Envelopes"
+      JACK_HENRY:
+        - "Forms"
+        - "Output Services"
+      CSI:
+        - "Forms Services"
+
+  # ===========================================================================
+  # COMPLIANCE & REPORTING
+  # ===========================================================================
+
+  regulatory_compliance:
+    canonical_name: "Regulatory Compliance"
+    description: "Regulatory reporting and compliance tools"
+    vendor_terms:
+      FIS:
+        - "Regulatory Compliance"
+        - "Information Services: Regulatory Compliance"
+      JACK_HENRY:
+        - "Compliance"
+      CSI:
+        - "Compliance Services"
+
+  irs_reporting:
+    canonical_name: "IRS Reporting"
+    description: "Tax reporting services (1099, W-2, etc.)"
+    vendor_terms:
+      FIS:
+        - "IRS Reporting"
+        - "Information Services: IRS Reporting"
+      JACK_HENRY:
+        - "Tax Reporting"
+      CSI:
+        - "IRS Services"
+
+  business_intelligence:
+    canonical_name: "Business Intelligence/Reporting"
+    description: "Analytics, reporting, dashboards"
+    vendor_terms:
+      FIS:
+        - "IBM Cognos"
+        - "IBM Cognos (HORIZON 360)"
+        - "HORIZON 360"
+      JACK_HENRY:
+        - "Analytics"
+        - "Reporting"
+      CSI:
+        - "Business Intelligence"
+
+  # ===========================================================================
+  # SECURITY
+  # ===========================================================================
+
+  data_backup_restore:
+    canonical_name: "Data Backup & Restore"
+    description: "Data backup and disaster recovery"
+    vendor_terms:
+      FIS:
+        - "Data Restore"
+        - "Security Plus: Data Restore"
+      JACK_HENRY:
+        - "Backup Services"
+      CSI:
+        - "Data Recovery"
+
+  ssl_certificates:
+    canonical_name: "SSL Encryption Certificates"
+    description: "SSL/TLS certificates for secure communications"
+    vendor_terms:
+      FIS:
+        - "SSL Encryption Certificates"
+        - "SSL Encryption Certificates: GEOTrust, Verisign"
+        - "GEOTrust"
+        - "Verisign"
+
+  # ===========================================================================
+  # NETWORK & INFRASTRUCTURE
+  # ===========================================================================
+
+  network_connectivity:
+    canonical_name: "Network Connectivity"
+    description: "Data center connectivity, network services"
+    vendor_terms:
+      FIS:
+        - "Network Services"
+        - "Network Services (connectivity to data center)"
+        - "Network: Network Connectivity Services"
+      JACK_HENRY:
+        - "Network"
+        - "Connectivity"
+      CSI:
+        - "Network Services"
+
+  # ===========================================================================
+  # CARD SERVICES
+  # ===========================================================================
+
+  debit_card_production:
+    canonical_name: "Debit Card Production"
+    description: "Card production and fulfillment"
+    vendor_terms:
+      FIS:
+        - "Debit Card Production"
+        - "CardPro Connect"
+        - "EFT: Debit Card Production"
+      JACK_HENRY:
+        - "Card Production"
+      CSI:
+        - "Card Production"
+
+  debit_card_network:
+    canonical_name: "Debit Card Network"
+    description: "Card network participation (NYCE, STAR, etc.)"
+    vendor_terms:
+      FIS:
+        - "NYCE"
+        - "NYCE Preferred Debit Card Network"
+        - "EFT: NYCE Debit Card Network"
+      JACK_HENRY:
+        - "STAR"
+        - "Card Network"
+      CSI:
+        - "Network Fees"
+
+  # ===========================================================================
+  # ACCOUNTS PAYABLE
+  # ===========================================================================
+
+  accounts_payable:
+    canonical_name: "Accounts Payable"
+    description: "AP automation and processing"
+    vendor_terms:
+      FIS:
+        - "Avid Ascend"
+        - "Accounts Payable: Avid Ascend"
+      JACK_HENRY:
+        - "AP Automation"
+      CSI:
+        - "Accounts Payable"
+
+  # ===========================================================================
+  # ACH PROCESSING
+  # ===========================================================================
+
+  ach_processing:
+    canonical_name: "ACH Processing"
+    description: "ACH origination and processing"
+    vendor_terms:
+      FIS:
+        - "Milwaukee ACH"
+        - "ACH: Milwaukee ACH"
+        - "ACH Origination Enterprise"
+        - "ACH Receipt Processing"
+        - "ACH Processing"
+      JACK_HENRY:
+        - "ACH"
+        - "ACH Processing"
+        - "ACH Services"
+      CSI:
+        - "ACH Services"
+        - "ACH Processing"
+      FISERV:
+        - "ACH Processing"
+        - "ACH Services"
+
+  # ===========================================================================
+  # MOBILE BANKING
+  # ===========================================================================
+
+  mobile_banking:
+    canonical_name: "Mobile Banking"
+    description: "Mobile banking application"
+    vendor_terms:
+      FIS:
+        - "Mobile Banking"
+        - "Mobile Banking App"
+        - "Mobile Banking Enterprise"
+      JACK_HENRY:
+        - "Banno Mobile"
+        - "Mobile Banking"
+      CSI:
+        - "Mobile Banking Suite"
+        - "Mobile Banking"
+      FISERV:
+        - "DNA Mobile"
+        - "Mobile Banking"
+
+  # ===========================================================================
+  # BILL PAY
+  # ===========================================================================
+
+  bill_pay:
+    canonical_name: "Bill Payment"
+    description: "Bill payment services"
+    vendor_terms:
+      FIS:
+        - "Bill Pay"
+        - "Bill Payment"
+        - "Bill Pay Platform"
+      JACK_HENRY:
+        - "iPay"
+        - "Bill Pay"
+      CSI:
+        - "Bill Pay"
+        - "Bill Payment"
+      FISERV:
+        - "CheckFree"
+        - "Bill Pay"
+
+  # ===========================================================================
+  # ESTATEMENTS
+  # ===========================================================================
+
+  estatements:
+    canonical_name: "eStatements"
+    description: "Electronic statement delivery"
+    vendor_terms:
+      FIS:
+        - "eStatements"
+        - "eStatements Enterprise"
+      JACK_HENRY:
+        - "eStatements"
+      CSI:
+        - "eStatements"
+      FISERV:
+        - "eStatements"
+
+  # ===========================================================================
+  # POSITIVE PAY
+  # ===========================================================================
+
+  positive_pay:
+    canonical_name: "Positive Pay"
+    description: "Check fraud prevention - Positive Pay"
+    vendor_terms:
+      FIS:
+        - "Positive Pay"
+        - "Positive Pay Enterprise"
+      JACK_HENRY:
+        - "Positive Pay"
+      CSI:
+        - "Positive Pay"
+      FISERV:
+        - "Positive Pay"
+
+  # ===========================================================================
+  # TREASURY MANAGEMENT
+  # ===========================================================================
+
+  treasury_management_suite:
+    canonical_name: "Treasury Management Suite"
+    description: "Commercial treasury management suite"
+    vendor_terms:
+      FIS:
+        - "Treasury Management"
+        - "Commercial Cash Management Suite"
+      JACK_HENRY:
+        - "Treasury Management"
+        - "Cash Management"
+      CSI:
+        - "Treasury Management Suite"
+        - "Treasury Management"
+      FISERV:
+        - "Treasury Management"
+
+  # ===========================================================================
+  # REMOTE DEPOSIT
+  # ===========================================================================
+
+  remote_deposit:
+    canonical_name: "Remote Deposit Capture"
+    description: "Remote deposit capture services"
+    vendor_terms:
+      FIS:
+        - "Remote Deposit Capture"
+        - "Remote Deposit"
+        - "RDC"
+      JACK_HENRY:
+        - "Remote Deposit"
+        - "RDC"
+      CSI:
+        - "Remote Deposit"
+        - "RDC"
+      FISERV:
+        - "Remote Deposit"
+        - "RDC"
+
+  # ===========================================================================
+  # LOCKBOX
+  # ===========================================================================
+
+  lockbox_services:
+    canonical_name: "Lockbox Services"
+    description: "Commercial lockbox processing"
+    vendor_terms:
+      FIS:
+        - "Lockbox Services Enterprise"
+        - "Commercial Lockbox"
+        - "Lockbox"
+      JACK_HENRY:
+        - "Lockbox"
+      CSI:
+        - "Commercial Lockbox"
+        - "Lockbox"
+      FISERV:
+        - "Lockbox"
+
+  # ===========================================================================
+  # HOSTING & INFRASTRUCTURE
+  # ===========================================================================
+
+  hosting_services:
+    canonical_name: "Hosting Services"
+    description: "Data center and cloud hosting"
+    vendor_terms:
+      FIS:
+        - "Enterprise Hosting (AWS)"
+        - "Hosting"
+      JACK_HENRY:
+        - "Private Cloud"
+        - "Hosting"
+      CSI:
+        - "Hosting"
+      FISERV:
+        - "Fiserv Hosting"
+        - "Hosting"
+
+  # ===========================================================================
+  # IMPLEMENTATION / PROFESSIONAL SERVICES
+  # ===========================================================================
+
+  core_implementation:
+    canonical_name: "Core Implementation"
+    description: "Core system implementation services"
+    vendor_terms:
+      FIS:
+        - "Core Implementation"
+        - "Enterprise Core Implementation"
+      JACK_HENRY:
+        - "Implementation"
+        - "Core Implementation"
+      CSI:
+        - "Core Implementation"
+        - "Implementation"
+      FISERV:
+        - "Implementation"
+
+  data_migration:
+    canonical_name: "Data Migration"
+    description: "Data migration and conversion services"
+    vendor_terms:
+      FIS:
+        - "Data Migration"
+        - "Data Migration & Conversion"
+        - "Conversion"
+      JACK_HENRY:
+        - "Data Conversion"
+        - "Migration"
+      CSI:
+        - "Data Migration"
+      FISERV:
+        - "Data Migration"
+
+  training_services:
+    canonical_name: "Training Services"
+    description: "User training and education"
+    vendor_terms:
+      FIS:
+        - "Training"
+        - "Training Package"
+        - "Training Program (Comprehensive)"
+      JACK_HENRY:
+        - "Training"
+      CSI:
+        - "Training"
+      FISERV:
+        - "Training"
+
+  project_management:
+    canonical_name: "Project Management"
+    description: "Implementation project management"
+    vendor_terms:
+      FIS:
+        - "Project Management"
+      JACK_HENRY:
+        - "Project Management"
+      CSI:
+        - "Project Management"
+      FISERV:
+        - "Project Management"
+
+  # ===========================================================================
+  # SECURITY SERVICES
+  # ===========================================================================
+
+  network_security:
+    canonical_name: "Network Security"
+    description: "Network security services"
+    vendor_terms:
+      FIS:
+        - "Network Security Suite"
+        - "Network Security"
+      JACK_HENRY:
+        - "Network Security"
+      CSI:
+        - "Network Security"
+      FISERV:
+        - "Network Security"
+
+  disaster_recovery:
+    canonical_name: "Disaster Recovery"
+    description: "Disaster recovery services"
+    vendor_terms:
+      FIS:
+        - "Disaster Recovery"
+        - "DR Services"
+      JACK_HENRY:
+        - "Disaster Recovery"
+      CSI:
+        - "Disaster Recovery"
+      FISERV:
+        - "Disaster Recovery"
+
+  # ===========================================================================
+  # DOCUMENT MANAGEMENT
+  # ===========================================================================
+
+  document_management:
+    canonical_name: "Document Management"
+    description: "Document imaging and management"
+    vendor_terms:
+      FIS:
+        - "ImageCentre Document Management"
+        - "ImageCentre Pro"
+        - "Document Management"
+      JACK_HENRY:
+        - "Synapsys"
+        - "Document Management"
+      CSI:
+        - "Document Management"
+      FISERV:
+        - "Document Management"
+
+  # ===========================================================================
+  # API & INTEGRATIONS
+  # ===========================================================================
+
+  api_services:
+    canonical_name: "API Services"
+    description: "API gateway and developer access"
+    vendor_terms:
+      FIS:
+        - "API Gateway Access"
+        - "API Gateway Enterprise"
+        - "API Developer Access"
+      JACK_HENRY:
+        - "API Gateway"
+        - "Developer Tools"
+      CSI:
+        - "API Developer Access"
+        - "Integration Layer"
+      FISERV:
+        - "API Services"
+
+  # ===========================================================================
+  # INTERNATIONAL SERVICES
+  # ===========================================================================
+
+  international_wire:
+    canonical_name: "International Wire Services"
+    description: "International wire transfer services"
+    vendor_terms:
+      FIS:
+        - "Wire Transfer - International"
+        - "International Wires"
+      JACK_HENRY:
+        - "International Wire"
+      CSI:
+        - "International Services"
+      FISERV:
+        - "International Wire"
+
+  # ===========================================================================
+  # ANALYTICS & REPORTING
+  # ===========================================================================
+
+  analytics_reporting:
+    canonical_name: "Analytics & Reporting"
+    description: "Business analytics and reporting"
+    vendor_terms:
+      FIS:
+        - "Enterprise Analytics"
+        - "Advanced Reporting Suite"
+        - "Analytics Dashboard"
+      JACK_HENRY:
+        - "Analytics"
+        - "Reporting"
+      CSI:
+        - "Reporting & Analytics"
+      FISERV:
+        - "DNA Business Intelligence"
+        - "Business Intelligence"
+
+  # ===========================================================================
+  # SECURITY & COMPLIANCE
+  # ===========================================================================
+
+  security_compliance:
+    canonical_name: "Security & Compliance"
+    description: "Security and compliance services"
+    vendor_terms:
+      FIS:
+        - "Security Suite Premium"
+        - "Compliance Manager Pro"
+        - "Compliance Manager"
+      JACK_HENRY:
+        - "Security & Compliance"
+      CSI:
+        - "Security & Compliance"
+      FISERV:
+        - "Security & Compliance"
+
+  # ===========================================================================
+  # FRAUD ANALYTICS
+  # ===========================================================================
+
+  fraud_analytics:
+    canonical_name: "Fraud Analytics"
+    description: "AI-powered fraud detection and analytics"
+    vendor_terms:
+      FIS:
+        - "Fraud Detection AI"
+        - "Fraud Analytics Pro"
+        - "Advanced Fraud AI"
+      JACK_HENRY:
+        - "Fraud Analytics"
+      CSI:
+        - "Advanced Fraud AI"
+      FISERV:
+        - "Fraud Analytics"
+
+  # ===========================================================================
+  # PAYMENTS PROCESSING
+  # ===========================================================================
+
+  payments_processing:
+    canonical_name: "Payments Processing"
+    description: "General payments processing platform"
+    vendor_terms:
+      FIS:
+        - "Payments One"
+        - "Payments One Complete"
+      JACK_HENRY:
+        - "JHA Payments"
+      CSI:
+        - "Payments"
+      FISERV:
+        - "Payments"
+
+  # ===========================================================================
+  # LENDING
+  # ===========================================================================
+
+  lending_platform:
+    canonical_name: "Lending Platform"
+    description: "Lending and loan processing platform"
+    vendor_terms:
+      FISERV:
+        - "DNA Lending"
+      JACK_HENRY:
+        - "Lending"
+
+  # ===========================================================================
+  # IVR
+  # ===========================================================================
+
+  ivr_services:
+    canonical_name: "IVR Services"
+    description: "Interactive Voice Response system"
+    vendor_terms:
+      FISERV:
+        - "DNA IVR"
+        - "IVR"
+      JACK_HENRY:
+        - "IVR"
+      FIS:
+        - "IVR"
+      CSI:
+        - "IVR"
+
+  # ===========================================================================
+  # CREDITS & DISCOUNTS
+  # ===========================================================================
+
+  signing_incentive:
+    canonical_name: "Signing Incentive"
+    description: "Contract signing incentives and credits"
+    vendor_terms:
+      FIS:
+        - "Conversion Credit"
+        - "Enterprise Customer Credit"
+        - "Signing Incentive"
+      JACK_HENRY:
+        - "Signing Bonus"
+        - "Conversion Credit"
+      CSI:
+        - "Signing Incentive"
+        - "Conversion Credit"
+      FISERV:
+        - "Signing Incentive"
+
+  # ===========================================================================
+  # MISCELLANEOUS / CREDITS
+  # ===========================================================================
+
+  relationship_credit:
+    canonical_name: "Relationship Credit"
+    description: "Monthly relationship credits/discounts"
+    vendor_terms:
+      FIS:
+        - "Monthly Relationship Credit"
+        - "Relationship Credit"
+      JACK_HENRY:
+        - "Relationship Discount"
+      CSI:
+        - "Volume Discount"
+
+  recently_signed_solutions:
+    canonical_name: "Recently Signed Solutions"
+    description: "Bundle of recently added solutions"
+    vendor_terms:
+      FIS:
+        - "Recently Signed Solutions"
+        - "Recently Signed Solutions: Various"

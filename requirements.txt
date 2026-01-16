@@ -37,3 +37,7 @@ pypdfium2==5.1.0
 
 # OCR capabilities (optional but recommended)
 pytesseract==0.3.13
+
+# Product matching and ontology
+rapidfuzz>=3.0.0
+PyYAML>=6.0
