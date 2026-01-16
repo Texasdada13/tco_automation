@@ -30,10 +30,10 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-pr
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max upload
 
 # Import AI Assistant
-from ai_assistant import TCOAIAssistant, create_assistant
+from web_dashboard.ai_assistant import TCOAIAssistant, create_assistant
 
 # Import Bulk Upload Manager
-from bulk_upload import get_upload_manager, BulkUploadManager
+from web_dashboard.bulk_upload import get_upload_manager, BulkUploadManager
 
 # Import Report Generator (lazy load to handle missing reportlab)
 report_generator = None
@@ -41,7 +41,7 @@ def get_report_generator():
     global report_generator
     if report_generator is None:
         try:
-            from report_generator import TCOReportGenerator
+            from web_dashboard.report_generator import TCOReportGenerator
             report_generator = TCOReportGenerator()
         except ImportError:
             return None
