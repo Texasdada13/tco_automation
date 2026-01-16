@@ -903,6 +903,370 @@ def api_cleanup_upload_job(job_id):
 
 
 # =============================================================================
+# Extraction Data Routes
+# =============================================================================
+
+@app.route('/extractions')
+def extractions():
+    """List all extraction files with metadata."""
+    extraction_list = []
+    clients_set = set()
+    vendors_set = set()
+    total_line_items = 0
+
+    if EXTRACTED_JSON_DIR.exists():
+        for file in EXTRACTED_JSON_DIR.glob("*_extraction_ai.json"):
+            try:
+                with open(file, 'r') as f:
+                    data = json.load(f)
+
+                # Parse client/vendor from filename and data
+                client_name = data.get('client', 'Unknown')
+                if client_name == 'Unknown' or client_name == 'Not specified':
+                    parts = file.stem.replace('_extraction_ai', '').split('_')
+                    vendors_list = ['fis', 'jh', 'csi', 'fiserv', 'finastra', 'jack_henry']
+                    for v in vendors_list:
+                        if v in [p.lower() for p in parts]:
+                            idx = [p.lower() for p in parts].index(v)
+                            client_name = ' '.join(parts[:idx]).replace('_', ' ').title()
+                            break
+                    if not client_name or client_name == 'Unknown':
+                        client_name = file.stem.replace('_extraction_ai', '').replace('_', ' ').title()
+
+                # Ensure client_name is never None
+                if not client_name:
+                    client_name = 'Unknown Client'
+
+                vendor_raw = data.get('vendor', 'Unknown')
+                vendor = vendor_raw.upper()
+                for v in ['FIS', 'JACK_HENRY', 'JH', 'CSI', 'FISERV', 'FINASTRA']:
+                    if v in vendor:
+                        vendor = v.replace('JH', 'JACK_HENRY')
+                        break
+
+                line_items = data.get('line_items', [])
+                total_monthly = sum(item.get('monthly_fee', 0) or 0 for item in line_items)
+                total_onetime = sum(item.get('one_time_fee', 0) or 0 for item in line_items)
+                contract_term = data.get('contract_term', 7)
+                tco_7yr = (total_monthly * 12 * contract_term) + total_onetime
+
+                extraction_list.append({
+                    'filename': file.name,
+                    'client': client_name,
+                    'vendor': vendor,
+                    'total_monthly': total_monthly,
+                    'total_onetime': total_onetime,
+                    'tco_7yr': tco_7yr,
+                    'line_items_count': len(line_items),
+                    'contract_term': contract_term,
+                    'document_date': data.get('document_date', 'N/A'),
+                    'proposal_type': data.get('proposal_type', 'Standard')
+                })
+
+                clients_set.add(client_name)
+                vendors_set.add(vendor)
+                total_line_items += len(line_items)
+
+            except Exception as e:
+                app.logger.warning(f"Could not load {file.name}: {e}")
+
+    # Sort by client name then vendor
+    extraction_list.sort(key=lambda x: (x['client'], x['vendor']))
+
+    return render_template('extractions.html',
+                         extractions=extraction_list,
+                         clients=sorted(clients_set),
+                         vendors=sorted(vendors_set),
+                         total_line_items=total_line_items)
+
+
+@app.route('/extraction/<filename>')
+def extraction_detail(filename):
+    """View detailed extraction data for a single proposal."""
+    file_path = EXTRACTED_JSON_DIR / filename
+
+    if not file_path.exists():
+        return render_template('404.html', message=f"Extraction file '{filename}' not found"), 404
+
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+
+        # Parse client/vendor
+        client_name = data.get('client', 'Unknown')
+        if client_name == 'Unknown' or client_name == 'Not specified':
+            parts = filename.replace('_extraction_ai.json', '').split('_')
+            vendors_list = ['fis', 'jh', 'csi', 'fiserv', 'finastra', 'jack_henry']
+            for v in vendors_list:
+                if v in [p.lower() for p in parts]:
+                    idx = [p.lower() for p in parts].index(v)
+                    client_name = ' '.join(parts[:idx]).replace('_', ' ').title()
+                    break
+
+        vendor_raw = data.get('vendor', 'Unknown')
+        vendor = vendor_raw.upper()
+        for v in ['FIS', 'JACK_HENRY', 'JH', 'CSI', 'FISERV', 'FINASTRA']:
+            if v in vendor:
+                vendor = v.replace('JH', 'JACK_HENRY')
+                break
+
+        line_items = data.get('line_items', [])
+        contract_term = data.get('contract_term', 7)
+
+        # Calculate totals
+        total_monthly = sum(item.get('monthly_fee', 0) or 0 for item in line_items)
+        total_onetime = sum(item.get('one_time_fee', 0) or 0 for item in line_items)
+        tco_7yr = (total_monthly * 12 * contract_term) + total_onetime
+
+        # Group line items by category/bucket
+        line_items_by_bucket = {}
+        buckets = {}
+
+        # Define bucket mappings based on category
+        bucket_mapping = {
+            'Core Banking': 'Core Banking Platform',
+            'Digital Banking': 'Digital Banking',
+            'Card Services': 'Payment Services',
+            'Debit Card': 'Payment Services',
+            'Credit Card': 'Payment Services',
+            'ACH': 'Payment Services',
+            'Wire': 'Payment Services',
+            'Payment': 'Payment Services',
+            'Fraud': 'Ancillary & Add-Ons',
+            'Risk': 'Ancillary & Add-Ons',
+            'Security': 'Ancillary & Add-Ons',
+            'Document': 'Ancillary & Add-Ons',
+            'Statement': 'Ancillary & Add-Ons',
+            'Support': 'Implementation &Tic Conversion',
+            'Training': 'Implementation & Conversion',
+            'Implementation': 'Implementation & Conversion',
+            'Conversion': 'Implementation & Conversion',
+            'Professional Services': 'Professional Services',
+            'Consulting': 'Professional Services'
+        }
+
+        for item in line_items:
+            category = item.get('category', 'Other')
+            bucket = 'Ancillary & Add-Ons'  # Default
+
+            for key, val in bucket_mapping.items():
+                if key.lower() in category.lower():
+                    bucket = val
+                    break
+
+            # Calculate 7-year cost for this item
+            monthly = item.get('monthly_fee', 0) or 0
+            onetime = item.get('one_time_fee', 0) or 0
+            item_7yr = (monthly * 12 * contract_term) + onetime
+            item['total_7_year'] = item_7yr
+
+            if bucket not in line_items_by_bucket:
+                line_items_by_bucket[bucket] = []
+                buckets[bucket] = {
+                    'count': 0,
+                    'monthly_total': 0,
+                    'onetime_total': 0,
+                    'total_7_year': 0,
+                    'percentage': 0
+                }
+
+            line_items_by_bucket[bucket].append(item)
+            buckets[bucket]['count'] += 1
+            buckets[bucket]['monthly_total'] += monthly
+            buckets[bucket]['onetime_total'] += onetime
+            buckets[bucket]['total_7_year'] += item_7yr
+
+        # Calculate percentages
+        for bucket in buckets:
+            if tco_7yr > 0:
+                buckets[bucket]['percentage'] = (buckets[bucket]['total_7_year'] / tco_7yr) * 100
+
+        # Sort buckets by total cost
+        sorted_buckets = dict(sorted(buckets.items(), key=lambda x: x[1]['total_7_year'], reverse=True))
+
+        # Bucket colors for visual consistency
+        bucket_colors = {
+            'Core Banking Platform': '#1e3a5f',
+            'Digital Banking': '#2c5282',
+            'Payment Services': '#3182ce',
+            'Ancillary & Add-Ons': '#4299e1',
+            'Implementation & Conversion': '#63b3ed',
+            'Professional Services': '#90cdf4'
+        }
+
+        extraction = {
+            'filename': filename,
+            'client': client_name,
+            'vendor': vendor,
+            'total_monthly': total_monthly,
+            'total_onetime': total_onetime,
+            'tco_7yr': tco_7yr,
+            'line_items': line_items,
+            'contract_term': contract_term,
+            'document_date': data.get('document_date', 'N/A'),
+            'proposal_type': data.get('proposal_type', 'Standard')
+        }
+
+        return render_template('extraction_detail.html',
+                             extraction=extraction,
+                             line_items_by_bucket=line_items_by_bucket,
+                             buckets=sorted_buckets,
+                             bucket_colors=bucket_colors)
+
+    except Exception as e:
+        app.logger.error(f"Error loading extraction {filename}: {e}")
+        return render_template('500.html', message=str(e)), 500
+
+
+@app.route('/extraction-compare/<client>')
+def extraction_compare_client(client):
+    """Compare all vendor extractions for a specific client."""
+    clients_data = get_clients_data()
+
+    # Find client (case-insensitive)
+    client_data = None
+    actual_client_name = None
+    for name, data in clients_data.items():
+        if name.lower() == client.lower() or client.lower() in name.lower():
+            client_data = data
+            actual_client_name = name
+            break
+
+    if not client_data:
+        return render_template('404.html', message=f"Client '{client}' not found"), 404
+
+    vendors = list(client_data['vendors'].keys())
+    vendor_summaries = []
+    all_buckets = set()
+
+    # Bucket mapping
+    bucket_mapping = {
+        'Core Banking': 'Core Banking Platform',
+        'Digital Banking': 'Digital Banking',
+        'Card Services': 'Payment Services',
+        'Debit Card': 'Payment Services',
+        'Credit Card': 'Payment Services',
+        'ACH': 'Payment Services',
+        'Wire': 'Payment Services',
+        'Payment': 'Payment Services',
+        'Fraud': 'Ancillary & Add-Ons',
+        'Risk': 'Ancillary & Add-Ons',
+        'Security': 'Ancillary & Add-Ons',
+        'Document': 'Ancillary & Add-Ons',
+        'Statement': 'Ancillary & Add-Ons',
+        'Support': 'Implementation & Conversion',
+        'Training': 'Implementation & Conversion',
+        'Implementation': 'Implementation & Conversion',
+        'Conversion': 'Implementation & Conversion',
+        'Professional Services': 'Professional Services',
+        'Consulting': 'Professional Services'
+    }
+
+    for vendor, proposals in client_data['vendors'].items():
+        if not proposals:
+            continue
+
+        p = proposals[0]  # Use first proposal
+        vendor_data = {
+            'vendor': vendor,
+            'filename': Path(p['file']).name,
+            'monthly_total': p['total_monthly'],
+            'onetime_total': p['total_onetime'],
+            'tco_7yr': p['tco_7yr'],
+            'contract_term': p['contract_term'],
+            'buckets': {},
+            'is_lowest': False,
+            'is_highest': False,
+            'vs_lowest': 0
+        }
+
+        # Group line items by bucket
+        line_items = p['data'].get('line_items', [])
+        contract_term = p['contract_term']
+
+        for item in line_items:
+            category = item.get('category', 'Other')
+            bucket = 'Ancillary & Add-Ons'
+
+            for key, val in bucket_mapping.items():
+                if key.lower() in category.lower():
+                    bucket = val
+                    break
+
+            monthly = item.get('monthly_fee', 0) or 0
+            onetime = item.get('one_time_fee', 0) or 0
+            item_7yr = (monthly * 12 * contract_term) + onetime
+            item['total_7_year'] = item_7yr
+
+            all_buckets.add(bucket)
+
+            if bucket not in vendor_data['buckets']:
+                vendor_data['buckets'][bucket] = {
+                    'monthly_total': 0,
+                    'onetime_total': 0,
+                    'total_7_year': 0,
+                    'items': []
+                }
+
+            vendor_data['buckets'][bucket]['monthly_total'] += monthly
+            vendor_data['buckets'][bucket]['onetime_total'] += onetime
+            vendor_data['buckets'][bucket]['total_7_year'] += item_7yr
+            vendor_data['buckets'][bucket]['items'].append(item)
+
+        vendor_summaries.append(vendor_data)
+
+    # Sort by TCO and mark lowest/highest
+    vendor_summaries.sort(key=lambda x: x['tco_7yr'])
+
+    if vendor_summaries:
+        lowest_tco = vendor_summaries[0]['tco_7yr']
+        vendor_summaries[0]['is_lowest'] = True
+
+        if len(vendor_summaries) > 1:
+            vendor_summaries[-1]['is_highest'] = True
+
+        for vs in vendor_summaries:
+            vs['vs_lowest'] = vs['tco_7yr'] - lowest_tco
+
+    # Calculate bucket winners
+    bucket_winners = {}
+    for bucket in all_buckets:
+        bucket_costs = []
+        for vs in vendor_summaries:
+            cost = vs['buckets'].get(bucket, {}).get('total_7_year', 0)
+            if cost > 0:
+                bucket_costs.append({'vendor': vs['vendor'], 'cost': cost})
+
+        if bucket_costs:
+            bucket_costs.sort(key=lambda x: x['cost'])
+            bucket_winners[bucket] = bucket_costs[0]
+
+    # Savings calculation
+    savings = {'amount': 0, 'percentage': 0}
+    if len(vendor_summaries) >= 2:
+        savings['amount'] = vendor_summaries[-1]['tco_7yr'] - vendor_summaries[0]['tco_7yr']
+        if vendor_summaries[-1]['tco_7yr'] > 0:
+            savings['percentage'] = (savings['amount'] / vendor_summaries[-1]['tco_7yr']) * 100
+
+    # Recommendation
+    recommendation = {'vendor': '', 'tco': 0}
+    if vendor_summaries:
+        recommendation = {
+            'vendor': vendor_summaries[0]['vendor'],
+            'tco': vendor_summaries[0]['tco_7yr']
+        }
+
+    return render_template('extraction_compare.html',
+                         client=actual_client_name,
+                         vendors=vendors,
+                         vendor_summaries=vendor_summaries,
+                         buckets=sorted(all_buckets),
+                         bucket_winners=bucket_winners,
+                         savings=savings,
+                         recommendation=recommendation)
+
+
+# =============================================================================
 # Error Handlers
 # =============================================================================
 
