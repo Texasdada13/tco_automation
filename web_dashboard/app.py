@@ -5,9 +5,11 @@ Arriba Advisors branded client-ready dashboard
 
 import json
 import os
+import time
 from datetime import datetime
 from functools import wraps
 from pathlib import Path
+from threading import Lock
 from uuid import uuid4
 
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify, g, Response, send_file
@@ -52,6 +54,105 @@ conversation_sessions = {}
 BASE_DIR = Path(__file__).parent.parent
 EXTRACTED_JSON_DIR = BASE_DIR / "Extracted JSON"
 TCO_OUTPUT_DIR = BASE_DIR / "TCO Output"
+
+# =============================================================================
+# Caching System
+# =============================================================================
+# Simple time-based cache with file modification tracking
+
+class DataCache:
+    """
+    Cache for extraction data with automatic invalidation.
+    Invalidates when files are modified or after TTL expires.
+    """
+
+    def __init__(self, ttl_seconds: int = 30):
+        self.ttl = ttl_seconds
+        self._cache = {}
+        self._lock = Lock()
+        self._last_check = 0
+        self._last_mtime = 0
+
+    def _get_dir_mtime(self) -> float:
+        """Get the latest modification time from the extraction directory."""
+        if not EXTRACTED_JSON_DIR.exists():
+            return 0
+
+        latest = 0
+        try:
+            # Check directory itself
+            latest = EXTRACTED_JSON_DIR.stat().st_mtime
+
+            # Check all JSON files
+            for f in EXTRACTED_JSON_DIR.glob("*_extraction_ai.json"):
+                try:
+                    mtime = f.stat().st_mtime
+                    if mtime > latest:
+                        latest = mtime
+                except OSError:
+                    pass
+        except OSError:
+            pass
+
+        return latest
+
+    def _is_stale(self, key: str) -> bool:
+        """Check if cached data is stale."""
+        if key not in self._cache:
+            return True
+
+        entry = self._cache[key]
+        now = time.time()
+
+        # Check TTL
+        if now - entry['timestamp'] > self.ttl:
+            return True
+
+        # Check file modifications (rate limited to once per second)
+        if now - self._last_check > 1:
+            self._last_check = now
+            current_mtime = self._get_dir_mtime()
+            if current_mtime > self._last_mtime:
+                self._last_mtime = current_mtime
+                return True
+
+        return False
+
+    def get(self, key: str):
+        """Get cached data if available and fresh."""
+        with self._lock:
+            if self._is_stale(key):
+                return None
+            return self._cache[key]['data']
+
+    def set(self, key: str, data):
+        """Store data in cache."""
+        with self._lock:
+            self._cache[key] = {
+                'data': data,
+                'timestamp': time.time()
+            }
+            self._last_mtime = self._get_dir_mtime()
+
+    def invalidate(self, key: str = None):
+        """Invalidate cache entry or all entries."""
+        with self._lock:
+            if key:
+                self._cache.pop(key, None)
+            else:
+                self._cache.clear()
+
+    def get_stats(self) -> dict:
+        """Get cache statistics."""
+        with self._lock:
+            return {
+                'entries': len(self._cache),
+                'keys': list(self._cache.keys()),
+                'ttl': self.ttl
+            }
+
+# Global cache instance
+_data_cache = DataCache(ttl_seconds=30)
 
 # User roles
 ROLES = {
@@ -135,8 +236,8 @@ def inject_globals():
 # Data Loading Functions
 # =============================================================================
 
-def get_clients_data():
-    """Load all client data from extraction files."""
+def _load_clients_data_uncached():
+    """Load all client data from extraction files (uncached implementation)."""
     clients = {}
 
     if not EXTRACTED_JSON_DIR.exists():
@@ -192,6 +293,35 @@ def get_clients_data():
 
         except Exception as e:
             app.logger.warning(f"Could not load {file.name}: {e}")
+
+    return clients
+
+
+def get_clients_data(force_refresh: bool = False):
+    """
+    Load all client data from extraction files with caching.
+
+    Args:
+        force_refresh: If True, bypass cache and reload data
+
+    Returns:
+        Dictionary of client data keyed by client name
+    """
+    cache_key = 'clients_data'
+
+    if force_refresh:
+        _data_cache.invalidate(cache_key)
+
+    # Try cache first
+    cached = _data_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    # Load fresh data
+    clients = _load_clients_data_uncached()
+
+    # Store in cache
+    _data_cache.set(cache_key, clients)
 
     return clients
 
@@ -601,6 +731,19 @@ def switch_role():
         return jsonify({'success': True, 'role': role})
 
     return jsonify({'error': 'Invalid role'}), 400
+
+
+@app.route('/api/cache/stats')
+def api_cache_stats():
+    """Get cache statistics."""
+    return jsonify(_data_cache.get_stats())
+
+
+@app.route('/api/cache/invalidate', methods=['POST'])
+def api_cache_invalidate():
+    """Invalidate the data cache."""
+    _data_cache.invalidate()
+    return jsonify({'success': True, 'message': 'Cache invalidated'})
 
 
 @app.route('/api/export/<client_name>')
