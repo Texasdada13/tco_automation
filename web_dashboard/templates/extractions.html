@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Extractions{% endblock %}
+{% block page_title %}Extraction Data{% endblock %}
+{% block page_subtitle %}View and analyze extracted proposal data{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header with stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-sm text-gray-500">Total Extractions</div>
+            <div class="text-2xl font-bold text-arriba-primary">{{ extractions|length }}</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-sm text-gray-500">Unique Clients</div>
+            <div class="text-2xl font-bold text-arriba-primary">{{ clients|length }}</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-sm text-gray-500">Vendors Covered</div>
+            <div class="text-2xl font-bold text-arriba-primary">{{ vendors|length }}</div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-sm text-gray-500">Total Line Items</div>
+            <div class="text-2xl font-bold text-arriba-primary">{{ total_line_items }}</div>
+        </div>
+    </div>
+
+    <!-- Filter Controls -->
+    <div class="bg-white rounded-lg shadow p-4" x-data="{ filterClient: '', filterVendor: '' }">
+        <div class="flex flex-wrap gap-4 items-center">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Filter by Client</label>
+                <select x-model="filterClient" @change="filterExtractions()"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-arriba-accent focus:border-arriba-accent">
+                    <option value="">All Clients</option>
+                    {% for client in clients %}
+                    <option value="{{ client }}">{{ client }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Filter by Vendor</label>
+                <select x-model="filterVendor" @change="filterExtractions()"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-arriba-accent focus:border-arriba-accent">
+                    <option value="">All Vendors</option>
+                    {% for vendor in vendors %}
+                    <option value="{{ vendor }}">{{ vendor }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                <input type="text" id="searchInput" placeholder="Search extractions..."
+                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-arriba-accent focus:border-arriba-accent"
+                       onkeyup="searchExtractions()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Extractions Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="extractionsGrid">
+        {% for extraction in extractions %}
+        <div class="extraction-card bg-white rounded-lg shadow card-hover overflow-hidden"
+             data-client="{{ extraction.client }}" data-vendor="{{ extraction.vendor }}" data-filename="{{ extraction.filename }}">
+
+            <!-- Card Header -->
+            <div class="header-gradient text-white p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="font-semibold">{{ extraction.client }}</h3>
+                        <span class="text-sm text-blue-200">{{ extraction.vendor }}</span>
+                    </div>
+                    <span class="px-2 py-1 bg-white/20 rounded text-xs">
+                        {{ extraction.line_items_count }} items
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-4 space-y-3">
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <div class="text-xs text-gray-500">Monthly Total</div>
+                        <div class="font-semibold text-arriba-primary">${{ "{:,.0f}".format(extraction.total_monthly) }}</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500">One-Time Total</div>
+                        <div class="font-semibold text-arriba-primary">${{ "{:,.0f}".format(extraction.total_onetime) }}</div>
+                    </div>
+                </div>
+
+                <div class="border-t pt-3">
+                    <div class="text-xs text-gray-500">7-Year TCO</div>
+                    <div class="text-xl font-bold text-green-600">${{ "{:,.0f}".format(extraction.tco_7yr) }}</div>
+                </div>
+
+                <!-- Metadata -->
+                <div class="text-xs text-gray-400 space-y-1">
+                    <div class="flex justify-between">
+                        <span>Contract Term:</span>
+                        <span>{{ extraction.contract_term }} years</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Document Date:</span>
+                        <span>{{ extraction.document_date }}</span>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="pt-3 border-t flex gap-2">
+                    <a href="{{ url_for('extraction_detail', filename=extraction.filename) }}"
+                       class="flex-1 text-center px-3 py-2 bg-arriba-primary text-white rounded-lg hover:bg-arriba-secondary transition-colors text-sm">
+                        View Details
+                    </a>
+                    <a href="{{ url_for('extraction_compare_client', client=extraction.client) }}"
+                       class="flex-1 text-center px-3 py-2 border border-arriba-primary text-arriba-primary rounded-lg hover:bg-arriba-primary hover:text-white transition-colors text-sm">
+                        Compare
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not extractions %}
+    <div class="bg-white rounded-lg shadow p-8 text-center">
+        <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">No Extractions Found</h3>
+        <p class="text-gray-500">Upload proposal documents to get started.</p>
+        <a href="{{ url_for('upload_page') }}"
+           class="inline-block mt-4 px-4 py-2 bg-arriba-primary text-white rounded-lg hover:bg-arriba-secondary transition-colors">
+            Upload Proposals
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function filterExtractions() {
+    const clientFilter = document.querySelector('[x-model="filterClient"]').value.toLowerCase();
+    const vendorFilter = document.querySelector('[x-model="filterVendor"]').value.toLowerCase();
+    const cards = document.querySelectorAll('.extraction-card');
+
+    cards.forEach(card => {
+        const cardClient = card.dataset.client.toLowerCase();
+        const cardVendor = card.dataset.vendor.toLowerCase();
+
+        const matchesClient = !clientFilter || cardClient.includes(clientFilter);
+        const matchesVendor = !vendorFilter || cardVendor.includes(vendorFilter);
+
+        card.style.display = (matchesClient && matchesVendor) ? 'block' : 'none';
+    });
+}
+
+function searchExtractions() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.extraction-card');
+
+    cards.forEach(card => {
+        const text = (card.dataset.client + ' ' + card.dataset.vendor + ' ' + card.dataset.filename).toLowerCase();
+        card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+    });
+}
+</script>
+{% endblock %}
