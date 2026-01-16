@@ -45,3 +45,6 @@ PyYAML>=6.0
 # Dashboard
 streamlit>=1.30.0
 Flask>=3.0.0
+
+# PDF Report Generation
+reportlab>=4.0.0

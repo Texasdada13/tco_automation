@@ -370,6 +370,207 @@ class TCOAnalysisTools:
     # Summary Tools
     # -------------------------------------------------------------------------
 
+    # -------------------------------------------------------------------------
+    # Negotiation Tools
+    # -------------------------------------------------------------------------
+
+    def get_negotiation_insights(self, client_name: str) -> dict:
+        """Get negotiation insights for a specific client."""
+        client_details = self.get_client_details(client_name)
+        if 'error' in client_details:
+            return client_details
+
+        insights = {
+            'client': client_details['name'],
+            'high_variance_items': [],
+            'benchmark_gaps': [],
+            'negotiation_targets': [],
+            'total_negotiation_potential': 0
+        }
+
+        # Find items with high variance compared to category averages
+        client_items = [i for i in self.all_line_items
+                       if i['client'] == client_details['name']]
+
+        for item in client_items:
+            category = item['category']
+            if category in self.categories:
+                cat_items = self.categories[category]
+                if len(cat_items) >= 2:
+                    monthly_fees = [i['monthly_fee'] for i in cat_items if i['monthly_fee'] > 0]
+                    if monthly_fees:
+                        avg = sum(monthly_fees) / len(monthly_fees)
+                        min_fee = min(monthly_fees)
+
+                        if item['monthly_fee'] > avg * 1.3:  # 30% above average
+                            potential_savings = item['monthly_fee'] - avg
+                            insights['high_variance_items'].append({
+                                'product': item['product_name'],
+                                'vendor': item['vendor'],
+                                'current_monthly': item['monthly_fee'],
+                                'category_average': avg,
+                                'category_minimum': min_fee,
+                                'variance_pct': ((item['monthly_fee'] - avg) / avg * 100) if avg > 0 else 0,
+                                'potential_monthly_savings': potential_savings,
+                                'potential_7yr_savings': potential_savings * 12 * 7,
+                                'negotiation_tip': f"This item is {((item['monthly_fee'] - avg) / avg * 100):.0f}% above market average. Target ${avg:.2f}/month."
+                            })
+                            insights['total_negotiation_potential'] += potential_savings * 12 * 7
+
+        # Sort by potential savings
+        insights['high_variance_items'].sort(
+            key=lambda x: x['potential_7yr_savings'],
+            reverse=True
+        )
+
+        # Generate top negotiation targets
+        for item in insights['high_variance_items'][:5]:
+            insights['negotiation_targets'].append({
+                'product': item['product'],
+                'current': item['current_monthly'],
+                'target': item['category_average'],
+                'savings_7yr': item['potential_7yr_savings'],
+                'priority': 'HIGH' if item['potential_7yr_savings'] > 10000 else 'MEDIUM'
+            })
+
+        return insights
+
+    def get_benchmark_comparison(self, client_name: str, vendor: str = None) -> dict:
+        """Compare client's pricing against benchmarks from other clients."""
+        client_details = self.get_client_details(client_name)
+        if 'error' in client_details:
+            return client_details
+
+        benchmarks = {
+            'client': client_details['name'],
+            'vendor': vendor,
+            'comparisons': [],
+            'overall_position': 'average',
+            'total_above_benchmark': 0,
+            'total_below_benchmark': 0
+        }
+
+        # Get client's line items
+        client_items = [i for i in self.all_line_items
+                       if i['client'] == client_details['name']]
+        if vendor:
+            client_items = [i for i in client_items if vendor.upper() in i['vendor'].upper()]
+
+        for item in client_items:
+            if item['monthly_fee'] <= 0:
+                continue
+
+            # Find same product across other clients
+            similar_items = [i for i in self.all_line_items
+                           if i['product_name'].lower() == item['product_name'].lower()
+                           and i['client'] != client_details['name']
+                           and i['monthly_fee'] > 0]
+
+            if similar_items:
+                other_prices = [i['monthly_fee'] for i in similar_items]
+                avg_price = sum(other_prices) / len(other_prices)
+                min_price = min(other_prices)
+                max_price = max(other_prices)
+
+                diff = item['monthly_fee'] - avg_price
+                diff_pct = (diff / avg_price * 100) if avg_price > 0 else 0
+
+                benchmarks['comparisons'].append({
+                    'product': item['product_name'],
+                    'your_price': item['monthly_fee'],
+                    'market_avg': avg_price,
+                    'market_min': min_price,
+                    'market_max': max_price,
+                    'difference': diff,
+                    'difference_pct': diff_pct,
+                    'position': 'above' if diff > 0 else 'below' if diff < 0 else 'at',
+                    'sample_size': len(similar_items)
+                })
+
+                if diff > 0:
+                    benchmarks['total_above_benchmark'] += diff * 12 * 7
+                else:
+                    benchmarks['total_below_benchmark'] += abs(diff) * 12 * 7
+
+        # Sort by difference (highest overpaying first)
+        benchmarks['comparisons'].sort(key=lambda x: x['difference'], reverse=True)
+
+        # Determine overall position
+        if benchmarks['total_above_benchmark'] > benchmarks['total_below_benchmark'] * 1.5:
+            benchmarks['overall_position'] = 'above_market'
+        elif benchmarks['total_below_benchmark'] > benchmarks['total_above_benchmark'] * 1.5:
+            benchmarks['overall_position'] = 'below_market'
+
+        return benchmarks
+
+    def get_negotiation_playbook(self, client_name: str) -> dict:
+        """Generate a comprehensive negotiation playbook for a client."""
+        insights = self.get_negotiation_insights(client_name)
+        if 'error' in insights:
+            return insights
+
+        comparison = self.compare_vendors_for_client(client_name)
+
+        playbook = {
+            'client': insights['client'],
+            'executive_summary': '',
+            'total_savings_potential': insights['total_negotiation_potential'],
+            'strategies': [],
+            'talking_points': [],
+            'risks': [],
+            'timeline_recommendations': []
+        }
+
+        # Build executive summary
+        if insights['total_negotiation_potential'] > 0:
+            playbook['executive_summary'] = (
+                f"Analysis identifies ${insights['total_negotiation_potential']:,.0f} in potential 7-year savings "
+                f"through strategic negotiations across {len(insights['high_variance_items'])} line items."
+            )
+        else:
+            playbook['executive_summary'] = "Current pricing is competitive with market rates."
+
+        # Add strategies based on findings
+        if insights['high_variance_items']:
+            top_item = insights['high_variance_items'][0]
+            playbook['strategies'].append({
+                'name': 'Target High-Variance Items',
+                'description': f"Focus on {top_item['product']} which is {top_item['variance_pct']:.0f}% above market average",
+                'potential_savings': top_item['potential_7yr_savings'],
+                'difficulty': 'Medium'
+            })
+
+        if comparison and 'analysis' in comparison:
+            if comparison['analysis'].get('potential_savings', 0) > 50000:
+                playbook['strategies'].append({
+                    'name': 'Leverage Competitive Bids',
+                    'description': f"Use {comparison['analysis']['lowest_tco_vendor']} pricing as leverage",
+                    'potential_savings': comparison['analysis']['potential_savings'],
+                    'difficulty': 'Low'
+                })
+
+        # Add talking points
+        playbook['talking_points'] = [
+            "We've analyzed market rates and identified specific areas where our pricing exceeds benchmarks",
+            f"Our analysis shows potential savings of ${insights['total_negotiation_potential']:,.0f} over the contract term",
+            "We're committed to a long-term partnership but need pricing that reflects market conditions"
+        ]
+
+        if insights['high_variance_items']:
+            for item in insights['high_variance_items'][:3]:
+                playbook['talking_points'].append(
+                    f"{item['product']}: Currently ${item['current_monthly']:,.2f}/month vs market average of ${item['category_average']:,.2f}/month"
+                )
+
+        # Add risks
+        playbook['risks'] = [
+            {'risk': 'Vendor pushback on commodity pricing', 'mitigation': 'Present market data as evidence'},
+            {'risk': 'Service level concerns', 'mitigation': 'Negotiate SLAs alongside pricing'},
+            {'risk': 'Implementation costs if switching', 'mitigation': 'Use as leverage, not actual intent'}
+        ]
+
+        return playbook
+
     def get_executive_summary(self) -> dict:
         """Generate high-level executive summary."""
         total_clients = len(self.clients_data)
@@ -508,6 +709,14 @@ If asked about something not in the data, say so clearly."""
             intent['type'] = 'analysis'
             intent['actions'].append('find_anomalies')
 
+        elif any(w in query_lower for w in ['negotiat', 'leverage', 'bargain', 'playbook', 'talking point']):
+            intent['type'] = 'negotiation'
+            intent['actions'].append('negotiation_analysis')
+
+        elif any(w in query_lower for w in ['benchmark', 'market rate', 'industry', 'peer']):
+            intent['type'] = 'benchmark'
+            intent['actions'].append('benchmark_comparison')
+
         elif any(w in query_lower for w in ['sav', 'opportunity', 'reduce', 'optimize', 'lower']):
             intent['type'] = 'savings'
             intent['actions'].append('savings_analysis')
@@ -561,6 +770,32 @@ If asked about something not in the data, say so clearly."""
 
         elif intent['type'] == 'savings':
             data['savings_opportunities'] = self.tools.get_savings_opportunities()
+
+        elif intent['type'] == 'negotiation':
+            if intent['entities']['clients']:
+                client = intent['entities']['clients'][0]
+                data['negotiation_insights'] = self.tools.get_negotiation_insights(client)
+                data['negotiation_playbook'] = self.tools.get_negotiation_playbook(client)
+            else:
+                # If no client specified, show all clients with negotiation potential
+                all_insights = []
+                for client_name in list(self.tools.client_summaries.keys())[:5]:
+                    insights = self.tools.get_negotiation_insights(client_name)
+                    if insights.get('total_negotiation_potential', 0) > 0:
+                        all_insights.append({
+                            'client': client_name,
+                            'potential': insights['total_negotiation_potential'],
+                            'items_count': len(insights.get('high_variance_items', []))
+                        })
+                data['negotiation_opportunities'] = sorted(all_insights, key=lambda x: x['potential'], reverse=True)
+
+        elif intent['type'] == 'benchmark':
+            if intent['entities']['clients']:
+                client = intent['entities']['clients'][0]
+                vendor = intent['entities']['vendors'][0] if intent['entities']['vendors'] else None
+                data['benchmark_comparison'] = self.tools.get_benchmark_comparison(client, vendor)
+            else:
+                data['message'] = "Please specify a client to get benchmark comparisons."
 
         elif intent['type'] == 'category_analysis':
             params = {}
@@ -679,6 +914,21 @@ If asked about something not in the data, say so clearly."""
         elif intent['type'] == 'search':
             followups.append("Find items over $1,000/month")
             followups.append("Show category breakdown for these results")
+
+        elif intent['type'] == 'negotiation':
+            if intent['entities']['clients']:
+                client = intent['entities']['clients'][0]
+                followups.append(f"Show benchmark comparison for {client}")
+                followups.append(f"What are the talking points for {client}?")
+            else:
+                followups.append("Which clients have the best negotiation opportunities?")
+                followups.append("Show me high-variance items across all clients")
+
+        elif intent['type'] == 'benchmark':
+            if intent['entities']['clients']:
+                client = intent['entities']['clients'][0]
+                followups.append(f"Generate negotiation playbook for {client}")
+                followups.append(f"Compare vendors for {client}")
 
         # Default followups
         if not followups:

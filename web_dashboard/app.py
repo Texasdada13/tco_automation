@@ -10,13 +10,29 @@ from functools import wraps
 from pathlib import Path
 from uuid import uuid4
 
-from flask import Flask, render_template, request, session, redirect, url_for, jsonify, g
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify, g, Response, send_file
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-production')
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max upload
 
 # Import AI Assistant
 from ai_assistant import TCOAIAssistant, create_assistant
+
+# Import Bulk Upload Manager
+from bulk_upload import get_upload_manager, BulkUploadManager
+
+# Import Report Generator (lazy load to handle missing reportlab)
+report_generator = None
+def get_report_generator():
+    global report_generator
+    if report_generator is None:
+        try:
+            from report_generator import TCOReportGenerator
+            report_generator = TCOReportGenerator()
+        except ImportError:
+            return None
+    return report_generator
 
 # Store conversation contexts per session (in production, use Redis or database)
 conversation_sessions = {}
@@ -622,6 +638,268 @@ def export_client(client_name):
             })
 
     return jsonify(export_data)
+
+
+# =============================================================================
+# Negotiation API Endpoints
+# =============================================================================
+
+@app.route('/api/negotiation/<client_name>')
+def api_negotiation_insights(client_name):
+    """Get negotiation insights for a client."""
+    try:
+        assistant = get_ai_assistant()
+        insights = assistant.tools.get_negotiation_insights(client_name)
+        return jsonify(insights)
+    except Exception as e:
+        app.logger.error(f"Negotiation insights error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/negotiation/<client_name>/playbook')
+def api_negotiation_playbook(client_name):
+    """Get full negotiation playbook for a client."""
+    try:
+        assistant = get_ai_assistant()
+        playbook = assistant.tools.get_negotiation_playbook(client_name)
+        return jsonify(playbook)
+    except Exception as e:
+        app.logger.error(f"Negotiation playbook error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/benchmark/<client_name>')
+def api_benchmark_comparison(client_name):
+    """Get benchmark comparison for a client."""
+    try:
+        vendor = request.args.get('vendor')
+        assistant = get_ai_assistant()
+        benchmark = assistant.tools.get_benchmark_comparison(client_name, vendor)
+        return jsonify(benchmark)
+    except Exception as e:
+        app.logger.error(f"Benchmark comparison error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# PDF Report Generation
+# =============================================================================
+
+@app.route('/api/generate-report/<client_name>')
+def api_generate_report(client_name):
+    """Generate PDF report for a client."""
+    try:
+        generator = get_report_generator()
+        if not generator:
+            return jsonify({'error': 'PDF generation not available. Install reportlab: pip install reportlab'}), 500
+
+        clients_data = get_clients_data()
+
+        # Find client
+        client = None
+        actual_name = None
+        for name, data in clients_data.items():
+            if name.lower() == client_name.lower():
+                client = data
+                actual_name = name
+                break
+
+        if not client:
+            return jsonify({'error': f"Client '{client_name}' not found"}), 404
+
+        # Get AI insights
+        assistant = get_ai_assistant()
+        comparison = None
+        if len(client.get('vendors', {})) >= 2:
+            comparison = assistant.tools.compare_vendors_for_client(actual_name)
+
+        ai_insights = assistant.get_quick_insights()
+
+        # Generate PDF
+        pdf_bytes = generator.generate_executive_summary(
+            client_name=actual_name,
+            client_data=client,
+            comparison_data=comparison,
+            ai_insights=ai_insights
+        )
+
+        # Create filename
+        safe_name = actual_name.lower().replace(' ', '_')
+        filename = f"{safe_name}_tco_report_{datetime.now().strftime('%Y%m%d')}.pdf"
+
+        return Response(
+            pdf_bytes,
+            mimetype='application/pdf',
+            headers={'Content-Disposition': f'attachment; filename={filename}'}
+        )
+
+    except Exception as e:
+        app.logger.error(f"Report generation error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/generate-comparison-report', methods=['POST'])
+def api_generate_comparison_report():
+    """Generate comparison report for multiple clients."""
+    try:
+        generator = get_report_generator()
+        if not generator:
+            return jsonify({'error': 'PDF generation not available. Install reportlab: pip install reportlab'}), 500
+
+        data = request.get_json()
+        selected_clients = data.get('clients', [])
+
+        if not selected_clients:
+            return jsonify({'error': 'No clients selected'}), 400
+
+        clients_data = get_clients_data()
+
+        # Generate PDF
+        pdf_bytes = generator.generate_comparison_report(
+            clients_data=clients_data,
+            selected_clients=selected_clients
+        )
+
+        filename = f"multi_client_comparison_{datetime.now().strftime('%Y%m%d')}.pdf"
+
+        return Response(
+            pdf_bytes,
+            mimetype='application/pdf',
+            headers={'Content-Disposition': f'attachment; filename={filename}'}
+        )
+
+    except Exception as e:
+        app.logger.error(f"Comparison report error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# Bulk Upload Routes
+# =============================================================================
+
+@app.route('/upload')
+def upload_page():
+    """Bulk upload page."""
+    if not has_permission('edit'):
+        return render_template('403.html', message="Access denied"), 403
+
+    manager = get_upload_manager()
+    jobs = manager.get_all_jobs()
+
+    return render_template('upload.html', jobs=jobs)
+
+
+@app.route('/api/upload/create-job', methods=['POST'])
+def api_create_upload_job():
+    """Create a new upload job."""
+    try:
+        manager = get_upload_manager()
+        job = manager.create_job()
+        return jsonify({'job_id': job.id, 'status': 'created'})
+    except Exception as e:
+        app.logger.error(f"Create job error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/upload/<job_id>/add-file', methods=['POST'])
+def api_add_file_to_job(job_id):
+    """Add a file to an upload job."""
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+
+        file = request.files['file']
+        if not file.filename:
+            return jsonify({'error': 'No file selected'}), 400
+
+        manager = get_upload_manager()
+        upload_file = manager.add_file_to_job(
+            job_id=job_id,
+            file_data=file.read(),
+            filename=file.filename
+        )
+
+        if not upload_file:
+            return jsonify({'error': 'Invalid file or job not found'}), 400
+
+        return jsonify({
+            'file_id': upload_file.id,
+            'filename': upload_file.original_filename,
+            'vendor': upload_file.vendor,
+            'status': upload_file.status.value
+        })
+
+    except Exception as e:
+        app.logger.error(f"Add file error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/upload/<job_id>/start', methods=['POST'])
+def api_start_upload_job(job_id):
+    """Start processing an upload job."""
+    try:
+        manager = get_upload_manager()
+        success = manager.start_processing(job_id)
+
+        if not success:
+            return jsonify({'error': 'Could not start job'}), 400
+
+        return jsonify({'status': 'started', 'job_id': job_id})
+
+    except Exception as e:
+        app.logger.error(f"Start job error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/upload/<job_id>/status')
+def api_upload_job_status(job_id):
+    """Get status of an upload job."""
+    try:
+        manager = get_upload_manager()
+        status = manager.get_job_status(job_id)
+
+        if not status:
+            return jsonify({'error': 'Job not found'}), 404
+
+        return jsonify(status)
+
+    except Exception as e:
+        app.logger.error(f"Job status error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/upload/<job_id>/cancel', methods=['POST'])
+def api_cancel_upload_job(job_id):
+    """Cancel an upload job."""
+    try:
+        manager = get_upload_manager()
+        success = manager.cancel_job(job_id)
+
+        if not success:
+            return jsonify({'error': 'Could not cancel job'}), 400
+
+        return jsonify({'status': 'cancelled', 'job_id': job_id})
+
+    except Exception as e:
+        app.logger.error(f"Cancel job error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/upload/<job_id>/cleanup', methods=['POST'])
+def api_cleanup_upload_job(job_id):
+    """Clean up a completed job."""
+    try:
+        manager = get_upload_manager()
+        success = manager.cleanup_job(job_id)
+
+        if not success:
+            return jsonify({'error': 'Could not cleanup job'}), 400
+
+        return jsonify({'status': 'cleaned', 'job_id': job_id})
+
+    except Exception as e:
+        app.logger.error(f"Cleanup job error: {e}")
+        return jsonify({'error': str(e)}), 500
 
 
 # =============================================================================

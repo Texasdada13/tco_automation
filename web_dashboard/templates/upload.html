@@ -1,0 +1,468 @@
+{% extends "base.html" %}
+
+{% block title %}Bulk Upload{% endblock %}
+{% block page_title %}Bulk Upload{% endblock %}
+{% block page_subtitle %}Upload multiple proposals for batch extraction{% endblock %}
+
+{% block content %}
+<div x-data="uploadManager()" class="space-y-6">
+
+    <!-- Upload Zone -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Upload Proposals</h2>
+
+        <!-- Dropzone -->
+        <div
+            @dragover.prevent="isDragging = true"
+            @dragleave="isDragging = false"
+            @drop.prevent="handleDrop($event)"
+            :class="isDragging ? 'border-arriba-accent bg-blue-50' : 'border-gray-300'"
+            class="border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer"
+            @click="$refs.fileInput.click()"
+        >
+            <input
+                type="file"
+                x-ref="fileInput"
+                @change="handleFileSelect($event)"
+                multiple
+                accept=".docx,.xlsx,.pdf,.doc,.xls"
+                class="hidden"
+            >
+
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                </div>
+                <p class="text-lg font-medium text-gray-700">Drop files here or click to browse</p>
+                <p class="text-sm text-gray-500 mt-1">Supports: DOCX, XLSX, PDF, DOC, XLS (Max 50MB each)</p>
+            </div>
+        </div>
+
+        <!-- File Queue -->
+        <div x-show="pendingFiles.length > 0" class="mt-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-md font-medium text-gray-700">
+                    <span x-text="pendingFiles.length"></span> file(s) ready to upload
+                </h3>
+                <button
+                    @click="clearPending()"
+                    class="text-sm text-gray-500 hover:text-red-600"
+                >
+                    Clear All
+                </button>
+            </div>
+
+            <div class="space-y-2 max-h-64 overflow-y-auto">
+                <template x-for="(file, index) in pendingFiles" :key="index">
+                    <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                                <span x-text="getFileIcon(file.name)" class="text-xl"></span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900" x-text="file.name"></p>
+                                <p class="text-xs text-gray-500">
+                                    <span x-text="formatFileSize(file.size)"></span>
+                                    <span x-show="file.vendor" class="ml-2 text-arriba-accent">
+                                        Detected: <span x-text="file.vendor"></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            @click="removePendingFile(index)"
+                            class="text-gray-400 hover:text-red-500"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Upload Button -->
+            <div class="mt-4 flex justify-end">
+                <button
+                    @click="startUpload()"
+                    :disabled="isUploading"
+                    class="px-6 py-2 bg-arriba-primary text-white rounded-lg hover:bg-arriba-secondary transition-colors disabled:opacity-50"
+                >
+                    <span x-show="!isUploading">Start Processing</span>
+                    <span x-show="isUploading" class="flex items-center">
+                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Uploading...
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Job Progress -->
+    <div x-show="currentJob" class="bg-white rounded-xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-gray-900">Processing Progress</h2>
+            <span
+                :class="{
+                    'bg-blue-100 text-blue-800': currentJob?.status === 'running',
+                    'bg-green-100 text-green-800': currentJob?.status === 'completed',
+                    'bg-red-100 text-red-800': currentJob?.status === 'failed',
+                    'bg-yellow-100 text-yellow-800': currentJob?.status === 'queued'
+                }"
+                class="px-3 py-1 rounded-full text-sm font-medium"
+                x-text="currentJob?.status?.toUpperCase()"
+            ></span>
+        </div>
+
+        <!-- Overall Progress Bar -->
+        <div class="mb-6">
+            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                <span x-text="currentJob?.message || 'Initializing...'"></span>
+                <span><span x-text="currentJob?.completed_files || 0"></span> / <span x-text="currentJob?.total_files || 0"></span> files</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div
+                    class="bg-arriba-accent h-3 rounded-full transition-all duration-500"
+                    :style="{ width: (currentJob?.progress || 0) + '%' }"
+                ></div>
+            </div>
+        </div>
+
+        <!-- Individual File Status -->
+        <div class="space-y-3 max-h-80 overflow-y-auto">
+            <template x-for="file in currentJob?.files || []" :key="file.id">
+                <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                    <div class="flex items-center space-x-3">
+                        <div
+                            :class="{
+                                'bg-gray-100 text-gray-400': file.status === 'pending',
+                                'bg-blue-100 text-blue-600': file.status === 'processing' || file.status === 'uploading',
+                                'bg-green-100 text-green-600': file.status === 'completed',
+                                'bg-red-100 text-red-600': file.status === 'failed'
+                            }"
+                            class="w-10 h-10 rounded-lg flex items-center justify-center"
+                        >
+                            <template x-if="file.status === 'pending'">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </template>
+                            <template x-if="file.status === 'processing' || file.status === 'uploading' || file.status === 'extracting'">
+                                <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                            </template>
+                            <template x-if="file.status === 'completed'">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </template>
+                            <template x-if="file.status === 'failed'">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </template>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900" x-text="file.original_filename"></p>
+                            <p class="text-xs text-gray-500">
+                                <span x-show="file.vendor" class="text-arriba-accent" x-text="file.vendor"></span>
+                                <span x-show="file.error" class="text-red-500" x-text="file.error"></span>
+                                <span x-show="file.result?.line_items" class="text-green-600">
+                                    <span x-text="file.result.line_items"></span> items extracted
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-500" x-text="file.status"></div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-4 flex justify-end space-x-3">
+            <button
+                x-show="currentJob?.status === 'running'"
+                @click="cancelJob()"
+                class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+                Cancel
+            </button>
+            <button
+                x-show="currentJob?.status === 'completed' || currentJob?.status === 'failed'"
+                @click="cleanupJob()"
+                class="px-4 py-2 bg-arriba-primary text-white rounded-lg hover:bg-arriba-secondary transition-colors"
+            >
+                Start New Upload
+            </button>
+        </div>
+    </div>
+
+    <!-- Previous Jobs -->
+    {% if jobs %}
+    <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Upload Jobs</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Job ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Files</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Created</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for job in jobs %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">{{ job.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ job.completed_files }}/{{ job.total_files }} completed
+                            {% if job.failed_files > 0 %}
+                            <span class="text-red-500">({{ job.failed_files }} failed)</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 text-xs rounded-full
+                                {% if job.status == 'completed' %}bg-green-100 text-green-800
+                                {% elif job.status == 'failed' %}bg-red-100 text-red-800
+                                {% elif job.status == 'running' %}bg-blue-100 text-blue-800
+                                {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                {{ job.status }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ job.created_at[:16] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <button
+                                @click="loadJob('{{ job.id }}')"
+                                class="text-arriba-accent hover:text-arriba-primary"
+                            >
+                                View Details
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Supported Formats Info -->
+    <div class="bg-gradient-to-r from-arriba-primary to-arriba-secondary rounded-xl p-6 text-white">
+        <h3 class="text-lg font-semibold mb-3">Supported File Formats</h3>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="bg-white/10 rounded-lg p-3 text-center">
+                <div class="text-2xl mb-1">DOCX</div>
+                <p class="text-xs text-white/80">Word Documents</p>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center">
+                <div class="text-2xl mb-1">XLSX</div>
+                <p class="text-xs text-white/80">Excel Spreadsheets</p>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center">
+                <div class="text-2xl mb-1">PDF</div>
+                <p class="text-xs text-white/80">PDF Documents</p>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center">
+                <div class="text-2xl mb-1">DOC</div>
+                <p class="text-xs text-white/80">Legacy Word</p>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center">
+                <div class="text-2xl mb-1">XLS</div>
+                <p class="text-xs text-white/80">Legacy Excel</p>
+            </div>
+        </div>
+        <p class="mt-4 text-sm text-white/80">
+            Files are automatically processed to extract pricing data. Vendor type is auto-detected from filename.
+        </p>
+    </div>
+</div>
+
+<script>
+function uploadManager() {
+    return {
+        isDragging: false,
+        pendingFiles: [],
+        isUploading: false,
+        currentJob: null,
+        pollInterval: null,
+
+        handleDrop(event) {
+            this.isDragging = false;
+            const files = Array.from(event.dataTransfer.files);
+            this.addFiles(files);
+        },
+
+        handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            this.addFiles(files);
+            event.target.value = ''; // Reset input
+        },
+
+        addFiles(files) {
+            const validExtensions = ['.docx', '.xlsx', '.pdf', '.doc', '.xls'];
+
+            files.forEach(file => {
+                const ext = '.' + file.name.split('.').pop().toLowerCase();
+                if (validExtensions.includes(ext)) {
+                    // Detect vendor from filename
+                    const vendor = this.detectVendor(file.name);
+                    this.pendingFiles.push({
+                        file: file,
+                        name: file.name,
+                        size: file.size,
+                        vendor: vendor
+                    });
+                }
+            });
+        },
+
+        detectVendor(filename) {
+            const lower = filename.toLowerCase();
+            if (lower.includes('fis') || lower.includes('horizon')) return 'FIS';
+            if (lower.includes('jack') || lower.includes('jh') || lower.includes('symitar')) return 'JACK_HENRY';
+            if (lower.includes('csi') || lower.includes('nupoint')) return 'CSI';
+            if (lower.includes('fiserv') || lower.includes('dna') || lower.includes('premier')) return 'FISERV';
+            if (lower.includes('finastra') || lower.includes('fusion')) return 'FINASTRA';
+            return null;
+        },
+
+        removePendingFile(index) {
+            this.pendingFiles.splice(index, 1);
+        },
+
+        clearPending() {
+            this.pendingFiles = [];
+        },
+
+        formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        },
+
+        getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const icons = {
+                'docx': '📄', 'doc': '📄',
+                'xlsx': '📊', 'xls': '📊',
+                'pdf': '📑'
+            };
+            return icons[ext] || '📁';
+        },
+
+        async startUpload() {
+            if (this.pendingFiles.length === 0) return;
+
+            this.isUploading = true;
+
+            try {
+                // Create job
+                const createResp = await fetch('/api/upload/create-job', { method: 'POST' });
+                const createData = await createResp.json();
+
+                if (!createData.job_id) {
+                    throw new Error('Failed to create job');
+                }
+
+                const jobId = createData.job_id;
+
+                // Upload files
+                for (const pending of this.pendingFiles) {
+                    const formData = new FormData();
+                    formData.append('file', pending.file);
+
+                    await fetch(`/api/upload/${jobId}/add-file`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                }
+
+                // Start processing
+                await fetch(`/api/upload/${jobId}/start`, { method: 'POST' });
+
+                // Clear pending and start polling
+                this.pendingFiles = [];
+                this.startPolling(jobId);
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('Upload failed: ' + error.message);
+            } finally {
+                this.isUploading = false;
+            }
+        },
+
+        startPolling(jobId) {
+            this.pollInterval = setInterval(async () => {
+                try {
+                    const resp = await fetch(`/api/upload/${jobId}/status`);
+                    const data = await resp.json();
+                    this.currentJob = data;
+
+                    // Stop polling when done
+                    if (data.status === 'completed' || data.status === 'failed' || data.status === 'cancelled') {
+                        this.stopPolling();
+                    }
+                } catch (error) {
+                    console.error('Poll error:', error);
+                }
+            }, 1000);
+        },
+
+        stopPolling() {
+            if (this.pollInterval) {
+                clearInterval(this.pollInterval);
+                this.pollInterval = null;
+            }
+        },
+
+        async loadJob(jobId) {
+            try {
+                const resp = await fetch(`/api/upload/${jobId}/status`);
+                const data = await resp.json();
+                this.currentJob = data;
+
+                if (data.status === 'running') {
+                    this.startPolling(jobId);
+                }
+            } catch (error) {
+                console.error('Load job error:', error);
+            }
+        },
+
+        async cancelJob() {
+            if (!this.currentJob) return;
+
+            try {
+                await fetch(`/api/upload/${this.currentJob.id}/cancel`, { method: 'POST' });
+                this.stopPolling();
+                this.currentJob.status = 'cancelled';
+            } catch (error) {
+                console.error('Cancel error:', error);
+            }
+        },
+
+        async cleanupJob() {
+            if (!this.currentJob) return;
+
+            try {
+                await fetch(`/api/upload/${this.currentJob.id}/cleanup`, { method: 'POST' });
+                this.currentJob = null;
+            } catch (error) {
+                console.error('Cleanup error:', error);
+            }
+        }
+    };
+}
+</script>
+{% endblock %}
