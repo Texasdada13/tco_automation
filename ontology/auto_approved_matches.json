@@ -17779,6 +17779,566 @@
       "match_method": "exact",
       "confidence": 100.0,
       "matched_term": "Signing Incentive"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:01.782851",
+      "vendor": "FIS",
+      "original_name": "Paper and Envelopes",
+      "canonical_category": "forms_output_services",
+      "canonical_name": "Forms & Output Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Paper and Envelopes"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:01.868644",
+      "vendor": "FIS",
+      "original_name": "Debit Card Production",
+      "canonical_category": "debit_card_production",
+      "canonical_name": "Debit Card Production",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Debit Card Production"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:01.960862",
+      "vendor": "FIS",
+      "original_name": "DirectLink Risk Review (DLRR)",
+      "canonical_category": "fraud_detection",
+      "canonical_name": "Fraud Detection & Prevention",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "DirectLink Risk Review (DLRR)"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.032565",
+      "vendor": "FIS",
+      "original_name": "Payments One Debit Card Fraud Case Investigation",
+      "canonical_category": "debit_card_fraud",
+      "canonical_name": "Debit Card Fraud Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Payments One Debit Card Fraud Case Investigation"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.084347",
+      "vendor": "FIS",
+      "original_name": "Payments One Full-Service Debit Card Fraud Disputes",
+      "canonical_category": "debit_card_fraud",
+      "canonical_name": "Debit Card Fraud Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Payments One Full-Service Debit Card Fraud Disputes"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.136652",
+      "vendor": "FIS",
+      "original_name": "Tokenization (ApplePay, Additional Pays)",
+      "canonical_category": "tokenization_security",
+      "canonical_name": "Tokenization & Card Security",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Tokenization (ApplePay, Additional Pays)"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.194910",
+      "vendor": "FIS",
+      "original_name": "NYCE Preferred Debit Card Network",
+      "canonical_category": "debit_card_network",
+      "canonical_name": "Debit Card Network",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "NYCE Preferred Debit Card Network"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.252517",
+      "vendor": "FIS",
+      "original_name": "Network Services",
+      "canonical_category": "network_connectivity",
+      "canonical_name": "Network Connectivity",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Network Services"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.313343",
+      "vendor": "FIS",
+      "original_name": "IBM Cognos (HORIZON 360)",
+      "canonical_category": "business_intelligence",
+      "canonical_name": "Business Intelligence/Reporting",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "IBM Cognos (HORIZON 360)"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.379323",
+      "vendor": "FIS",
+      "original_name": "FedNOW (Receive Only)",
+      "canonical_category": "fednow",
+      "canonical_name": "FedNow Instant Payments",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "FedNOW (Receive Only)"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.435462",
+      "vendor": "FIS",
+      "original_name": "Real-Time Payments (RTP) (Receive Only)",
+      "canonical_category": "rtp_receive",
+      "canonical_name": "Real-Time Payments (Receive)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Real-Time Payments (RTP) (Receive Only)"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.521524",
+      "vendor": "FIS",
+      "original_name": "Zelle (Consumer and Small Business)",
+      "canonical_category": "zelle_p2p",
+      "canonical_name": "Zelle P2P Payments",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Zelle (Consumer and Small Business)"
+    },
+    {
+      "timestamp": "2026-01-15T23:35:02.598081",
+      "vendor": "FIS",
+      "original_name": "Collaboration Hub",
+      "canonical_category": "collaboration_hub",
+      "canonical_name": "Collaboration Hub",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Collaboration Hub"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:05.411438",
+      "vendor": "FIS",
+      "original_name": "Paper and Envelopes",
+      "canonical_category": "forms_output_services",
+      "canonical_name": "Forms & Output Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Paper and Envelopes"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:05.466105",
+      "vendor": "FIS",
+      "original_name": "Debit Card Production",
+      "canonical_category": "debit_card_production",
+      "canonical_name": "Debit Card Production",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Debit Card Production"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:05.536064",
+      "vendor": "FIS",
+      "original_name": "DirectLink Risk Review (DLRR)",
+      "canonical_category": "fraud_detection",
+      "canonical_name": "Fraud Detection & Prevention",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "DirectLink Risk Review (DLRR)"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:09.611342",
+      "vendor": "FIS",
+      "original_name": "Payments One Debit Card Fraud Case Investigation",
+      "canonical_category": "debit_card_fraud",
+      "canonical_name": "Debit Card Fraud Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Payments One Debit Card Fraud Case Investigation"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:09.659529",
+      "vendor": "FIS",
+      "original_name": "Payments One Full-Service Debit Card Fraud Disputes",
+      "canonical_category": "debit_card_fraud",
+      "canonical_name": "Debit Card Fraud Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Payments One Full-Service Debit Card Fraud Disputes"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:09.721404",
+      "vendor": "FIS",
+      "original_name": "Tokenization (ApplePay, Additional Pays)",
+      "canonical_category": "tokenization_security",
+      "canonical_name": "Tokenization & Card Security",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Tokenization (ApplePay, Additional Pays)"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:09.774646",
+      "vendor": "FIS",
+      "original_name": "NYCE Preferred Debit Card Network",
+      "canonical_category": "debit_card_network",
+      "canonical_name": "Debit Card Network",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "NYCE Preferred Debit Card Network"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:09.830360",
+      "vendor": "FIS",
+      "original_name": "Network Services",
+      "canonical_category": "network_connectivity",
+      "canonical_name": "Network Connectivity",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Network Services"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:18.048637",
+      "vendor": "FIS",
+      "original_name": "IBM Cognos (HORIZON 360)",
+      "canonical_category": "business_intelligence",
+      "canonical_name": "Business Intelligence/Reporting",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "IBM Cognos (HORIZON 360)"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:27.178183",
+      "vendor": "FIS",
+      "original_name": "FedNOW (Receive Only)",
+      "canonical_category": "fednow",
+      "canonical_name": "FedNow Instant Payments",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "FedNOW (Receive Only)"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:27.230985",
+      "vendor": "FIS",
+      "original_name": "Real-Time Payments (RTP) (Receive Only)",
+      "canonical_category": "rtp_receive",
+      "canonical_name": "Real-Time Payments (Receive)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Real-Time Payments (RTP) (Receive Only)"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:27.297478",
+      "vendor": "FIS",
+      "original_name": "Zelle (Consumer and Small Business)",
+      "canonical_category": "zelle_p2p",
+      "canonical_name": "Zelle P2P Payments",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Zelle (Consumer and Small Business)"
+    },
+    {
+      "timestamp": "2026-01-15T23:40:35.255159",
+      "vendor": "FIS",
+      "original_name": "Collaboration Hub",
+      "canonical_category": "collaboration_hub",
+      "canonical_name": "Collaboration Hub",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Collaboration Hub"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.062891",
+      "vendor": "FIS",
+      "original_name": "Core: HORIZON",
+      "canonical_category": "core_banking_platform",
+      "canonical_name": "Core Banking Platform",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Core: HORIZON"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.115927",
+      "vendor": "FIS",
+      "original_name": "Digital: D1 Flex, D1 Business, Mobile, Bill Pay",
+      "canonical_category": "digital_banking_platform",
+      "canonical_name": "Digital Banking Platform",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Digital: D1 Flex, D1 Business, Mobile, Bill Pay"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.164724",
+      "vendor": "FIS",
+      "original_name": "Digital: Website Services",
+      "canonical_category": "website_services",
+      "canonical_name": "Website Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Digital: Website Services"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.214012",
+      "vendor": "FIS",
+      "original_name": "Digital: Zelle",
+      "canonical_category": "zelle_p2p",
+      "canonical_name": "Zelle P2P Payments",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Digital: Zelle"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.265132",
+      "vendor": "FIS",
+      "original_name": "EFT: EFT Norcross, 3D Secure, Tokenization, SecurLOCK",
+      "canonical_category": "eft_debit_processing",
+      "canonical_name": "EFT/Debit Processing",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "EFT: EFT Norcross, 3D Secure, Tokenization, SecurLOCK"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.316313",
+      "vendor": "FIS",
+      "original_name": "Risk, Fraud & Compliance: Decision Solutions",
+      "canonical_category": "fraud_detection",
+      "canonical_name": "Fraud Detection & Prevention",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Risk, Fraud & Compliance: Decision Solutions"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.366526",
+      "vendor": "FIS",
+      "original_name": "Treasury: eWire (Business)",
+      "canonical_category": "wire_transfer_business",
+      "canonical_name": "Wire Transfer (Business)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Treasury: eWire (Business)"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.415810",
+      "vendor": "FIS",
+      "original_name": "Image Solutions: RTP (Receive)",
+      "canonical_category": "rtp_receive",
+      "canonical_name": "Real-Time Payments (Receive)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Image Solutions: RTP (Receive)"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.467003",
+      "vendor": "FIS",
+      "original_name": "Item Processing: FCM, IP, Branch Capture, CCX, FXD, DLRR",
+      "canonical_category": "item_processing_suite",
+      "canonical_name": "Item Processing Suite",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Item Processing: FCM, IP, Branch Capture, CCX, FXD, DLRR"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.521177",
+      "vendor": "FIS",
+      "original_name": "FOS: eDelivery, Print/Render, Forms & Envelopes",
+      "canonical_category": "forms_output_services",
+      "canonical_name": "Forms & Output Services",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "FOS: eDelivery, Print/Render, Forms & Envelopes"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.575695",
+      "vendor": "FIS",
+      "original_name": "Lending: FLO",
+      "canonical_category": "loan_origination",
+      "canonical_name": "Loan Origination System",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Lending: FLO"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.628312",
+      "vendor": "FIS",
+      "original_name": "ACH: Milwaukee ACH",
+      "canonical_category": "ach_processing",
+      "canonical_name": "ACH Processing",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "ACH: Milwaukee ACH"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.679435",
+      "vendor": "FIS",
+      "original_name": "Accounts Payable: Avid Ascend",
+      "canonical_category": "accounts_payable",
+      "canonical_name": "Accounts Payable",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Accounts Payable: Avid Ascend"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.733092",
+      "vendor": "FIS",
+      "original_name": "Security Plus: Data Restore",
+      "canonical_category": "data_backup_restore",
+      "canonical_name": "Data Backup & Restore",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Security Plus: Data Restore"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.783433",
+      "vendor": "FIS",
+      "original_name": "SSL Encryption Certificates: GEOTrust, Verisign",
+      "canonical_category": "ssl_certificates",
+      "canonical_name": "SSL Encryption Certificates",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "SSL Encryption Certificates: GEOTrust, Verisign"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.837735",
+      "vendor": "FIS",
+      "original_name": "Digital: WebConnect/DirectConnect & Quickbooks",
+      "canonical_category": "web_connect_quickbooks",
+      "canonical_name": "WebConnect/DirectConnect & Quickbooks",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Digital: WebConnect/DirectConnect & Quickbooks"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.895098",
+      "vendor": "FIS",
+      "original_name": "Network: Network Connectivity Services",
+      "canonical_category": "network_connectivity",
+      "canonical_name": "Network Connectivity",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Network: Network Connectivity Services"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.946253",
+      "vendor": "FIS",
+      "original_name": "EFT: Debit Card Production",
+      "canonical_category": "debit_card_production",
+      "canonical_name": "Debit Card Production",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "EFT: Debit Card Production"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:40.998202",
+      "vendor": "FIS",
+      "original_name": "EFT: NYCE Debit Card Network",
+      "canonical_category": "debit_card_network",
+      "canonical_name": "Debit Card Network",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "EFT: NYCE Debit Card Network"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.052645",
+      "vendor": "FIS",
+      "original_name": "Recently Signed Solutions: Various",
+      "canonical_category": "recently_signed_solutions",
+      "canonical_name": "Recently Signed Solutions",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Recently Signed Solutions: Various"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.104106",
+      "vendor": "FIS",
+      "original_name": "Monthly Relationship Credit",
+      "canonical_category": "relationship_credit",
+      "canonical_name": "Relationship Credit",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Monthly Relationship Credit"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.155720",
+      "vendor": "FIS",
+      "original_name": "IP: DirectLink Merchant (via RDC)",
+      "canonical_category": "remote_deposit_merchant",
+      "canonical_name": "Remote Deposit (Merchant)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "IP: DirectLink Merchant (via RDC)"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.211530",
+      "vendor": "FIS",
+      "original_name": "IP: DirectLink Consumer (via FXD)",
+      "canonical_category": "remote_deposit_consumer",
+      "canonical_name": "Remote Deposit (Consumer)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "IP: DirectLink Consumer (via FXD)"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.264166",
+      "vendor": "FIS",
+      "original_name": "HORIZON: Conditional Processing",
+      "canonical_category": "conditional_processing",
+      "canonical_name": "Conditional Processing",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "HORIZON: Conditional Processing"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.315491",
+      "vendor": "FIS",
+      "original_name": "Treasury: eWire (Consumer)",
+      "canonical_category": "wire_transfer_consumer",
+      "canonical_name": "Wire Transfer (Consumer)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Treasury: eWire (Consumer)"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.366451",
+      "vendor": "FIS",
+      "original_name": "Treasury: Extended Account Analysis (XAA)",
+      "canonical_category": "account_analysis",
+      "canonical_name": "Account Analysis",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Treasury: Extended Account Analysis (XAA)"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.419232",
+      "vendor": "FIS",
+      "original_name": "Image Solutions: RTP Send for D1B",
+      "canonical_category": "rtp_send",
+      "canonical_name": "Real-Time Payments (Send)",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Image Solutions: RTP Send for D1B"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.475704",
+      "vendor": "FIS",
+      "original_name": "Image Solutions: FedNOW (Send and Receive) D1B",
+      "canonical_category": "fednow",
+      "canonical_name": "FedNow Instant Payments",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Image Solutions: FedNOW (Send and Receive) D1B"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.529575",
+      "vendor": "FIS",
+      "original_name": "Image Solutions: Chargeback Manager",
+      "canonical_category": "chargeback_management",
+      "canonical_name": "Chargeback Management",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Image Solutions: Chargeback Manager"
+    },
+    {
+      "timestamp": "2026-01-15T23:54:41.585421",
+      "vendor": "FIS",
+      "original_name": "Image Solutions: Collaboration Hub",
+      "canonical_category": "collaboration_hub",
+      "canonical_name": "Collaboration Hub",
+      "match_method": "exact",
+      "confidence": 100.0,
+      "matched_term": "Image Solutions: Collaboration Hub"
     }
   ]
 }

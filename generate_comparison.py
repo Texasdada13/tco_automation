@@ -28,6 +28,9 @@ from datetime import datetime
 from glob import glob
 from collections import defaultdict
 
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env file
+
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, Border, Side, PatternFill
 from openpyxl.utils import get_column_letter
