@@ -16,29 +16,13 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
+# Add parent directory to path to import core modules
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from core.vendor_config import extract_client_from_filename
+
 # Configuration
 DEFAULT_CONTRACT_TERM = 7
 EXTRACTED_JSON_DIR = Path(__file__).parent.parent / "Extracted JSON"
-
-# Vendor patterns for client name extraction
-VENDOR_PATTERNS = ['fis', 'jh', 'csi', 'fiserv', 'finastra', 'jack_henry']
-
-
-def derive_client_from_filename(filename: str) -> str:
-    """Extract client name from filename."""
-    # Remove extension and suffix
-    base = filename.replace('_extraction_ai.json', '').replace('_extraction.json', '')
-    parts = base.split('_')
-
-    # Find vendor position and extract client name
-    for i, part in enumerate(parts):
-        if part.lower() in VENDOR_PATTERNS:
-            client_parts = parts[:i]
-            if client_parts:
-                return ' '.join(client_parts).replace('_', ' ').title()
-
-    # Fallback: use entire filename
-    return base.replace('_', ' ').title()
 
 
 def repair_extraction(filepath: Path, dry_run: bool = False) -> dict:
@@ -67,7 +51,7 @@ def repair_extraction(filepath: Path, dry_run: bool = False) -> dict:
         # Fix client name
         client = data.get('client')
         if client is None or client == 'Not specified' or client == 'Unknown':
-            new_client = derive_client_from_filename(filepath.name)
+            new_client = extract_client_from_filename(filepath.name)
             data['client'] = new_client
             repairs['changes'].append(f'client: {client} -> {new_client}')
 

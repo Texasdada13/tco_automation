@@ -12,7 +12,7 @@ from uuid import uuid4
 
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify, g, Response, send_file
 
-# Import centralized bucket mapping from core
+# Import centralized modules from core
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from core.cost_taxonomy import (
@@ -21,6 +21,7 @@ from core.cost_taxonomy import (
     get_all_bucket_names,
     BUCKET_COLORS
 )
+from core.vendor_config import extract_client_from_filename, extract_vendor_from_filename
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-production')
@@ -146,30 +147,17 @@ def get_clients_data():
             with open(file, 'r') as f:
                 data = json.load(f)
 
-            # Extract client name
+            # Extract client name using centralized function
             client_name = data.get('client')
-            if not client_name or client_name == 'Unknown':
-                parts = file.stem.replace('_extraction_ai', '').split('_')
-                vendors_list = ['fis', 'jh', 'csi', 'fiserv', 'finastra', 'jack_henry']
-                found_vendor = False
-                for v in vendors_list:
-                    if len(parts) > 1 and (v in parts[-1].lower() or v in parts[-2].lower()):
-                        client_name = '_'.join(parts[:-1]).replace('_', ' ').title()
-                        found_vendor = True
-                        break
-                if not found_vendor:
-                    client_name = file.stem.replace('_extraction_ai', '').replace('_', ' ').title()
+            if not client_name or client_name in ['Unknown', 'Not specified']:
+                client_name = extract_client_from_filename(file.name)
 
-            if not client_name:
-                client_name = f"Unknown ({file.stem})"
-
-            # Get vendor
-            vendor_raw = data.get('vendor', 'Unknown')
-            vendor = vendor_raw.upper()
-            for v in ['FIS', 'JACK_HENRY', 'JH', 'CSI', 'FISERV', 'FINASTRA']:
-                if v in vendor:
-                    vendor = v.replace('JH', 'JACK_HENRY')
-                    break
+            # Get vendor using centralized function
+            vendor = data.get('vendor', '')
+            if not vendor or vendor == 'Unknown':
+                vendor = extract_vendor_from_filename(file.name) or 'Unknown'
+            else:
+                vendor = vendor.upper().replace('JH', 'JACK_HENRY')
 
             # Add to clients dict
             if client_name not in clients:
@@ -269,7 +257,7 @@ def dashboard():
         files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
         for f in files[:5]:
             recent_files.append({
-                'name': f.stem.replace('_extraction_ai', '').replace('_', ' ').title(),
+                'name': extract_client_from_filename(f.name),
                 'date': datetime.fromtimestamp(f.stat().st_mtime).strftime('%Y-%m-%d %H:%M')
             })
 
@@ -930,29 +918,16 @@ def extractions():
                 with open(file, 'r') as f:
                     data = json.load(f)
 
-                # Parse client/vendor from filename and data
-                client_name = data.get('client', 'Unknown')
-                if client_name == 'Unknown' or client_name == 'Not specified':
-                    parts = file.stem.replace('_extraction_ai', '').split('_')
-                    vendors_list = ['fis', 'jh', 'csi', 'fiserv', 'finastra', 'jack_henry']
-                    for v in vendors_list:
-                        if v in [p.lower() for p in parts]:
-                            idx = [p.lower() for p in parts].index(v)
-                            client_name = ' '.join(parts[:idx]).replace('_', ' ').title()
-                            break
-                    if not client_name or client_name == 'Unknown':
-                        client_name = file.stem.replace('_extraction_ai', '').replace('_', ' ').title()
+                # Parse client/vendor using centralized functions
+                client_name = data.get('client', '')
+                if not client_name or client_name in ['Unknown', 'Not specified']:
+                    client_name = extract_client_from_filename(file.name)
 
-                # Ensure client_name is never None
-                if not client_name:
-                    client_name = 'Unknown Client'
-
-                vendor_raw = data.get('vendor', 'Unknown')
-                vendor = vendor_raw.upper()
-                for v in ['FIS', 'JACK_HENRY', 'JH', 'CSI', 'FISERV', 'FINASTRA']:
-                    if v in vendor:
-                        vendor = v.replace('JH', 'JACK_HENRY')
-                        break
+                vendor = data.get('vendor', '')
+                if not vendor or vendor == 'Unknown':
+                    vendor = extract_vendor_from_filename(file.name) or 'Unknown'
+                else:
+                    vendor = vendor.upper().replace('JH', 'JACK_HENRY')
 
                 line_items = data.get('line_items', [])
                 total_monthly = sum(item.get('monthly_fee', 0) or 0 for item in line_items)
@@ -1002,23 +977,16 @@ def extraction_detail(filename):
         with open(file_path, 'r') as f:
             data = json.load(f)
 
-        # Parse client/vendor
-        client_name = data.get('client', 'Unknown')
-        if client_name == 'Unknown' or client_name == 'Not specified':
-            parts = filename.replace('_extraction_ai.json', '').split('_')
-            vendors_list = ['fis', 'jh', 'csi', 'fiserv', 'finastra', 'jack_henry']
-            for v in vendors_list:
-                if v in [p.lower() for p in parts]:
-                    idx = [p.lower() for p in parts].index(v)
-                    client_name = ' '.join(parts[:idx]).replace('_', ' ').title()
-                    break
+        # Parse client/vendor using centralized functions
+        client_name = data.get('client', '')
+        if not client_name or client_name in ['Unknown', 'Not specified']:
+            client_name = extract_client_from_filename(filename)
 
-        vendor_raw = data.get('vendor', 'Unknown')
-        vendor = vendor_raw.upper()
-        for v in ['FIS', 'JACK_HENRY', 'JH', 'CSI', 'FISERV', 'FINASTRA']:
-            if v in vendor:
-                vendor = v.replace('JH', 'JACK_HENRY')
-                break
+        vendor = data.get('vendor', '')
+        if not vendor or vendor == 'Unknown':
+            vendor = extract_vendor_from_filename(filename) or 'Unknown'
+        else:
+            vendor = vendor.upper().replace('JH', 'JACK_HENRY')
 
         line_items = data.get('line_items', [])
         contract_term = data.get('contract_term', 7)

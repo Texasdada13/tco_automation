@@ -596,3 +596,225 @@ def get_vendor_manager(config_dir: str = None) -> VendorConfigManager:
     if _vendor_manager is None:
         _vendor_manager = VendorConfigManager(config_dir)
     return _vendor_manager
+
+
+# =============================================================================
+# CLIENT NAME PARSING UTILITIES
+# =============================================================================
+# Centralized utilities for extracting client names from filenames
+# =============================================================================
+
+# Known vendor patterns for filename parsing
+VENDOR_FILENAME_PATTERNS = [
+    'fis', 'jh', 'csi', 'fiserv', 'finastra', 'jack_henry',
+    'jackhenry', 'horizon', 'silverlake', 'symitar', 'nupoint',
+    'dna', 'premier', 'fusion'
+]
+
+# Patterns to remove from filenames when extracting client name
+FILENAME_CLEANUP_PATTERNS = [
+    'proposal', 'investment', 'summary', 'renewal', 'quote',
+    'deal', 'sheet', 'pricing', 'contract', 'agreement',
+    'extraction', 'ai', 'raw', '_retry'
+]
+
+# Year patterns to remove
+YEAR_PATTERNS = ['2023', '2024', '2025', '2026', '2027']
+
+
+def extract_client_from_filename(
+    filename: str,
+    vendor: str = None,
+    fallback: str = "Unknown Client"
+) -> str:
+    """
+    Extract client name from a filename.
+
+    This is the centralized function for client name extraction that should
+    be used across the codebase for consistency.
+
+    Args:
+        filename: The filename to parse (with or without extension)
+        vendor: Optional vendor name to help identify where client name ends
+        fallback: Fallback value if client name cannot be determined
+
+    Returns:
+        Extracted and formatted client name
+
+    Examples:
+        >>> extract_client_from_filename("acme_bank_fis_extraction_ai.json")
+        "Acme Bank"
+        >>> extract_client_from_filename("First_National_TX_CSI_proposal.pdf", vendor="CSI")
+        "First National Tx"
+        >>> extract_client_from_filename("FIS_Proposal_2025.pdf")
+        "Unknown Client"
+    """
+    if not filename:
+        return fallback
+
+    # Get the stem (filename without extension)
+    name = Path(filename).stem
+
+    # Remove common suffixes first
+    for suffix in ['_extraction_ai', '_extraction', '_raw_extraction']:
+        name = name.replace(suffix, '')
+
+    # Split into parts
+    parts = name.split('_')
+
+    # Strategy 1: If vendor is provided, find its position
+    if vendor:
+        vendor_lower = vendor.lower().replace(' ', '_').replace('-', '_')
+        for i, part in enumerate(parts):
+            part_lower = part.lower()
+            if part_lower == vendor_lower or part_lower in VENDOR_FILENAME_PATTERNS:
+                # Check if this vendor matches the provided vendor
+                if vendor_lower in part_lower or part_lower in vendor_lower:
+                    client_parts = parts[:i]
+                    if client_parts:
+                        return _format_client_name(client_parts)
+
+    # Strategy 2: Find any known vendor pattern
+    for i, part in enumerate(parts):
+        if part.lower() in VENDOR_FILENAME_PATTERNS:
+            client_parts = parts[:i]
+            if client_parts:
+                return _format_client_name(client_parts)
+
+    # Strategy 3: Remove known patterns and use what's left
+    clean_parts = []
+    for part in parts:
+        part_lower = part.lower()
+        # Skip vendor patterns
+        if part_lower in VENDOR_FILENAME_PATTERNS:
+            continue
+        # Skip cleanup patterns
+        if part_lower in FILENAME_CLEANUP_PATTERNS:
+            continue
+        # Skip year patterns
+        if part_lower in YEAR_PATTERNS:
+            continue
+        # Skip short numbers (likely dates)
+        if part.isdigit() and len(part) <= 4:
+            continue
+        clean_parts.append(part)
+
+    if clean_parts:
+        return _format_client_name(clean_parts)
+
+    return fallback
+
+
+def _format_client_name(parts: List[str]) -> str:
+    """
+    Format client name parts into a properly capitalized string.
+
+    Handles special cases like abbreviations (TX, CA, etc.) and
+    common banking terms.
+
+    Args:
+        parts: List of name parts
+
+    Returns:
+        Formatted client name
+    """
+    # State abbreviations that should stay uppercase
+    state_abbrevs = {
+        'tx', 'ca', 'ny', 'fl', 'il', 'pa', 'oh', 'ga', 'nc', 'mi',
+        'nj', 'va', 'wa', 'az', 'ma', 'tn', 'in', 'mo', 'md', 'wi',
+        'co', 'mn', 'sc', 'al', 'la', 'ky', 'or', 'ok', 'ct', 'ut',
+        'ia', 'nv', 'ar', 'ms', 'ks', 'nm', 'ne', 'wv', 'id', 'hi',
+        'nh', 'me', 'mt', 'ri', 'de', 'sd', 'nd', 'ak', 'dc', 'vt', 'wy'
+    }
+
+    # Business abbreviations that should stay uppercase
+    business_abbrevs = {'llc', 'inc', 'corp', 'co', 'na', 'fsb', 'ssb', 'cu'}
+
+    formatted_parts = []
+    for part in parts:
+        part_lower = part.lower()
+        if part_lower in state_abbrevs:
+            formatted_parts.append(part.upper())
+        elif part_lower in business_abbrevs:
+            formatted_parts.append(part.upper())
+        else:
+            # Title case but handle special cases
+            formatted_parts.append(part.title())
+
+    return ' '.join(formatted_parts)
+
+
+def normalize_client_name(name: str) -> str:
+    """
+    Normalize a client name for comparison and grouping.
+
+    Converts to lowercase, removes punctuation, and standardizes spacing.
+    Useful for matching clients across different extractions.
+
+    Args:
+        name: Raw client name
+
+    Returns:
+        Normalized client name for comparison
+    """
+    if not name:
+        return ""
+
+    # Convert to lowercase
+    normalized = name.lower()
+
+    # Replace common separators with space
+    for char in ['_', '-', '.', ',', '&']:
+        normalized = normalized.replace(char, ' ')
+
+    # Remove common suffixes for matching
+    for suffix in [' bank', ' credit union', ' cu', ' financial', ' savings',
+                   ' trust', ' national', ' regional', ' community', ' state']:
+        if normalized.endswith(suffix):
+            # Keep the suffix but note it for the normalized form
+            pass
+
+    # Clean up whitespace
+    normalized = ' '.join(normalized.split())
+
+    return normalized
+
+
+def extract_vendor_from_filename(filename: str) -> Optional[str]:
+    """
+    Extract vendor name from a filename.
+
+    Args:
+        filename: The filename to parse
+
+    Returns:
+        Detected vendor name or None
+    """
+    if not filename:
+        return None
+
+    filename_lower = filename.lower()
+
+    # Check for each vendor pattern
+    vendor_map = {
+        'fis': 'FIS',
+        'horizon': 'FIS',
+        'jack_henry': 'Jack Henry',
+        'jackhenry': 'Jack Henry',
+        'jh': 'Jack Henry',
+        'silverlake': 'Jack Henry',
+        'symitar': 'Jack Henry',
+        'csi': 'CSI',
+        'nupoint': 'CSI',
+        'fiserv': 'Fiserv',
+        'dna': 'Fiserv',
+        'premier': 'Fiserv',
+        'finastra': 'Finastra',
+        'fusion': 'Finastra',
+    }
+
+    for pattern, vendor in vendor_map.items():
+        if pattern in filename_lower:
+            return vendor
+
+    return None
