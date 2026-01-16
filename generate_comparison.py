@@ -4,6 +4,13 @@ Multi-Vendor Comparison Generator
 Generates a standalone Excel file comparing N unique vendors for a specific client.
 Automatically finds all vendor extractions for the client and creates a side-by-side comparison.
 
+Features (Phase 4 Enhanced):
+- Bucket-level comparison (original)
+- Product-by-product comparison across vendors (NEW)
+- Gap detection (product in one vendor but not others) (NEW)
+- Unmatched products tab (NEW)
+- Match confidence indicators (NEW)
+
 Usage:
     python generate_comparison.py <client_name>
 
@@ -24,6 +31,9 @@ from collections import defaultdict
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, Border, Side, PatternFill
 from openpyxl.utils import get_column_letter
+
+# Product matching imports
+from core.product_matcher import ProductMatcher, MatchResult, MatchMethod
 
 
 def parse_vendor_from_filename(filename: str) -> tuple:
@@ -120,7 +130,714 @@ def normalize_proposal(json_path: str) -> dict:
     return proposal
 
 
-def create_comparison_excel(client_name: str, vendors: dict, output_path: str):
+def match_products_across_vendors(vendors: dict, matcher: ProductMatcher) -> dict:
+    """
+    Match all line items to canonical categories across all vendors.
+
+    Args:
+        vendors: Dict mapping vendor name -> NormalizedProposal
+        matcher: ProductMatcher instance
+
+    Returns:
+        Dict with structure:
+        {
+            'by_category': {category_key: {vendor: [matched_items]}},
+            'unmatched': {vendor: [unmatched_items]},
+            'match_results': {vendor: [MatchResult objects]},
+            'statistics': {vendor: stats_dict}
+        }
+    """
+    result = {
+        'by_category': defaultdict(lambda: defaultdict(list)),
+        'unmatched': defaultdict(list),
+        'match_results': {},
+        'statistics': {}
+    }
+
+    for vendor_name, proposal in vendors.items():
+        vendor_results = []
+
+        for item in proposal.line_items:
+            # Create a dict for the matcher
+            item_dict = {
+                'solution_name': item.solution_name,
+                'vendor': vendor_name
+            }
+
+            match_result = matcher.match(item.solution_name, vendor_name)
+            vendor_results.append(match_result)
+
+            # Store matched items by category
+            if match_result.canonical_category:
+                result['by_category'][match_result.canonical_category][vendor_name].append({
+                    'item': item,
+                    'match_result': match_result
+                })
+            else:
+                result['unmatched'][vendor_name].append({
+                    'item': item,
+                    'match_result': match_result
+                })
+
+        result['match_results'][vendor_name] = vendor_results
+        result['statistics'][vendor_name] = matcher.get_match_statistics(vendor_results)
+
+    return result
+
+
+def create_product_comparison_sheet(wb: Workbook, matched_data: dict, vendor_names: list, matcher: ProductMatcher):
+    """
+    Create the Product-by-Product comparison sheet.
+
+    Shows equivalent products side-by-side across vendors, grouped by canonical category.
+    """
+    ws = wb.create_sheet("Product Comparison")
+
+    # Styling
+    DARK_BLUE = "1F4E79"
+    MEDIUM_BLUE = "2E75B6"
+    LIGHT_BLUE = "BDD7EE"
+    LIGHT_GRAY = "F2F2F2"
+    GREEN = "C6EFCE"
+    DARK_GREEN = "006100"
+    YELLOW = "FFF2CC"
+    ORANGE = "FCE4D6"
+
+    TITLE_FILL = PatternFill(start_color=DARK_BLUE, end_color=DARK_BLUE, fill_type="solid")
+    HEADER_FILL = PatternFill(start_color=MEDIUM_BLUE, end_color=MEDIUM_BLUE, fill_type="solid")
+    CATEGORY_FILL = PatternFill(start_color=LIGHT_BLUE, end_color=LIGHT_BLUE, fill_type="solid")
+    ALT_ROW_FILL = PatternFill(start_color=LIGHT_GRAY, end_color=LIGHT_GRAY, fill_type="solid")
+    WINNER_FILL = PatternFill(start_color=GREEN, end_color=GREEN, fill_type="solid")
+    GAP_FILL = PatternFill(start_color=YELLOW, end_color=YELLOW, fill_type="solid")
+
+    TITLE_FONT = Font(bold=True, color="FFFFFF", size=16)
+    HEADER_FONT = Font(bold=True, color="FFFFFF", size=11)
+    CATEGORY_FONT = Font(bold=True, color=DARK_BLUE, size=12)
+    NORMAL_FONT = Font(size=10)
+    BOLD_FONT = Font(bold=True, size=10)
+    GAP_FONT = Font(italic=True, color="996600", size=10)
+
+    CURRENCY_FORMAT = '_("$"* #,##0_);_("$"* (#,##0);_("$"* "-"_);_(@_)'
+
+    THIN_BORDER = Border(
+        left=Side(style='thin', color='CCCCCC'),
+        right=Side(style='thin', color='CCCCCC'),
+        top=Side(style='thin', color='CCCCCC'),
+        bottom=Side(style='thin', color='CCCCCC')
+    )
+
+    num_vendors = len(vendor_names)
+    total_cols = 1 + (num_vendors * 2) + 1  # Category + (Product, Cost) per vendor + Winner
+
+    row = 1
+
+    # Title
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=total_cols)
+    cell = ws.cell(row=row, column=1, value="PRODUCT-BY-PRODUCT COMPARISON")
+    cell.fill = TITLE_FILL
+    cell.font = TITLE_FONT
+    cell.alignment = Alignment(horizontal='center', vertical='center')
+    ws.row_dimensions[row].height = 28
+    row += 1
+
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=total_cols)
+    cell = ws.cell(row=row, column=1, value="Equivalent products matched across vendors using canonical product categories")
+    cell.font = Font(italic=True, color="666666", size=11)
+    row += 2
+
+    # Header row
+    headers = ["Product Category"]
+    for vendor in vendor_names:
+        headers.extend([f"{vendor} Product", f"{vendor} 7-Yr Cost"])
+    headers.append("Lowest Cost")
+
+    for col, header in enumerate(headers, 1):
+        cell = ws.cell(row=row, column=col, value=header)
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center', vertical='center', wrap_text=True)
+    ws.row_dimensions[row].height = 30
+    row += 1
+
+    # Sort categories for display
+    by_category = matched_data['by_category']
+    sorted_categories = sorted(by_category.keys())
+
+    category_totals = {vendor: 0 for vendor in vendor_names}
+    gaps_detected = []
+
+    for idx, category_key in enumerate(sorted_categories):
+        vendor_items = by_category[category_key]
+
+        # Get canonical name
+        cat_info = matcher.get_category_info(category_key)
+        category_name = cat_info.get('canonical_name', category_key) if cat_info else category_key
+
+        # Collect costs per vendor for this category
+        vendor_costs = {}
+        vendor_products = {}
+
+        for vendor in vendor_names:
+            items = vendor_items.get(vendor, [])
+            if items:
+                # Sum all items in this category for this vendor
+                total_cost = sum(item['item'].total_7_year_cost for item in items)
+                product_names = [item['item'].solution_name for item in items]
+                vendor_costs[vendor] = total_cost
+                vendor_products[vendor] = product_names
+                category_totals[vendor] += total_cost
+            else:
+                vendor_costs[vendor] = None
+                vendor_products[vendor] = None
+
+        # Detect gaps
+        has_gap = any(v is None for v in vendor_costs.values()) and any(v is not None for v in vendor_costs.values())
+        if has_gap:
+            gaps_detected.append({
+                'category': category_name,
+                'present_in': [v for v in vendor_names if vendor_costs[v] is not None],
+                'missing_from': [v for v in vendor_names if vendor_costs[v] is None]
+            })
+
+        row_fill = ALT_ROW_FILL if idx % 2 == 0 else None
+
+        # Category name cell
+        cell = ws.cell(row=row, column=1, value=category_name)
+        cell.font = BOLD_FONT
+        cell.border = THIN_BORDER
+        if row_fill:
+            cell.fill = row_fill
+
+        # Find winner (lowest cost among those that have it)
+        valid_costs = {v: c for v, c in vendor_costs.items() if c is not None and c > 0}
+        winner = min(valid_costs.keys(), key=lambda v: valid_costs[v]) if valid_costs else None
+
+        col = 2
+        for vendor in vendor_names:
+            cost = vendor_costs[vendor]
+            products = vendor_products[vendor]
+
+            # Product name cell
+            if products:
+                # Show first product, truncate if multiple
+                if len(products) == 1:
+                    product_display = products[0][:40]
+                else:
+                    product_display = f"{products[0][:30]}... (+{len(products)-1})"
+                cell = ws.cell(row=row, column=col, value=product_display)
+                cell.font = NORMAL_FONT
+            else:
+                cell = ws.cell(row=row, column=col, value="[Not offered]")
+                cell.font = GAP_FONT
+                cell.fill = GAP_FILL
+            cell.border = THIN_BORDER
+            if row_fill and not (products is None):
+                cell.fill = row_fill
+
+            # Cost cell
+            cell = ws.cell(row=row, column=col + 1, value=cost if cost else 0)
+            cell.number_format = CURRENCY_FORMAT
+            cell.border = THIN_BORDER
+            cell.alignment = Alignment(horizontal='right')
+
+            if cost is None:
+                cell.fill = GAP_FILL
+            elif vendor == winner:
+                cell.fill = WINNER_FILL
+                cell.font = Font(bold=True, color=DARK_GREEN)
+            elif row_fill:
+                cell.fill = row_fill
+
+            col += 2
+
+        # Winner cell
+        cell = ws.cell(row=row, column=col, value=winner if winner else "N/A")
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        cell.font = BOLD_FONT
+        if row_fill:
+            cell.fill = row_fill
+
+        row += 1
+
+    # Total row
+    row += 1
+    cell = ws.cell(row=row, column=1, value="TOTAL (Matched Products)")
+    cell.fill = HEADER_FILL
+    cell.font = HEADER_FONT
+    cell.border = THIN_BORDER
+
+    col = 2
+    category_winner = min(category_totals.keys(), key=lambda v: category_totals[v]) if category_totals else None
+
+    for vendor in vendor_names:
+        cell = ws.cell(row=row, column=col, value="")
+        cell.fill = HEADER_FILL
+        cell.border = THIN_BORDER
+
+        cell = ws.cell(row=row, column=col + 1, value=category_totals[vendor])
+        cell.number_format = CURRENCY_FORMAT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='right')
+
+        if vendor == category_winner:
+            cell.fill = WINNER_FILL
+            cell.font = Font(bold=True, color=DARK_GREEN, size=11)
+        else:
+            cell.fill = HEADER_FILL
+            cell.font = HEADER_FONT
+
+        col += 2
+
+    cell = ws.cell(row=row, column=col, value=category_winner if category_winner else "")
+    cell.fill = WINNER_FILL
+    cell.font = Font(bold=True, color=DARK_GREEN)
+    cell.border = THIN_BORDER
+    cell.alignment = Alignment(horizontal='center')
+
+    # Column widths
+    ws.column_dimensions['A'].width = 35
+    col_idx = 2
+    for _ in vendor_names:
+        ws.column_dimensions[get_column_letter(col_idx)].width = 30
+        ws.column_dimensions[get_column_letter(col_idx + 1)].width = 14
+        col_idx += 2
+    ws.column_dimensions[get_column_letter(col_idx)].width = 12
+
+    ws.freeze_panes = 'A5'
+
+    return gaps_detected
+
+
+def create_gaps_sheet(wb: Workbook, gaps_detected: list, matched_data: dict, vendor_names: list, matcher: ProductMatcher):
+    """
+    Create the Gap Detection sheet.
+
+    Shows products/categories present in some vendors but missing from others.
+    """
+    ws = wb.create_sheet("Gap Analysis")
+
+    # Styling
+    DARK_BLUE = "1F4E79"
+    MEDIUM_BLUE = "2E75B6"
+    YELLOW = "FFF2CC"
+    LIGHT_GRAY = "F2F2F2"
+
+    TITLE_FILL = PatternFill(start_color=DARK_BLUE, end_color=DARK_BLUE, fill_type="solid")
+    HEADER_FILL = PatternFill(start_color=MEDIUM_BLUE, end_color=MEDIUM_BLUE, fill_type="solid")
+    GAP_FILL = PatternFill(start_color=YELLOW, end_color=YELLOW, fill_type="solid")
+    ALT_ROW_FILL = PatternFill(start_color=LIGHT_GRAY, end_color=LIGHT_GRAY, fill_type="solid")
+
+    TITLE_FONT = Font(bold=True, color="FFFFFF", size=16)
+    HEADER_FONT = Font(bold=True, color="FFFFFF", size=11)
+    NORMAL_FONT = Font(size=10)
+    BOLD_FONT = Font(bold=True, size=10)
+
+    THIN_BORDER = Border(
+        left=Side(style='thin', color='CCCCCC'),
+        right=Side(style='thin', color='CCCCCC'),
+        top=Side(style='thin', color='CCCCCC'),
+        bottom=Side(style='thin', color='CCCCCC')
+    )
+
+    row = 1
+
+    # Title
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=4)
+    cell = ws.cell(row=row, column=1, value="GAP ANALYSIS")
+    cell.fill = TITLE_FILL
+    cell.font = TITLE_FONT
+    cell.alignment = Alignment(horizontal='center', vertical='center')
+    ws.row_dimensions[row].height = 28
+    row += 1
+
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=4)
+    cell = ws.cell(row=row, column=1, value="Products/categories offered by some vendors but not others")
+    cell.font = Font(italic=True, color="666666", size=11)
+    row += 2
+
+    if not gaps_detected:
+        ws.cell(row=row, column=1, value="No gaps detected - all vendors offer equivalent products in all categories.")
+        ws.cell(row=row, column=1).font = Font(italic=True, size=11)
+        return
+
+    # Summary
+    cell = ws.cell(row=row, column=1, value=f"Found {len(gaps_detected)} categories with coverage gaps:")
+    cell.font = BOLD_FONT
+    row += 2
+
+    # Headers
+    headers = ["Category", "Present In", "Missing From", "Cost Impact"]
+    for col, header in enumerate(headers, 1):
+        cell = ws.cell(row=row, column=col, value=header)
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+    row += 1
+
+    by_category = matched_data['by_category']
+
+    for idx, gap in enumerate(gaps_detected):
+        row_fill = ALT_ROW_FILL if idx % 2 == 0 else None
+
+        # Category
+        cell = ws.cell(row=row, column=1, value=gap['category'])
+        cell.font = BOLD_FONT
+        cell.border = THIN_BORDER
+        if row_fill:
+            cell.fill = row_fill
+
+        # Present in
+        cell = ws.cell(row=row, column=2, value=", ".join(gap['present_in']))
+        cell.border = THIN_BORDER
+        if row_fill:
+            cell.fill = row_fill
+
+        # Missing from
+        cell = ws.cell(row=row, column=3, value=", ".join(gap['missing_from']))
+        cell.fill = GAP_FILL
+        cell.border = THIN_BORDER
+
+        # Cost impact - show what the present vendors are charging
+        # Find category key from name
+        cat_key = None
+        for key in by_category.keys():
+            cat_info = matcher.get_category_info(key)
+            if cat_info and cat_info.get('canonical_name') == gap['category']:
+                cat_key = key
+                break
+
+        if cat_key:
+            costs = []
+            for vendor in gap['present_in']:
+                items = by_category[cat_key].get(vendor, [])
+                total = sum(item['item'].total_7_year_cost for item in items)
+                costs.append(f"{vendor}: ${total:,.0f}")
+            cost_str = "; ".join(costs)
+        else:
+            cost_str = "N/A"
+
+        cell = ws.cell(row=row, column=4, value=cost_str)
+        cell.border = THIN_BORDER
+        if row_fill:
+            cell.fill = row_fill
+
+        row += 1
+
+    # Column widths
+    ws.column_dimensions['A'].width = 35
+    ws.column_dimensions['B'].width = 25
+    ws.column_dimensions['C'].width = 25
+    ws.column_dimensions['D'].width = 40
+
+
+def create_unmatched_sheet(wb: Workbook, matched_data: dict, vendor_names: list):
+    """
+    Create the Unmatched Products sheet.
+
+    Shows products that couldn't be matched to any canonical category.
+    """
+    ws = wb.create_sheet("Unmatched Products")
+
+    # Styling
+    DARK_BLUE = "1F4E79"
+    MEDIUM_BLUE = "2E75B6"
+    ORANGE = "FCE4D6"
+    LIGHT_GRAY = "F2F2F2"
+
+    TITLE_FILL = PatternFill(start_color=DARK_BLUE, end_color=DARK_BLUE, fill_type="solid")
+    HEADER_FILL = PatternFill(start_color=MEDIUM_BLUE, end_color=MEDIUM_BLUE, fill_type="solid")
+    UNMATCHED_FILL = PatternFill(start_color=ORANGE, end_color=ORANGE, fill_type="solid")
+    ALT_ROW_FILL = PatternFill(start_color=LIGHT_GRAY, end_color=LIGHT_GRAY, fill_type="solid")
+
+    TITLE_FONT = Font(bold=True, color="FFFFFF", size=16)
+    HEADER_FONT = Font(bold=True, color="FFFFFF", size=11)
+    NORMAL_FONT = Font(size=10)
+    BOLD_FONT = Font(bold=True, size=10)
+
+    CURRENCY_FORMAT = '_("$"* #,##0_);_("$"* (#,##0);_("$"* "-"_);_(@_)'
+
+    THIN_BORDER = Border(
+        left=Side(style='thin', color='CCCCCC'),
+        right=Side(style='thin', color='CCCCCC'),
+        top=Side(style='thin', color='CCCCCC'),
+        bottom=Side(style='thin', color='CCCCCC')
+    )
+
+    row = 1
+
+    # Title
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=5)
+    cell = ws.cell(row=row, column=1, value="UNMATCHED PRODUCTS")
+    cell.fill = TITLE_FILL
+    cell.font = TITLE_FONT
+    cell.alignment = Alignment(horizontal='center', vertical='center')
+    ws.row_dimensions[row].height = 28
+    row += 1
+
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=5)
+    cell = ws.cell(row=row, column=1, value="Products that could not be matched to a canonical category (may need manual review)")
+    cell.font = Font(italic=True, color="666666", size=11)
+    row += 2
+
+    unmatched = matched_data['unmatched']
+    total_unmatched = sum(len(items) for items in unmatched.values())
+
+    if total_unmatched == 0:
+        ws.cell(row=row, column=1, value="All products were successfully matched to canonical categories.")
+        ws.cell(row=row, column=1).font = Font(italic=True, size=11)
+        return
+
+    # Summary by vendor
+    cell = ws.cell(row=row, column=1, value=f"Total unmatched products: {total_unmatched}")
+    cell.font = BOLD_FONT
+    row += 1
+
+    for vendor in vendor_names:
+        count = len(unmatched.get(vendor, []))
+        ws.cell(row=row, column=1, value=f"  {vendor}: {count} unmatched")
+    row += 2
+
+    # Headers
+    headers = ["Vendor", "Product Name", "7-Year Cost", "Cost Bucket", "Fuzzy Suggestion"]
+    for col, header in enumerate(headers, 1):
+        cell = ws.cell(row=row, column=col, value=header)
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+    row += 1
+
+    idx = 0
+    for vendor in vendor_names:
+        items = unmatched.get(vendor, [])
+        for item_data in items:
+            item = item_data['item']
+            match_result = item_data['match_result']
+
+            row_fill = ALT_ROW_FILL if idx % 2 == 0 else None
+
+            # Vendor
+            cell = ws.cell(row=row, column=1, value=vendor)
+            cell.font = BOLD_FONT
+            cell.border = THIN_BORDER
+            if row_fill:
+                cell.fill = row_fill
+
+            # Product name
+            cell = ws.cell(row=row, column=2, value=item.solution_name)
+            cell.border = THIN_BORDER
+            cell.fill = UNMATCHED_FILL
+
+            # Cost
+            cell = ws.cell(row=row, column=3, value=item.total_7_year_cost)
+            cell.number_format = CURRENCY_FORMAT
+            cell.border = THIN_BORDER
+            cell.alignment = Alignment(horizontal='right')
+            if row_fill:
+                cell.fill = row_fill
+
+            # Bucket
+            cell = ws.cell(row=row, column=4, value=item.level_1_bucket)
+            cell.border = THIN_BORDER
+            if row_fill:
+                cell.fill = row_fill
+
+            # Fuzzy suggestion
+            if match_result.match_method == MatchMethod.FUZZY:
+                suggestion = f"{match_result.canonical_name} ({match_result.confidence:.0f}%)"
+            else:
+                suggestion = "No suggestion"
+            cell = ws.cell(row=row, column=5, value=suggestion)
+            cell.border = THIN_BORDER
+            cell.font = Font(italic=True, size=10)
+            if row_fill:
+                cell.fill = row_fill
+
+            row += 1
+            idx += 1
+
+    # Column widths
+    ws.column_dimensions['A'].width = 15
+    ws.column_dimensions['B'].width = 45
+    ws.column_dimensions['C'].width = 14
+    ws.column_dimensions['D'].width = 25
+    ws.column_dimensions['E'].width = 35
+
+
+def create_match_statistics_sheet(wb: Workbook, matched_data: dict, vendor_names: list):
+    """
+    Create the Match Statistics sheet.
+
+    Shows match quality metrics for transparency.
+    """
+    ws = wb.create_sheet("Match Statistics")
+
+    # Styling
+    DARK_BLUE = "1F4E79"
+    MEDIUM_BLUE = "2E75B6"
+    GREEN = "C6EFCE"
+    YELLOW = "FFF2CC"
+    LIGHT_GRAY = "F2F2F2"
+
+    TITLE_FILL = PatternFill(start_color=DARK_BLUE, end_color=DARK_BLUE, fill_type="solid")
+    HEADER_FILL = PatternFill(start_color=MEDIUM_BLUE, end_color=MEDIUM_BLUE, fill_type="solid")
+    GOOD_FILL = PatternFill(start_color=GREEN, end_color=GREEN, fill_type="solid")
+    WARN_FILL = PatternFill(start_color=YELLOW, end_color=YELLOW, fill_type="solid")
+
+    TITLE_FONT = Font(bold=True, color="FFFFFF", size=16)
+    HEADER_FONT = Font(bold=True, color="FFFFFF", size=11)
+    NORMAL_FONT = Font(size=10)
+    BOLD_FONT = Font(bold=True, size=10)
+
+    PERCENT_FORMAT = '0.0%'
+
+    THIN_BORDER = Border(
+        left=Side(style='thin', color='CCCCCC'),
+        right=Side(style='thin', color='CCCCCC'),
+        top=Side(style='thin', color='CCCCCC'),
+        bottom=Side(style='thin', color='CCCCCC')
+    )
+
+    row = 1
+
+    # Title
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=7)
+    cell = ws.cell(row=row, column=1, value="PRODUCT MATCHING STATISTICS")
+    cell.fill = TITLE_FILL
+    cell.font = TITLE_FONT
+    cell.alignment = Alignment(horizontal='center', vertical='center')
+    ws.row_dimensions[row].height = 28
+    row += 1
+
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=7)
+    cell = ws.cell(row=row, column=1, value="Quality metrics for product matching - higher match rates indicate better cross-vendor comparability")
+    cell.font = Font(italic=True, color="666666", size=11)
+    row += 2
+
+    # Headers
+    headers = ["Vendor", "Total Items", "Exact Match", "Fuzzy Match", "Unmatched", "Match Rate", "Auto-Approved"]
+    for col, header in enumerate(headers, 1):
+        cell = ws.cell(row=row, column=col, value=header)
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+    row += 1
+
+    stats = matched_data['statistics']
+
+    totals = {'total': 0, 'exact': 0, 'fuzzy': 0, 'unmatched': 0, 'auto_approved': 0}
+
+    for idx, vendor in enumerate(vendor_names):
+        vendor_stats = stats.get(vendor, {})
+        row_fill = PatternFill(start_color=LIGHT_GRAY, end_color=LIGHT_GRAY, fill_type="solid") if idx % 2 == 0 else None
+
+        # Vendor
+        cell = ws.cell(row=row, column=1, value=vendor)
+        cell.font = BOLD_FONT
+        cell.border = THIN_BORDER
+        if row_fill:
+            cell.fill = row_fill
+
+        # Total
+        total = vendor_stats.get('total', 0)
+        cell = ws.cell(row=row, column=2, value=total)
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        if row_fill:
+            cell.fill = row_fill
+        totals['total'] += total
+
+        # Exact
+        exact = vendor_stats.get('exact_matches', 0)
+        cell = ws.cell(row=row, column=3, value=exact)
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        if row_fill:
+            cell.fill = row_fill
+        totals['exact'] += exact
+
+        # Fuzzy
+        fuzzy = vendor_stats.get('fuzzy_matches', 0)
+        cell = ws.cell(row=row, column=4, value=fuzzy)
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        if row_fill:
+            cell.fill = row_fill
+        totals['fuzzy'] += fuzzy
+
+        # Unmatched
+        unmatched = vendor_stats.get('unmatched', 0)
+        cell = ws.cell(row=row, column=5, value=unmatched)
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        if row_fill:
+            cell.fill = row_fill
+        totals['unmatched'] += unmatched
+
+        # Match rate
+        match_rate = vendor_stats.get('match_rate', 0) / 100
+        cell = ws.cell(row=row, column=6, value=match_rate)
+        cell.number_format = PERCENT_FORMAT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        cell.font = BOLD_FONT
+        if match_rate >= 0.8:
+            cell.fill = GOOD_FILL
+        elif match_rate >= 0.5:
+            cell.fill = WARN_FILL
+        elif row_fill:
+            cell.fill = row_fill
+
+        # Auto-approved
+        auto = vendor_stats.get('auto_approved', 0)
+        cell = ws.cell(row=row, column=7, value=auto)
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+        if row_fill:
+            cell.fill = row_fill
+        totals['auto_approved'] += auto
+
+        row += 1
+
+    # Total row
+    row += 1
+    cell = ws.cell(row=row, column=1, value="TOTAL")
+    cell.fill = HEADER_FILL
+    cell.font = HEADER_FONT
+    cell.border = THIN_BORDER
+
+    for col, key in enumerate(['total', 'exact', 'fuzzy', 'unmatched'], 2):
+        cell = ws.cell(row=row, column=col, value=totals[key])
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        cell.border = THIN_BORDER
+        cell.alignment = Alignment(horizontal='center')
+
+    overall_rate = (totals['exact'] + totals['fuzzy']) / totals['total'] if totals['total'] > 0 else 0
+    cell = ws.cell(row=row, column=6, value=overall_rate)
+    cell.number_format = PERCENT_FORMAT
+    cell.fill = GOOD_FILL if overall_rate >= 0.8 else WARN_FILL
+    cell.font = Font(bold=True, size=11)
+    cell.border = THIN_BORDER
+    cell.alignment = Alignment(horizontal='center')
+
+    cell = ws.cell(row=row, column=7, value=totals['auto_approved'])
+    cell.fill = HEADER_FILL
+    cell.font = HEADER_FONT
+    cell.border = THIN_BORDER
+    cell.alignment = Alignment(horizontal='center')
+
+    # Column widths
+    ws.column_dimensions['A'].width = 18
+    for col in range(2, 8):
+        ws.column_dimensions[get_column_letter(col)].width = 14
+
+
+def create_comparison_excel(client_name: str, vendors: dict, output_path: str, matcher: ProductMatcher = None):
     """
     Create a standalone Excel file with the multi-vendor comparison sheet.
 
@@ -128,8 +845,20 @@ def create_comparison_excel(client_name: str, vendors: dict, output_path: str):
         client_name: Client name for the title
         vendors: Dict mapping vendor name -> NormalizedProposal
         output_path: Path for the output Excel file
+        matcher: ProductMatcher instance for product-level comparison (optional)
+
+    Returns:
+        Tuple of (output_path, matched_data) where matched_data contains product matching results
     """
     from core import get_bucket_display_order
+
+    # Initialize matcher if not provided
+    if matcher is None:
+        matcher = ProductMatcher()
+
+    # Match products across vendors for the new comparison features
+    matched_data = match_products_across_vendors(vendors, matcher)
+    vendor_names = list(vendors.keys())
 
     # ==========================================================================
     # STYLING DEFINITIONS
@@ -583,10 +1312,32 @@ def create_comparison_excel(client_name: str, vendors: dict, output_path: str):
 
     ws.freeze_panes = 'A5'
 
+    # ==========================================================================
+    # SECTION 6: NEW PRODUCT-LEVEL COMPARISON SHEETS (Phase 4)
+    # ==========================================================================
+
+    # Create Product-by-Product Comparison sheet
+    gaps_detected = create_product_comparison_sheet(wb, matched_data, vendor_names, matcher)
+
+    # Create Gap Analysis sheet
+    create_gaps_sheet(wb, gaps_detected, matched_data, vendor_names, matcher)
+
+    # Create Unmatched Products sheet
+    create_unmatched_sheet(wb, matched_data, vendor_names)
+
+    # Create Match Statistics sheet
+    create_match_statistics_sheet(wb, matched_data, vendor_names)
+
+    # Reorder sheets - put main comparison first
+    sheet_order = ['Vendor Comparison', 'Product Comparison', 'Gap Analysis', 'Unmatched Products', 'Match Statistics']
+    for i, sheet_name in enumerate(sheet_order):
+        if sheet_name in wb.sheetnames:
+            wb.move_sheet(wb[sheet_name], offset=i - wb.sheetnames.index(sheet_name))
+
     # Save workbook
     wb.save(output_path)
 
-    return output_path
+    return output_path, matched_data
 
 
 def main():
@@ -644,15 +1395,37 @@ def main():
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     output_filename = f"TCO Output/{client_name.upper()}_COMPARISON_{timestamp}.xlsx"
 
+    # Initialize product matcher
+    print("Initializing product matcher...")
+    matcher = ProductMatcher()
+
     # Create the comparison Excel file
     print("Generating comparison Excel file...")
-    output_path = create_comparison_excel(client_name, normalized_vendors, output_filename)
+    output_path, matched_data = create_comparison_excel(client_name, normalized_vendors, output_filename, matcher)
 
     print()
     print("=" * 70)
     print("COMPARISON COMPLETE")
     print("=" * 70)
     print(f"Output file: {output_path}")
+    print()
+
+    # Print product matching statistics
+    print("PRODUCT MATCHING STATISTICS:")
+    print("-" * 70)
+    stats = matched_data['statistics']
+    total_items = sum(s.get('total', 0) for s in stats.values())
+    total_matched = sum(s.get('exact_matches', 0) + s.get('fuzzy_matches', 0) for s in stats.values())
+    total_unmatched = sum(s.get('unmatched', 0) for s in stats.values())
+    overall_rate = (total_matched / total_items * 100) if total_items > 0 else 0
+
+    for vendor in normalized_vendors.keys():
+        vendor_stats = stats.get(vendor, {})
+        rate = vendor_stats.get('match_rate', 0)
+        print(f"  {vendor}: {vendor_stats.get('total', 0)} items, {rate:.1f}% matched")
+
+    print()
+    print(f"  OVERALL: {total_items} items, {overall_rate:.1f}% matched ({total_unmatched} unmatched)")
     print()
 
     # Print summary
