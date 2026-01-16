@@ -354,3 +354,57 @@ class TestPrintSummary:
         captured = capsys.readouterr()
         assert "PRODUCT MATCHING SUMMARY" in captured.out
         assert "Total products:" in captured.out
+
+
+class TestAISuggestion:
+    """Tests for AI suggestion functionality."""
+
+    def test_ai_disabled_by_default_without_api_key(self, temp_ontology_file):
+        """Test that AI is gracefully disabled when no API key is available."""
+        # Create matcher without API key and with AI enabled
+        # It should still work, just without AI suggestions
+        matcher = ProductMatcher(
+            ontology_path=str(temp_ontology_file),
+            enable_ai=True
+        )
+        # Even if enable_ai=True, it will be False if anthropic isn't available or no API key
+        # The matcher should still work for exact/fuzzy matching
+        result = matcher.match("HORIZON", "FIS")
+        assert result.match_method == MatchMethod.EXACT
+        assert result.canonical_category == "core_banking_platform"
+
+    def test_ai_explicitly_disabled(self, temp_ontology_file):
+        """Test matcher works normally with AI explicitly disabled."""
+        matcher = ProductMatcher(
+            ontology_path=str(temp_ontology_file),
+            enable_ai=False
+        )
+        assert matcher.enable_ai is False
+
+        # Should still match known products
+        result = matcher.match("HORIZON", "FIS")
+        assert result.match_method == MatchMethod.EXACT
+
+        # Unknown products should be marked as unmatched (no AI suggestion)
+        result = matcher.match("Completely Unknown Product XYZ", "FIS")
+        assert result.match_method == MatchMethod.UNMATCHED
+        assert result.needs_review is True
+
+    def test_statistics_include_ai_suggestions(self, matcher):
+        """Test that statistics dict includes AI suggestion fields."""
+        results = [
+            MatchResult(original_name="Test1", vendor="FIS", match_method=MatchMethod.EXACT, confidence=100),
+            MatchResult(original_name="Test2", vendor="FIS", match_method=MatchMethod.FUZZY, confidence=90),
+            MatchResult(original_name="Test3", vendor="FIS", match_method=MatchMethod.AI_SUGGESTION, confidence=75, needs_review=True),
+            MatchResult(original_name="Test4", vendor="FIS", match_method=MatchMethod.UNMATCHED, confidence=0, needs_review=True),
+        ]
+
+        stats = matcher.get_match_statistics(results)
+
+        assert stats["total"] == 4
+        assert stats["exact_matches"] == 1
+        assert stats["fuzzy_matches"] == 1
+        assert stats["ai_suggestions"] == 1
+        assert stats["unmatched"] == 1
+        assert stats["match_rate"] == 75.0  # 3/4 = 75%
+        assert "ai_rate" in stats

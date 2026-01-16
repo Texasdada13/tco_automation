@@ -9,6 +9,7 @@ This module provides the core matching functionality for the product ontology sy
 """
 
 import json
+import logging
 import os
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -23,6 +24,14 @@ try:
     RAPIDFUZZ_AVAILABLE = True
 except ImportError:
     RAPIDFUZZ_AVAILABLE = False
+
+try:
+    import anthropic
+    ANTHROPIC_AVAILABLE = True
+except ImportError:
+    ANTHROPIC_AVAILABLE = False
+
+logger = logging.getLogger(__name__)
 
 
 class MatchMethod(Enum):
@@ -76,12 +85,16 @@ class ProductMatcher:
     FUZZY_THRESHOLD = 85  # Minimum fuzzy match score (0-100)
     AUTO_APPROVE_THRESHOLD = 95  # Auto-approve if confidence >= this
 
+    # AI suggestion threshold - only suggest if confidence >= this
+    AI_SUGGESTION_THRESHOLD = 50
+
     def __init__(
         self,
         ontology_path: Optional[str] = None,
         auto_approval_log_path: Optional[str] = None,
         enable_fuzzy: bool = True,
-        enable_ai: bool = True
+        enable_ai: bool = True,
+        api_key: Optional[str] = None
     ):
         """
         Initialize the ProductMatcher.
@@ -90,10 +103,21 @@ class ProductMatcher:
             ontology_path: Path to product_ontology.yaml. Defaults to ontology/product_ontology.yaml
             auto_approval_log_path: Path to auto_approved_matches.json. Defaults to ontology/auto_approved_matches.json
             enable_fuzzy: Whether to use fuzzy matching for unmatched products
-            enable_ai: Whether to use AI suggestions (placeholder for Phase 3)
+            enable_ai: Whether to use AI suggestions for unknown products
+            api_key: Anthropic API key for AI suggestions (or use ANTHROPIC_API_KEY env var)
         """
         self.enable_fuzzy = enable_fuzzy and RAPIDFUZZ_AVAILABLE
-        self.enable_ai = enable_ai
+        self.enable_ai = enable_ai and ANTHROPIC_AVAILABLE
+
+        # Initialize AI client if enabled
+        self._ai_client = None
+        if self.enable_ai:
+            try:
+                self._ai_client = anthropic.Anthropic(api_key=api_key)
+                logger.info("AI suggestions enabled for ProductMatcher")
+            except Exception as e:
+                logger.warning(f"Could not initialize AI client: {e}. AI suggestions disabled.")
+                self.enable_ai = False
 
         # Determine paths
         if ontology_path is None:
@@ -204,8 +228,15 @@ class ProductMatcher:
                         best_result.needs_review = True
                     return best_result
 
-        # Step 3: AI suggestion (placeholder - will be implemented in Phase 3)
-        # For now, just mark as needing review
+        # Step 3: AI suggestion for unknown products
+        if self.enable_ai and self._ai_client:
+            ai_result = self._ai_suggest(product_name_clean, vendor)
+            if ai_result.match_method == MatchMethod.AI_SUGGESTION:
+                # AI suggestions always need human review (never auto-approved)
+                ai_result.needs_review = True
+                return ai_result
+
+        # No match found - mark as needing review
         result = MatchResult(
             original_name=product_name_clean,
             vendor=vendor,
@@ -308,6 +339,145 @@ class ProductMatcher:
                 needs_review=(confidence < self.AUTO_APPROVE_THRESHOLD)
             )
 
+        return MatchResult(
+            original_name=product_name,
+            vendor=vendor,
+            match_method=MatchMethod.UNMATCHED,
+            confidence=0.0,
+            needs_review=True
+        )
+
+    def _ai_suggest(self, product_name: str, vendor: str, source_context: str = "") -> MatchResult:
+        """
+        Use Claude AI to suggest a category match for an unknown product.
+
+        Args:
+            product_name: The unmatched product name
+            vendor: The vendor code
+            source_context: Optional context about where this product appears
+
+        Returns:
+            MatchResult with AI suggestion or UNMATCHED if no good suggestion
+        """
+        if not self._ai_client:
+            return MatchResult(
+                original_name=product_name,
+                vendor=vendor,
+                match_method=MatchMethod.UNMATCHED,
+                confidence=0.0,
+                needs_review=True
+            )
+
+        # Build categories list for the prompt
+        categories_list = []
+        for cat_key, cat_data in self.categories.items():
+            canonical_name = cat_data.get('canonical_name', cat_key)
+            description = cat_data.get('description', '')
+            categories_list.append(f"- {cat_key}: {canonical_name} - {description}")
+
+        categories_str = "\n".join(categories_list)
+
+        # Build the prompt
+        prompt = f"""Given this unmatched product from a vendor proposal, suggest which canonical category it belongs to.
+
+**Product Information:**
+- Product Name: {product_name}
+- Vendor: {vendor}
+- Source File Context: {source_context or 'Not provided'}
+
+**Available Canonical Categories:**
+{categories_str}
+
+**Your Task:**
+1. Analyze the product name and vendor context
+2. Suggest the most appropriate canonical category from the list above
+3. Provide your confidence (0-100) and brief reasoning
+
+Respond in this exact JSON format:
+{{
+    "suggested_category": "category_key_from_list",
+    "suggested_category_name": "Human Readable Category Name",
+    "confidence": 75,
+    "reasoning": "Brief explanation of why this match makes sense"
+}}
+
+If no good match exists, respond:
+{{
+    "suggested_category": null,
+    "suggested_category_name": null,
+    "confidence": 0,
+    "reasoning": "Explanation of why no match was found"
+}}"""
+
+        try:
+            logger.debug(f"AI suggestion request for: {product_name} ({vendor})")
+
+            response = self._ai_client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=500,
+                temperature=0.0,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+
+            # Parse the response
+            response_text = response.content[0].text.strip()
+
+            # Try to extract JSON from the response
+            import re
+            json_match = re.search(r'\{[^{}]*\}', response_text, re.DOTALL)
+            if json_match:
+                suggestion = json.loads(json_match.group())
+            else:
+                suggestion = json.loads(response_text)
+
+            # Check if we got a valid suggestion
+            suggested_category = suggestion.get('suggested_category')
+            confidence = suggestion.get('confidence', 0)
+            reasoning = suggestion.get('reasoning', '')
+            suggested_name = suggestion.get('suggested_category_name', '')
+
+            # Only accept suggestions above threshold
+            if suggested_category and confidence >= self.AI_SUGGESTION_THRESHOLD:
+                # Verify the category exists in our ontology
+                if suggested_category in self.categories:
+                    cat_data = self.categories[suggested_category]
+                    return MatchResult(
+                        original_name=product_name,
+                        vendor=vendor,
+                        canonical_category=suggested_category,
+                        canonical_name=cat_data.get('canonical_name', suggested_category),
+                        match_method=MatchMethod.AI_SUGGESTION,
+                        confidence=confidence,
+                        needs_review=True,  # AI suggestions always need review
+                        ai_suggestion=suggested_category,
+                        ai_reasoning=reasoning
+                    )
+                else:
+                    logger.warning(f"AI suggested unknown category: {suggested_category}")
+
+            # No valid suggestion
+            return MatchResult(
+                original_name=product_name,
+                vendor=vendor,
+                match_method=MatchMethod.UNMATCHED,
+                confidence=0.0,
+                needs_review=True,
+                ai_reasoning=reasoning if reasoning else "AI could not find a confident match"
+            )
+
+        except json.JSONDecodeError as e:
+            logger.warning(f"Could not parse AI response as JSON: {e}")
+        except anthropic.APIError as e:
+            logger.warning(f"AI API error: {e}")
+        except Exception as e:
+            logger.warning(f"AI suggestion failed: {e}")
+
+        # Return unmatched on any error
         return MatchResult(
             original_name=product_name,
             vendor=vendor,
@@ -505,6 +675,7 @@ class ProductMatcher:
                 "total": 0,
                 "exact_matches": 0,
                 "fuzzy_matches": 0,
+                "ai_suggestions": 0,
                 "unmatched": 0,
                 "needs_review": 0,
                 "auto_approved": 0,
@@ -513,20 +684,26 @@ class ProductMatcher:
 
         exact = sum(1 for r in results if r.match_method == MatchMethod.EXACT)
         fuzzy = sum(1 for r in results if r.match_method == MatchMethod.FUZZY)
+        ai_suggestions = sum(1 for r in results if r.match_method == MatchMethod.AI_SUGGESTION)
         unmatched = sum(1 for r in results if r.match_method == MatchMethod.UNMATCHED)
         needs_review = sum(1 for r in results if r.needs_review)
         auto_approved = sum(1 for r in results if r.confidence >= self.AUTO_APPROVE_THRESHOLD and not r.needs_review)
+
+        # Match rate includes exact, fuzzy, and AI suggestions (all have a category assigned)
+        matched = exact + fuzzy + ai_suggestions
 
         return {
             "total": total,
             "exact_matches": exact,
             "fuzzy_matches": fuzzy,
+            "ai_suggestions": ai_suggestions,
             "unmatched": unmatched,
             "needs_review": needs_review,
             "auto_approved": auto_approved,
-            "match_rate": ((exact + fuzzy) / total) * 100,
+            "match_rate": (matched / total) * 100,
             "exact_rate": (exact / total) * 100,
-            "fuzzy_rate": (fuzzy / total) * 100
+            "fuzzy_rate": (fuzzy / total) * 100,
+            "ai_rate": (ai_suggestions / total) * 100
         }
 
 
@@ -540,6 +717,7 @@ def print_match_summary(results: list[MatchResult], matcher: ProductMatcher) -> 
     print(f"Total products:     {stats['total']}")
     print(f"Exact matches:      {stats['exact_matches']} ({stats['exact_rate']:.1f}%)")
     print(f"Fuzzy matches:      {stats['fuzzy_matches']} ({stats['fuzzy_rate']:.1f}%)")
+    print(f"AI suggestions:     {stats.get('ai_suggestions', 0)} ({stats.get('ai_rate', 0):.1f}%)")
     print(f"Unmatched:          {stats['unmatched']}")
     print(f"Overall match rate: {stats['match_rate']:.1f}%")
     print("-" * 60)
