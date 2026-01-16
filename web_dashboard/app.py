@@ -12,6 +12,16 @@ from uuid import uuid4
 
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify, g, Response, send_file
 
+# Import centralized bucket mapping from core
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from core.cost_taxonomy import (
+    get_bucket_for_category,
+    get_bucket_color,
+    get_all_bucket_names,
+    BUCKET_COLORS
+)
+
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-production')
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max upload
@@ -1018,41 +1028,13 @@ def extraction_detail(filename):
         total_onetime = sum(item.get('one_time_fee', 0) or 0 for item in line_items)
         tco_7yr = (total_monthly * 12 * contract_term) + total_onetime
 
-        # Group line items by category/bucket
+        # Group line items by category/bucket using centralized mapping
         line_items_by_bucket = {}
         buckets = {}
 
-        # Define bucket mappings based on category
-        bucket_mapping = {
-            'Core Banking': 'Core Banking Platform',
-            'Digital Banking': 'Digital Banking',
-            'Card Services': 'Payment Services',
-            'Debit Card': 'Payment Services',
-            'Credit Card': 'Payment Services',
-            'ACH': 'Payment Services',
-            'Wire': 'Payment Services',
-            'Payment': 'Payment Services',
-            'Fraud': 'Ancillary & Add-Ons',
-            'Risk': 'Ancillary & Add-Ons',
-            'Security': 'Ancillary & Add-Ons',
-            'Document': 'Ancillary & Add-Ons',
-            'Statement': 'Ancillary & Add-Ons',
-            'Support': 'Implementation &Tic Conversion',
-            'Training': 'Implementation & Conversion',
-            'Implementation': 'Implementation & Conversion',
-            'Conversion': 'Implementation & Conversion',
-            'Professional Services': 'Professional Services',
-            'Consulting': 'Professional Services'
-        }
-
         for item in line_items:
             category = item.get('category', 'Other')
-            bucket = 'Ancillary & Add-Ons'  # Default
-
-            for key, val in bucket_mapping.items():
-                if key.lower() in category.lower():
-                    bucket = val
-                    break
+            bucket = get_bucket_for_category(category)  # Use centralized function
 
             # Calculate 7-year cost for this item
             monthly = item.get('monthly_fee', 0) or 0
@@ -1084,16 +1066,6 @@ def extraction_detail(filename):
         # Sort buckets by total cost
         sorted_buckets = dict(sorted(buckets.items(), key=lambda x: x[1]['total_7_year'], reverse=True))
 
-        # Bucket colors for visual consistency
-        bucket_colors = {
-            'Core Banking Platform': '#1e3a5f',
-            'Digital Banking': '#2c5282',
-            'Payment Services': '#3182ce',
-            'Ancillary & Add-Ons': '#4299e1',
-            'Implementation & Conversion': '#63b3ed',
-            'Professional Services': '#90cdf4'
-        }
-
         extraction = {
             'filename': filename,
             'client': client_name,
@@ -1111,7 +1083,7 @@ def extraction_detail(filename):
                              extraction=extraction,
                              line_items_by_bucket=line_items_by_bucket,
                              buckets=sorted_buckets,
-                             bucket_colors=bucket_colors)
+                             bucket_colors=BUCKET_COLORS)  # Use centralized colors
 
     except Exception as e:
         app.logger.error(f"Error loading extraction {filename}: {e}")
@@ -1139,29 +1111,6 @@ def extraction_compare_client(client):
     vendor_summaries = []
     all_buckets = set()
 
-    # Bucket mapping
-    bucket_mapping = {
-        'Core Banking': 'Core Banking Platform',
-        'Digital Banking': 'Digital Banking',
-        'Card Services': 'Payment Services',
-        'Debit Card': 'Payment Services',
-        'Credit Card': 'Payment Services',
-        'ACH': 'Payment Services',
-        'Wire': 'Payment Services',
-        'Payment': 'Payment Services',
-        'Fraud': 'Ancillary & Add-Ons',
-        'Risk': 'Ancillary & Add-Ons',
-        'Security': 'Ancillary & Add-Ons',
-        'Document': 'Ancillary & Add-Ons',
-        'Statement': 'Ancillary & Add-Ons',
-        'Support': 'Implementation & Conversion',
-        'Training': 'Implementation & Conversion',
-        'Implementation': 'Implementation & Conversion',
-        'Conversion': 'Implementation & Conversion',
-        'Professional Services': 'Professional Services',
-        'Consulting': 'Professional Services'
-    }
-
     for vendor, proposals in client_data['vendors'].items():
         if not proposals:
             continue
@@ -1180,18 +1129,13 @@ def extraction_compare_client(client):
             'vs_lowest': 0
         }
 
-        # Group line items by bucket
+        # Group line items by bucket using centralized mapping
         line_items = p['data'].get('line_items', [])
         contract_term = p['contract_term']
 
         for item in line_items:
             category = item.get('category', 'Other')
-            bucket = 'Ancillary & Add-Ons'
-
-            for key, val in bucket_mapping.items():
-                if key.lower() in category.lower():
-                    bucket = val
-                    break
+            bucket = get_bucket_for_category(category)  # Use centralized function
 
             monthly = item.get('monthly_fee', 0) or 0
             onetime = item.get('one_time_fee', 0) or 0

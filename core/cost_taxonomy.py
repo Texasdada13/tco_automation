@@ -519,3 +519,142 @@ def export_taxonomy_schema() -> dict:
             for m in NORMALIZATION_METRICS
         ]
     }
+
+
+# =============================================================================
+# DASHBOARD BUCKET MAPPINGS
+# =============================================================================
+# Display-friendly names and colors for the web dashboard
+# =============================================================================
+
+# Map CostBucket enum to display-friendly names
+BUCKET_DISPLAY_NAMES: Dict[CostBucket, str] = {
+    CostBucket.SETUP_IMPLEMENTATION: "Implementation & Conversion",
+    CostBucket.LICENSING_SUBSCRIPTION: "Core Banking Platform",
+    CostBucket.TRANSACTION_USAGE: "Payment Services",
+    CostBucket.TRAINING_ENABLEMENT: "Training & Enablement",
+    CostBucket.SUPPORT_MAINTENANCE: "Support & Maintenance",
+    CostBucket.PROFESSIONAL_SERVICES: "Professional Services",
+}
+
+# Colors for dashboard visualization
+BUCKET_COLORS: Dict[str, str] = {
+    "Core Banking Platform": "#1e3a5f",
+    "Digital Banking": "#2c5282",
+    "Payment Services": "#3182ce",
+    "Ancillary & Add-Ons": "#4299e1",
+    "Implementation & Conversion": "#63b3ed",
+    "Professional Services": "#90cdf4",
+    "Training & Enablement": "#bee3f8",
+    "Support & Maintenance": "#ebf8ff",
+}
+
+# Legacy category-to-bucket mapping for backward compatibility
+# with existing extraction data that uses different category names
+CATEGORY_TO_BUCKET: Dict[str, str] = {
+    # Core Banking mappings
+    "Core Banking": "Core Banking Platform",
+    "Core Platform": "Core Banking Platform",
+    "Core": "Core Banking Platform",
+
+    # Digital Banking mappings
+    "Digital Banking": "Digital Banking",
+    "Digital": "Digital Banking",
+    "Online Banking": "Digital Banking",
+    "Mobile Banking": "Digital Banking",
+
+    # Payment Services mappings
+    "Card Services": "Payment Services",
+    "Debit Card": "Payment Services",
+    "Credit Card": "Payment Services",
+    "ACH": "Payment Services",
+    "Wire": "Payment Services",
+    "Payment": "Payment Services",
+    "Payments": "Payment Services",
+    "Processing": "Payment Services",
+
+    # Ancillary & Add-Ons mappings
+    "Fraud": "Ancillary & Add-Ons",
+    "Risk": "Ancillary & Add-Ons",
+    "Security": "Ancillary & Add-Ons",
+    "Document": "Ancillary & Add-Ons",
+    "Statement": "Ancillary & Add-Ons",
+    "Compliance": "Ancillary & Add-Ons",
+    "Reporting": "Ancillary & Add-Ons",
+
+    # Implementation & Conversion mappings
+    "Support": "Implementation & Conversion",
+    "Training": "Implementation & Conversion",
+    "Implementation": "Implementation & Conversion",
+    "Conversion": "Implementation & Conversion",
+    "Setup": "Implementation & Conversion",
+    "Migration": "Implementation & Conversion",
+
+    # Professional Services mappings
+    "Professional Services": "Professional Services",
+    "Consulting": "Professional Services",
+    "Custom Development": "Professional Services",
+}
+
+
+def get_bucket_for_category(category: str, default: str = "Ancillary & Add-Ons") -> str:
+    """
+    Get the display bucket name for a category string.
+
+    Uses fuzzy matching to find the best bucket for a given category.
+    Falls back to default if no match is found.
+
+    Args:
+        category: The category string to map
+        default: Default bucket if no match found
+
+    Returns:
+        Display-friendly bucket name
+    """
+    if not category:
+        return default
+
+    category_lower = category.lower()
+
+    # Check exact matches first
+    for key, bucket in CATEGORY_TO_BUCKET.items():
+        if key.lower() == category_lower:
+            return bucket
+
+    # Check partial matches
+    for key, bucket in CATEGORY_TO_BUCKET.items():
+        if key.lower() in category_lower:
+            return bucket
+
+    return default
+
+
+def get_bucket_color(bucket_name: str, default: str = "#718096") -> str:
+    """
+    Get the hex color for a bucket.
+
+    Args:
+        bucket_name: Display-friendly bucket name
+        default: Default color if not found
+
+    Returns:
+        Hex color string
+    """
+    return BUCKET_COLORS.get(bucket_name, default)
+
+
+def get_all_bucket_names() -> List[str]:
+    """
+    Get all display-friendly bucket names in standard order.
+
+    Returns:
+        List of bucket display names
+    """
+    return [
+        "Core Banking Platform",
+        "Digital Banking",
+        "Payment Services",
+        "Ancillary & Add-Ons",
+        "Implementation & Conversion",
+        "Professional Services",
+    ]
