@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start TCO Dashboard",
+            "type": "shell",
+            "command": "python",
+            "args": ["web_dashboard/app.py"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated",
+                "showReuseMessage": false
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "Open Dashboard in Browser",
+            "type": "shell",
+            "command": "start",
+            "args": ["http://127.0.0.1:5847"],
+            "windows": {
+                "command": "cmd",
+                "args": ["/c", "timeout /t 3 /nobreak >nul && start http://127.0.0.1:5847"]
+            },
+            "dependsOn": ["Start TCO Dashboard"],
+            "problemMatcher": [],
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}
