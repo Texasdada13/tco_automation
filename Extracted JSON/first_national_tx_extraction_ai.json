@@ -1,9 +1,9 @@
 {
   "vendor": "FIRST_NATIONAL_TX",
-  "client": "Not specified",
+  "client": "First National Tx",
   "proposal_type": "Investment Summary",
   "document_date": "2025",
-  "contract_term": null,
+  "contract_term": 7,
   "line_items": [
     {
       "solution_name": "Core: HORIZON",

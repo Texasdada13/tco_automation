@@ -1,9 +1,9 @@
 {
   "vendor": "GATEWAY_FINASTRA",
-  "client": null,
+  "client": "Gateway",
   "proposal_type": "Software Licensing Proposal",
   "document_date": null,
-  "contract_term": null,
+  "contract_term": 7,
   "line_items": [
     {
       "solution_name": "Fusion Core Banking",

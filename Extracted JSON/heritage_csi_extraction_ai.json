@@ -1,9 +1,9 @@
 {
   "vendor": "HERITAGE_CSI",
-  "client": null,
+  "client": "Heritage",
   "proposal_type": "Core Banking System Proposal",
   "document_date": "2025",
-  "contract_term": null,
+  "contract_term": 7,
   "line_items": [
     {
       "solution_name": "NuPoint Core Processing",

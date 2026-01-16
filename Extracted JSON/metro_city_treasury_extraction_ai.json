@@ -1,9 +1,9 @@
 {
   "vendor": "METRO_CITY_TREASURY",
-  "client": null,
+  "client": "Metro City Treasury",
   "proposal_type": "Banking Services Proposal",
   "document_date": "2025",
-  "contract_term": null,
+  "contract_term": 7,
   "line_items": [
     {
       "solution_name": "Primary Operating Account",

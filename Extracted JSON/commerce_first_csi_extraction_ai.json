@@ -1,9 +1,9 @@
 {
   "vendor": "COMMERCE_FIRST_CSI",
-  "client": null,
+  "client": "Commerce First",
   "proposal_type": "Banking Software Proposal",
   "document_date": "2025",
-  "contract_term": null,
+  "contract_term": 7,
   "line_items": [
     {
       "solution_name": "NuPoint Core Engine",
