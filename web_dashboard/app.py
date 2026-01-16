@@ -8,11 +8,18 @@ import os
 from datetime import datetime
 from functools import wraps
 from pathlib import Path
+from uuid import uuid4
 
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify, g
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-change-in-production')
+
+# Import AI Assistant
+from ai_assistant import TCOAIAssistant, create_assistant
+
+# Store conversation contexts per session (in production, use Redis or database)
+conversation_sessions = {}
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
@@ -48,6 +55,34 @@ def has_permission(permission):
     """Check if current role has a permission."""
     role = get_current_role()
     return permission in ROLES.get(role, {}).get('permissions', [])
+
+
+def get_or_create_session_id():
+    """Get or create a unique session ID for conversation tracking."""
+    if 'conversation_id' not in session:
+        session['conversation_id'] = str(uuid4())
+    return session['conversation_id']
+
+
+def get_ai_assistant():
+    """Get or create AI assistant for current session."""
+    session_id = get_or_create_session_id()
+    role = get_current_role()
+
+    # Create new assistant if not exists or role changed
+    if session_id not in conversation_sessions:
+        clients_data = get_clients_data()
+        conversation_sessions[session_id] = {
+            'assistant': create_assistant(clients_data, role),
+            'role': role,
+            'created_at': datetime.now()
+        }
+    elif conversation_sessions[session_id]['role'] != role:
+        # Role changed, update assistant
+        clients_data = get_clients_data()
+        conversation_sessions[session_id]['assistant'].user_role = role
+
+    return conversation_sessions[session_id]['assistant']
 
 
 @app.before_request
@@ -218,11 +253,20 @@ def dashboard():
         for vendor in client['vendors'].keys():
             vendor_counts[vendor] = vendor_counts.get(vendor, 0) + 1
 
+    # Get AI insights for dashboard
+    ai_insights = []
+    try:
+        assistant = get_ai_assistant()
+        ai_insights = assistant.get_quick_insights()
+    except Exception as e:
+        app.logger.warning(f"Could not get AI insights: {e}")
+
     return render_template('dashboard.html',
                          stats=stats,
                          recent_files=recent_files,
                          vendor_counts=vendor_counts,
-                         clients_data=clients_data)
+                         clients_data=clients_data,
+                         ai_insights=ai_insights)
 
 
 @app.route('/clients')
@@ -345,12 +389,30 @@ def reports():
 @app.route('/ai-assistant')
 def ai_assistant():
     """AI Q&A interface."""
-    return render_template('ai_assistant.html')
+    # Get AI insights for sidebar
+    ai_insights = []
+    try:
+        assistant = get_ai_assistant()
+        ai_insights = assistant.get_quick_insights()
+    except Exception as e:
+        app.logger.warning(f"Could not get AI insights: {e}")
 
+    # Get client list for context
+    clients_data = get_clients_data()
+    client_names = list(clients_data.keys())
+
+    return render_template('ai_assistant.html',
+                         ai_insights=ai_insights,
+                         client_names=client_names)
+
+
+# =============================================================================
+# AI Assistant API Endpoints
+# =============================================================================
 
 @app.route('/api/ai-query', methods=['POST'])
 def api_ai_query():
-    """Handle AI Q&A queries."""
+    """Handle AI Q&A queries with comprehensive analysis."""
     try:
         import anthropic
 
@@ -360,40 +422,153 @@ def api_ai_query():
         if not query:
             return jsonify({'error': 'No query provided'}), 400
 
-        # Load client data for context
-        clients_data = get_clients_data()
-        stats = get_dashboard_stats(clients_data)
+        # Get AI assistant with conversation context
+        assistant = get_ai_assistant()
 
-        # Build context
-        context = f"""You are an AI assistant for the TCO Automation Dashboard at Arriba Advisors.
+        # Process query to get intent and context data
+        query_result = assistant.process_query(query)
 
-Current data summary:
-- Total clients: {stats['total_clients']}
-- Total proposals: {stats['total_proposals']}
-- Total 7-year TCO across all proposals: ${stats['total_tco']:,.2f}
-- Potential savings identified: ${stats['potential_savings']:,.2f}
-
-Available clients and their vendors:
-"""
-        for client in list(clients_data.values())[:10]:
-            vendors = list(client['vendors'].keys())
-            context += f"- {client['name']}: {', '.join(vendors)}\n"
-
-        context += "\nAnswer the user's question based on this data. Be concise and helpful."
-
+        # Call Claude with the enriched prompt
         client = anthropic.Anthropic()
         response = client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=500,
+            max_tokens=1500,
             messages=[
-                {"role": "user", "content": f"{context}\n\nUser question: {query}"}
+                {"role": "user", "content": query_result['prompt']}
             ]
         )
 
-        return jsonify({'response': response.content[0].text})
+        response_text = response.content[0].text
 
+        # Store response in conversation context
+        assistant.add_response(response_text)
+
+        return jsonify({
+            'response': response_text,
+            'intent': query_result['intent']['type'],
+            'suggested_followups': query_result['suggested_followups'],
+            'entities': query_result['intent']['entities']
+        })
+
+    except ImportError:
+        return jsonify({
+            'error': 'Anthropic library not installed. Please run: pip install anthropic'
+        }), 500
     except Exception as e:
         app.logger.error(f"AI query error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ai-insights', methods=['GET'])
+def api_ai_insights():
+    """Get AI-generated insights for the dashboard."""
+    try:
+        assistant = get_ai_assistant()
+        insights = assistant.get_quick_insights()
+        return jsonify({'insights': insights})
+    except Exception as e:
+        app.logger.error(f"AI insights error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ai-analyze-client/<client_name>', methods=['GET'])
+def api_ai_analyze_client(client_name):
+    """Get AI analysis for a specific client."""
+    try:
+        assistant = get_ai_assistant()
+
+        # Get client details
+        client_details = assistant.tools.get_client_details(client_name)
+        if 'error' in client_details:
+            return jsonify(client_details), 404
+
+        # Get comparison if multiple vendors
+        comparison = None
+        if len(client_details.get('vendors', {})) >= 2:
+            comparison = assistant.tools.compare_vendors_for_client(client_name)
+
+        # Get category breakdown
+        category_breakdown = assistant.tools.get_category_breakdown(client=client_name)
+
+        return jsonify({
+            'client': client_details,
+            'comparison': comparison,
+            'categories': category_breakdown
+        })
+    except Exception as e:
+        app.logger.error(f"AI client analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ai-search', methods=['POST'])
+def api_ai_search():
+    """Search line items with filters."""
+    try:
+        data = request.get_json()
+        assistant = get_ai_assistant()
+
+        results = assistant.tools.search_line_items(
+            query=data.get('query'),
+            client=data.get('client'),
+            vendor=data.get('vendor'),
+            category=data.get('category'),
+            min_monthly=data.get('min_monthly'),
+            max_monthly=data.get('max_monthly'),
+            limit=data.get('limit', 20)
+        )
+
+        return jsonify({'results': results, 'count': len(results)})
+    except Exception as e:
+        app.logger.error(f"AI search error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ai-compare-vendors', methods=['GET'])
+def api_ai_compare_vendors():
+    """Get overall vendor comparison."""
+    try:
+        assistant = get_ai_assistant()
+        comparison = assistant.tools.compare_vendors_overall()
+        return jsonify(comparison)
+    except Exception as e:
+        app.logger.error(f"AI vendor comparison error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ai-savings', methods=['GET'])
+def api_ai_savings():
+    """Get savings opportunities."""
+    try:
+        assistant = get_ai_assistant()
+        opportunities = assistant.tools.get_savings_opportunities()
+        return jsonify({'opportunities': opportunities})
+    except Exception as e:
+        app.logger.error(f"AI savings error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ai-anomalies', methods=['GET'])
+def api_ai_anomalies():
+    """Get cost anomalies."""
+    try:
+        assistant = get_ai_assistant()
+        anomalies = assistant.tools.find_anomalies()
+        return jsonify({'anomalies': anomalies})
+    except Exception as e:
+        app.logger.error(f"AI anomalies error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ai-clear-conversation', methods=['POST'])
+def api_ai_clear_conversation():
+    """Clear conversation history for current session."""
+    try:
+        session_id = get_or_create_session_id()
+        if session_id in conversation_sessions:
+            del conversation_sessions[session_id]
+        return jsonify({'success': True, 'message': 'Conversation cleared'})
+    except Exception as e:
+        app.logger.error(f"Clear conversation error: {e}")
         return jsonify({'error': str(e)}), 500
 
 
@@ -405,6 +580,10 @@ def switch_role():
 
     if role in ROLES:
         session['role'] = role
+        # Clear conversation when role changes for fresh context
+        session_id = get_or_create_session_id()
+        if session_id in conversation_sessions:
+            del conversation_sessions[session_id]
         return jsonify({'success': True, 'role': role})
 
     return jsonify({'error': 'Invalid role'}), 400

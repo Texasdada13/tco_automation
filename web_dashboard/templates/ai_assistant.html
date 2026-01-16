@@ -2,138 +2,328 @@
 
 {% block title %}AI Assistant{% endblock %}
 {% block page_title %}AI Assistant{% endblock %}
-{% block page_subtitle %}Ask questions about your TCO data{% endblock %}
+{% block page_subtitle %}Your intelligent TCO analysis partner{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto space-y-6" x-data="aiAssistant()">
+<div class="flex gap-6" x-data="aiAssistant()">
 
-    <!-- Header Card -->
-    <div class="bg-gradient-to-r from-arriba-primary to-arriba-secondary rounded-xl p-6 text-white">
-        <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                </svg>
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold">AI-Powered Analysis</h3>
-                <p class="text-blue-100 mt-1">
-                    Ask natural language questions about your TCO data. The AI assistant can help you
-                    understand cost trends, compare vendors, and identify savings opportunities.
-                </p>
-            </div>
-        </div>
-    </div>
+    <!-- Main Chat Area -->
+    <div class="flex-1 space-y-4">
 
-    <!-- Chat Container -->
-    <div class="bg-white rounded-xl shadow-sm">
-        <!-- Messages -->
-        <div class="h-96 overflow-y-auto p-6 space-y-4" id="chat-messages">
-            <!-- Welcome Message -->
-            <div class="flex items-start space-x-3">
-                <div class="w-8 h-8 bg-arriba-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- AI Capabilities Banner -->
+        <div class="bg-gradient-to-r from-arriba-primary via-arriba-secondary to-arriba-accent rounded-xl p-6 text-white">
+            <div class="flex items-start space-x-4">
+                <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                     </svg>
                 </div>
-                <div class="flex-1 bg-gray-100 rounded-lg p-4">
-                    <p class="text-gray-800">
-                        Hello! I'm your TCO Analysis Assistant. I can help you with questions like:
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold">AI-Powered TCO Analysis</h3>
+                    <p class="text-blue-100 mt-2">
+                        I can search line items, compare vendors, analyze costs by category, find anomalies,
+                        identify savings opportunities, and answer questions about your TCO data.
                     </p>
-                    <ul class="mt-2 text-sm text-gray-600 space-y-1">
-                        <li>"Which client has the highest TCO?"</li>
-                        <li>"What are the potential savings for Echelon Bank?"</li>
-                        <li>"Compare FIS vs Jack Henry pricing"</li>
-                        <li>"What's the average monthly cost across all clients?"</li>
-                    </ul>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Deep Data Search</span>
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Vendor Comparison</span>
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Anomaly Detection</span>
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-sm">Savings Analysis</span>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Dynamic Messages -->
-            <template x-for="message in messages" :key="message.id">
-                <div class="flex items-start space-x-3" :class="message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                         :class="message.role === 'user' ? 'bg-gray-600' : 'bg-arriba-accent'">
-                        <svg x-show="message.role === 'user'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Chat Container -->
+        <div class="bg-white rounded-xl shadow-sm flex flex-col" style="height: 600px;">
+
+            <!-- Chat Header -->
+            <div class="px-6 py-4 border-b flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-arriba-accent rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
                         </svg>
-                        <svg x-show="message.role === 'assistant'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">TCO Assistant</h4>
+                        <p class="text-xs text-gray-500">Powered by Claude AI</p>
+                    </div>
+                </div>
+                <button @click="clearConversation()"
+                        class="text-gray-400 hover:text-gray-600 transition-colors"
+                        title="Clear conversation">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="chat-messages">
+
+                <!-- Welcome Message -->
+                <div class="flex items-start space-x-3" x-show="messages.length === 0">
+                    <div class="w-8 h-8 bg-arriba-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>
                     </div>
-                    <div class="flex-1 rounded-lg p-4"
-                         :class="message.role === 'user' ? 'bg-arriba-accent text-white' : 'bg-gray-100'">
-                        <p x-text="message.content" :class="message.role === 'user' ? 'text-white' : 'text-gray-800'"></p>
+                    <div class="flex-1">
+                        <div class="bg-gray-100 rounded-lg rounded-tl-none p-4">
+                            <p class="text-gray-800 font-medium">Hello! I'm your TCO Analysis Assistant.</p>
+                            <p class="text-gray-600 mt-2">I have deep access to all your client data, line items, and vendor proposals. Here's what I can help you with:</p>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button @click="askQuick('Give me an executive summary of all clients')"
+                                        class="text-left p-3 bg-white rounded-lg border border-gray-200 hover:border-arriba-accent hover:bg-blue-50 transition-colors">
+                                    <p class="font-medium text-gray-900 text-sm">Executive Summary</p>
+                                    <p class="text-xs text-gray-500">Overview of all TCO data</p>
+                                </button>
+                                <button @click="askQuick('What are the top savings opportunities?')"
+                                        class="text-left p-3 bg-white rounded-lg border border-gray-200 hover:border-arriba-accent hover:bg-blue-50 transition-colors">
+                                    <p class="font-medium text-gray-900 text-sm">Savings Analysis</p>
+                                    <p class="text-xs text-gray-500">Find cost reduction opportunities</p>
+                                </button>
+                                <button @click="askQuick('Compare all vendors across clients')"
+                                        class="text-left p-3 bg-white rounded-lg border border-gray-200 hover:border-arriba-accent hover:bg-blue-50 transition-colors">
+                                    <p class="font-medium text-gray-900 text-sm">Vendor Comparison</p>
+                                    <p class="text-xs text-gray-500">Compare vendor performance</p>
+                                </button>
+                                <button @click="askQuick('Find any cost anomalies or outliers')"
+                                        class="text-left p-3 bg-white rounded-lg border border-gray-200 hover:border-arriba-accent hover:bg-blue-50 transition-colors">
+                                    <p class="font-medium text-gray-900 text-sm">Anomaly Detection</p>
+                                    <p class="text-xs text-gray-500">Identify unusual costs</p>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </template>
 
-            <!-- Loading Indicator -->
-            <div x-show="loading" class="flex items-start space-x-3">
-                <div class="w-8 h-8 bg-arriba-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+                <!-- Dynamic Messages -->
+                <template x-for="message in messages" :key="message.id">
+                    <div class="flex items-start space-x-3" :class="message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''">
+                        <!-- Avatar -->
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                             :class="message.role === 'user' ? 'bg-gray-600' : 'bg-arriba-accent'">
+                            <svg x-show="message.role === 'user'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                            <svg x-show="message.role === 'assistant'" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                        </div>
+
+                        <!-- Message Content -->
+                        <div class="flex-1 max-w-3xl">
+                            <div class="rounded-lg p-4"
+                                 :class="message.role === 'user' ? 'bg-arriba-accent text-white rounded-tr-none' : 'bg-gray-100 rounded-tl-none'">
+                                <div x-html="formatMessage(message.content)"
+                                     :class="message.role === 'user' ? 'text-white' : 'text-gray-800 prose prose-sm max-w-none'"></div>
+                            </div>
+
+                            <!-- Intent Badge & Followups (for assistant messages) -->
+                            <div x-show="message.role === 'assistant' && message.metadata" class="mt-2 space-y-2">
+                                <!-- Intent Badge -->
+                                <div x-show="message.metadata?.intent" class="flex items-center space-x-2">
+                                    <span class="text-xs text-gray-400">Analysis type:</span>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800"
+                                          x-text="message.metadata?.intent"></span>
+                                </div>
+
+                                <!-- Suggested Follow-ups -->
+                                <div x-show="message.metadata?.followups?.length > 0" class="flex flex-wrap gap-2">
+                                    <template x-for="followup in (message.metadata?.followups || [])" :key="followup">
+                                        <button @click="askQuick(followup)"
+                                                class="text-xs px-3 py-1.5 bg-white border border-gray-200 rounded-full text-gray-600 hover:border-arriba-accent hover:text-arriba-accent transition-colors">
+                                            <span x-text="followup"></span>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Loading Indicator -->
+                <div x-show="loading" class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-arriba-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1 bg-gray-100 rounded-lg rounded-tl-none p-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0ms;"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 150ms;"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 300ms;"></div>
+                            <span class="text-gray-500 text-sm ml-2">Analyzing your data...</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex-1 bg-gray-100 rounded-lg p-4">
-                    <p class="text-gray-500">Thinking...</p>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t p-4 bg-gray-50 rounded-b-xl">
+                <form @submit.prevent="sendMessage" class="flex items-end space-x-3">
+                    <div class="flex-1">
+                        <textarea x-model="query"
+                                  @keydown.enter.prevent="if (!$event.shiftKey) sendMessage()"
+                                  placeholder="Ask about TCO data, compare vendors, find savings..."
+                                  rows="2"
+                                  class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-arriba-accent focus:border-transparent resize-none"
+                                  :disabled="loading"></textarea>
+                        <p class="text-xs text-gray-400 mt-1">Press Enter to send, Shift+Enter for new line</p>
+                    </div>
+                    <button type="submit"
+                            class="inline-flex items-center px-6 py-3 bg-arriba-accent text-white font-medium rounded-lg hover:bg-arriba-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            :disabled="loading || !query.trim()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="w-80 space-y-4 flex-shrink-0">
+
+        <!-- AI Insights Panel -->
+        {% if ai_insights %}
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
+                <svg class="w-5 h-5 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                AI Insights
+            </h4>
+            <div class="space-y-3">
+                {% for insight in ai_insights %}
+                <div class="p-3 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors border border-gray-100
+                            {% if insight.type == 'savings' %}border-l-4 border-l-green-500
+                            {% elif insight.type == 'anomaly' %}border-l-4 border-l-red-500
+                            {% else %}border-l-4 border-l-blue-500{% endif %}"
+                     @click="askQuick('{{ insight.action }}')">
+                    <p class="text-sm font-medium text-gray-900">{{ insight.title }}</p>
+                    <p class="text-xs text-gray-500 mt-1">{{ insight.message }}</p>
                 </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <h4 class="font-semibold text-gray-900 mb-3">Quick Actions</h4>
+            <div class="space-y-2">
+                <button @click="askQuick('Show me all line items over $500/month')"
+                        class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-arriba-accent hover:bg-blue-50 transition-colors">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <span class="text-sm text-gray-700">High-cost items ($500+)</span>
+                    </div>
+                </button>
+                <button @click="askQuick('Break down costs by category across all clients')"
+                        class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-arriba-accent hover:bg-blue-50 transition-colors">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
+                        </svg>
+                        <span class="text-sm text-gray-700">Category breakdown</span>
+                    </div>
+                </button>
+                <button @click="askQuick('Which vendor offers the best overall value?')"
+                        class="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-arriba-accent hover:bg-blue-50 transition-colors">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <span class="text-sm text-gray-700">Best value vendor</span>
+                    </div>
+                </button>
             </div>
         </div>
 
-        <!-- Input -->
-        <div class="border-t p-4">
-            <form @submit.prevent="sendMessage" class="flex items-center space-x-4">
-                <input type="text"
-                       x-model="query"
-                       placeholder="Ask a question about your TCO data..."
-                       class="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-arriba-accent focus:border-transparent"
-                       :disabled="loading">
-                <button type="submit"
-                        class="inline-flex items-center px-6 py-3 bg-arriba-accent text-white font-medium rounded-lg hover:bg-arriba-primary transition-colors disabled:opacity-50"
-                        :disabled="loading || !query.trim()">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                    </svg>
-                    Send
+        <!-- Client Quick Select -->
+        {% if client_names %}
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <h4 class="font-semibold text-gray-900 mb-3">Analyze Client</h4>
+            <select @change="if ($event.target.value) askQuick('Give me a detailed analysis of ' + $event.target.value)"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                <option value="">Select a client...</option>
+                {% for client_name in client_names %}
+                <option value="{{ client_name }}">{{ client_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+
+        <!-- Role-specific Tips -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <h4 class="font-semibold text-blue-900 mb-2 flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Tips for {{ role_info.name }}s
+            </h4>
+            <ul class="text-sm text-blue-800 space-y-1">
+                {% if current_role == 'executive' %}
+                <li>Ask for "executive summary" for high-level insights</li>
+                <li>Request "key metrics" for quick overview</li>
+                <li>Ask about "total potential savings"</li>
+                {% elif current_role == 'manager' %}
+                <li>Ask to "compare vendors for [client]"</li>
+                <li>Request "approval recommendations"</li>
+                <li>Ask about "risk factors" in proposals</li>
+                {% else %}
+                <li>Search specific products: "find ACH items"</li>
+                <li>Filter by price: "items over $1000/month"</li>
+                <li>Drill into details: "show top costs for [client]"</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <!-- Example Questions -->
+        <div class="bg-white rounded-xl shadow-sm p-4">
+            <h4 class="font-semibold text-gray-900 mb-3">Example Questions</h4>
+            <div class="space-y-2 text-sm">
+                <button @click="askQuick('What is the total TCO across all clients?')"
+                        class="block w-full text-left text-gray-600 hover:text-arriba-accent transition-colors py-1">
+                    "What is the total TCO across all clients?"
                 </button>
-            </form>
+                <button @click="askQuick('Which client has the biggest savings opportunity?')"
+                        class="block w-full text-left text-gray-600 hover:text-arriba-accent transition-colors py-1">
+                    "Which client has the biggest savings?"
+                </button>
+                <button @click="askQuick('Show me products related to wire transfer')"
+                        class="block w-full text-left text-gray-600 hover:text-arriba-accent transition-colors py-1">
+                    "Show me wire transfer products"
+                </button>
+                <button @click="askQuick('Compare FIS vs Jack Henry overall')"
+                        class="block w-full text-left text-gray-600 hover:text-arriba-accent transition-colors py-1">
+                    "Compare FIS vs Jack Henry"
+                </button>
+            </div>
         </div>
     </div>
-
-    <!-- Quick Questions -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
-        <h4 class="font-semibold text-gray-900 mb-4">Quick Questions</h4>
-        <div class="flex flex-wrap gap-2">
-            <button @click="askQuick('What is the total TCO across all clients?')"
-                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors">
-                Total TCO
-            </button>
-            <button @click="askQuick('Which vendor has the lowest average TCO?')"
-                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors">
-                Best Vendor
-            </button>
-            <button @click="askQuick('What are the potential savings opportunities?')"
-                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors">
-                Savings
-            </button>
-            <button @click="askQuick('How many clients have multiple vendor proposals?')"
-                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors">
-                Comparison Ready
-            </button>
-        </div>
-    </div>
-
 </div>
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
 function aiAssistant() {
     return {
@@ -171,20 +361,27 @@ function aiAssistant() {
                     this.messages.push({
                         id: this.messageId++,
                         role: 'assistant',
-                        content: 'Sorry, I encountered an error: ' + data.error
+                        content: '**Error:** ' + data.error,
+                        metadata: null
                     });
                 } else {
                     this.messages.push({
                         id: this.messageId++,
                         role: 'assistant',
-                        content: data.response
+                        content: data.response,
+                        metadata: {
+                            intent: data.intent,
+                            followups: data.suggested_followups || [],
+                            entities: data.entities || {}
+                        }
                     });
                 }
             } catch (error) {
                 this.messages.push({
                     id: this.messageId++,
                     role: 'assistant',
-                    content: 'Sorry, I could not process your request. Please try again.'
+                    content: '**Error:** Could not process your request. Please try again.',
+                    metadata: null
                 });
             }
 
@@ -197,6 +394,29 @@ function aiAssistant() {
             this.sendMessage();
         },
 
+        async clearConversation() {
+            try {
+                await fetch('/api/ai-clear-conversation', { method: 'POST' });
+                this.messages = [];
+                this.messageId = 0;
+            } catch (error) {
+                console.error('Failed to clear conversation:', error);
+            }
+        },
+
+        formatMessage(content) {
+            // Use marked.js to parse markdown
+            if (typeof marked !== 'undefined') {
+                return marked.parse(content);
+            }
+            // Fallback: basic formatting
+            return content
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`(.*?)`/g, '<code class="bg-gray-200 px-1 rounded">$1</code>')
+                .replace(/\n/g, '<br>');
+        },
+
         scrollToBottom() {
             this.$nextTick(() => {
                 const container = document.getElementById('chat-messages');
@@ -206,4 +426,38 @@ function aiAssistant() {
     }
 }
 </script>
+
+<style>
+/* Custom prose styling for AI responses */
+.prose h1, .prose h2, .prose h3 {
+    color: #1e3a5f;
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+}
+.prose ul, .prose ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+}
+.prose li { margin: 0.25em 0; }
+.prose p { margin: 0.5em 0; }
+.prose strong { color: #1e3a5f; }
+.prose code {
+    background: #e5e7eb;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5em 0;
+    font-size: 0.875em;
+}
+.prose th, .prose td {
+    border: 1px solid #e5e7eb;
+    padding: 0.5rem;
+    text-align: left;
+}
+.prose th { background: #f3f4f6; }
+</style>
 {% endblock %}
